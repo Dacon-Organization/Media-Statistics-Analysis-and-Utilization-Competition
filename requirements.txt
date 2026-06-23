@@ -1,0 +1,21 @@
+# 언론통계 분석 프로젝트 — Python 분석 의존성
+# 설치: pip install -r requirements.txt
+
+# 데이터 처리
+pandas>=2.2
+numpy>=1.26
+pyreadstat>=1.2        # SPSS(.sav) 등 설문 원자료 로드용
+openpyxl>=3.1          # 엑셀 입출력
+
+# 통계·모델링
+scipy>=1.13
+statsmodels>=0.14
+scikit-learn>=1.5      # 군집(K-means)·전처리
+
+# 시각화
+matplotlib>=3.9
+seaborn>=0.13
+plotly>=5.22
+
+# 노트북
+jupyter>=1.1
