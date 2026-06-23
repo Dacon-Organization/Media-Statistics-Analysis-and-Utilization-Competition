@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>언론통계 대회 — 대시보드 2단계화·데이터 공개·폴더 문서화 · 로그</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-progress { background: rgba(210,153,34,.15); color: var(--progress); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .t-blocked { background: rgba(248,81,73,.15); color: var(--blocked); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  a { color: var(--accent); }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>대시보드 2단계화 · 데이터 공개 전환 · 폴더 문서화</h1>
+  <div class="meta">
+    📅 <b>2026-06-23 (KST)</b> · 🌿 브랜치 <b>feature/media-stats/structure-docs</b> · 🔗 PR (생성 예정)
+  </div>
+  <div class="bar"><i style="width:58%"></i></div>
+
+  <section>
+    <h2>✅ 완료 (Done)</h2>
+    <ul>
+      <li><span class="tag t-done">DONE</span><div>대시보드 2단계 구조화<div class="sub">루트=전사 허브(인프라 로그+프로젝트 링크), 프로젝트=대회 전용. 미디어통계 로그 3건을 프로젝트 대시보드로 이관 + 프로젝트 index 신규</div></div></li>
+      <li><span class="tag t-done">DONE</span><div>대시보드 규칙(R2) 문서에 2단계 구조 명문화<div class="sub">skills/agent-ops/dashboard.md §1</div></div></li>
+      <li><span class="tag t-done">DONE</span><div>데이터 공개 전환 — .gitignore 정책 변경<div class="sub">분석 입력(.sav/.csv/.xlsx, ~77MB) git 포함, PDF(~570MB·일부 100MB↑) 제외. 전역 *.csv/*.xlsx 규칙 화이트리스트로 덮어씀</div></div></li>
+      <li><span class="tag t-done">DONE</span><div>모든 주요 폴더에 README.md 추가(15종)<div class="sub">data·docs 및 하위, notebooks/src/web/assets. data/README에 오픈데이터 정책·출처 명시</div></div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔍 검증 (Verify)</h2>
+    <ul>
+      <li><span class="tag t-done">OK</span><div>git check-ignore — .sav/.csv/.xlsx TRACKED, PDF IGNORED 확인</div></li>
+      <li><span class="tag t-progress">주의</span><div>2021·2022 통계표 PDF 각 200MB대 → GitHub 100MB 초과로 커밋 불가, 의도적 제외</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔜 다음 할 일 (Next)</h2>
+    <ul>
+      <li><span class="tag t-todo">TODO</span><div>Perplexity 추가조사(4종 프롬프트) 결과 수령 → groundwork 정리·재검증 반영</div></li>
+      <li><span class="tag t-todo">TODO</span><div>분석 매뉴얼+코드북 정독 → data-spec §5 변수 명세 정확값</div></li>
+      <li><span class="tag t-todo">TODO</span><div>2025 .sav EDA → 지수 변수 가용성 확정 → 분석 설계</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>⚠️ 리스크 (Risk)</h2>
+    <ul>
+      <li><span class="tag t-progress">RISK</span><div>PDF 코드북이 git 미포함 → 변수 해석 시 로컬 PDF 필요(팀원은 DOWNLOAD-GUIDE로 확보)</div></li>
+      <li><span class="tag t-progress">RISK</span><div>데이터 커밋으로 저장소 ~77MB 증가(허용 범위). 추후 PDF까지 원하면 Git LFS 검토</div></li>
+    </ul>
+  </section>
+
+  <footer>Dacon 작업 대시보드 · skills/agent-ops/dashboard.md 규칙 (R2)</footer>
+</div>
+</body>
+</html>

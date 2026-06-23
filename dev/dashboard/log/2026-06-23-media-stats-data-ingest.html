@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>언론통계 대회 — 원시자료 확보·정돈 · 작업 대시보드</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-progress { background: rgba(210,153,34,.15); color: var(--progress); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .t-blocked { background: rgba(248,81,73,.15); color: var(--blocked); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  a { color: var(--accent); }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>언론통계 대회 — 원시자료 확보·정돈</h1>
+  <div class="meta">
+    📅 <b>2026-06-23 (KST)</b> · 🌿 브랜치 <b>feature/media-stats/data-ingest</b> · 🔗 PR (생성 예정)
+  </div>
+  <div class="bar"><i style="width:55%"></i></div>
+
+  <section>
+    <h2>✅ 완료 (Done)</h2>
+    <ul>
+      <li><span class="tag t-done">DONE</span><div>원시자료 7개년 확보 — 언론수용자 조사 2019~2025 + 분석 매뉴얼<div class="sub">신 체계 전 구간 완비. 각 연도 데이터(.sav/.csv/.xlsx)+코드북+통계표+보고서</div></div></li>
+      <li><span class="tag t-done">DONE</span><div>표준 구조로 정돈<div class="sub">data/raw/{manual, audience/&lt;연도&gt;} · 파일명 &lt;연도&gt;_언론수용자조사_&lt;종류&gt;.&lt;ext&gt; 통일. 중첩폴더·zip·임시스크립트 제거</div></div></li>
+      <li><span class="tag t-done">DONE</span><div>인벤토리 문서 작성<div class="sub">data/raw/INVENTORY.md — 연도별 포맷·표본/변수 근사치·2022 개인/가구 분리 명기</div></div></li>
+      <li><span class="tag t-done">DONE</span><div>data-spec §5/§7 + README 진행현황 갱신(데이터 확보 반영)</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔍 검증 (Verify)</h2>
+    <ul>
+      <li><span class="tag t-done">OK</span><div>버그 수정 — zip이 "통계표" 이름으로 오분류되어 .pdf로 이동된 5건 적발·교정(PK시그니처 확인)</div></li>
+      <li><span class="tag t-done">OK</span><div>최종 통계표 7건 모두 실제 PDF(%PDF) 확인 · 원본폴더 잔여 데이터 0건</div></li>
+      <li><span class="tag t-done">OK</span><div>git check-ignore — 데이터 파일 미추적, INVENTORY.md만 커밋</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔜 다음 할 일 (Next)</h2>
+    <ul>
+      <li><span class="tag t-todo">TODO</span><div>분석 매뉴얼 + 연도별 코드북 정독 → data-spec §5 변수 명세 정확값 확정</div></li>
+      <li><span class="tag t-todo">TODO</span><div>2025 .sav 로딩(pyreadstat) EDA → 지수 변수 가용성 확정 → 분석 설계</div></li>
+      <li><span class="tag t-todo">TODO</span><div>Perplexity 추가조사(프롬프트 준비 완료) 결과 수령 후 반영</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>⚠️ 리스크 (Risk)</h2>
+    <ul>
+      <li><span class="tag t-progress">RISK</span><div>연도별 포맷 불균일(csv↔xlsx, 2022 개인/가구 분리) → 로더 분기 필요</div></li>
+      <li><span class="tag t-progress">RISK</span><div>표본/변수 수는 CSV 근사치 → .sav 로딩 후 정확값 확정 필요</div></li>
+      <li><span class="tag t-progress">RISK</span><div>시장조사 인용 수치 재검증 전 보고서/웹 노출 금지(유지)</div></li>
+    </ul>
+  </section>
+
+  <footer>Dacon 작업 대시보드 · skills/agent-ops/dashboard.md 규칙 (R2)</footer>
+</div>
+</body>
+</html>

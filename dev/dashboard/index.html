@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>언론통계 대회 · 프로젝트 진척 대시보드</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 36px 20px 64px; }
+  h1 { font-size: 1.8rem; margin: 0 0 4px; }
+  .sub { color: var(--muted); margin-bottom: 24px; }
+  .sub a { color: var(--accent); }
+  h2 { font-size: 1.05rem; margin: 28px 0 12px; color: var(--accent); }
+  .bar { height: 12px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 6px 0 6px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  .barlabel { color: var(--muted); font-size: .82rem; margin-bottom: 20px; }
+  .cards { display: grid; gap: 14px; }
+  a.card { display: block; text-decoration: none; color: inherit; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; transition: border-color .15s; }
+  a.card:hover { border-color: var(--accent); }
+  .card .date { color: var(--muted); font-size: .82rem; }
+  .card .title { font-size: 1.05rem; font-weight: 600; margin: 2px 0 6px; }
+  .card .summary { color: var(--muted); font-size: .9rem; }
+  .badge { font-size: .72rem; padding: 2px 9px; border-radius: 999px; background: rgba(63,185,80,.15); color: var(--done); font-weight: 600; }
+  .pipeline { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 8px 20px; }
+  .pipeline li { margin: 7px 0; display: flex; gap: 10px; align-items: flex-start; list-style: none; }
+  .pipeline { padding-left: 20px; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-progress { background: rgba(210,153,34,.15); color: var(--progress); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  code { background: #0b0d11; padding: 1px 6px; border-radius: 4px; font-size: .85em; }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 36px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>📰 언론통계 대회 — 진척 대시보드</h1>
+  <div class="sub">
+    KPF 「언론 통계 분석·활용 경진대회」 · 제출 마감 2026-07-23 ·
+    <a href="../../../dev/dashboard/index.html">↑ Dacon 전사 대시보드</a> ·
+    <a href="../../README.md">프로젝트 README</a>
+  </div>
+
+  <h2>전체 진척률</h2>
+  <div class="bar"><i style="width:30%"></i></div>
+  <div class="barlabel">데이터 확보·정돈 완료 / 분석 착수 전 (대략 30%)</div>
+
+  <h2>마일스톤 파이프라인</h2>
+  <ul class="pipeline">
+    <li><span class="tag t-done">DONE</span><div>사전 리서치·전략(앵글 A 뉴스 건강지수 + B 페르소나) — <code>docs/groundwork/</code></div></li>
+    <li><span class="tag t-done">DONE</span><div>데이터 명세·카탈로그 + 원시자료 7개년(2019~2025) 확보·정돈 — <code>docs/design/data-spec.md</code>, <code>data/raw/</code></div></li>
+    <li><span class="tag t-progress">NEXT</span><div>코드북 정독 → 변수 명세 확정 → 2025 .sav EDA → 지수 변수 가용성 검증</div></li>
+    <li><span class="tag t-todo">TODO</span><div>분석: 지수 설계 → 페르소나 군집 → 코호트/추세</div></li>
+    <li><span class="tag t-todo">TODO</span><div>웹 데모(Next.js 진단 플로우) + 논문형 PDF 보고서</div></li>
+  </ul>
+
+  <h2>작업 로그 (최신순)</h2>
+  <div class="cards">
+    <a class="card" href="log/2026-06-23-media-stats-structure-docs.html">
+      <div class="date">2026-06-23 (KST) · feature/media-stats/structure-docs</div>
+      <div class="title">대시보드 2단계화 · 데이터 공개 · 폴더 문서화</div>
+      <div class="summary">프로젝트별 대시보드 분리, 데이터(.sav/.csv/.xlsx) git 포함 전환(PDF 제외), 모든 주요 폴더 README 15종 추가.</div>
+    </a>
+    <a class="card" href="log/2026-06-23-media-stats-data-ingest.html">
+      <div class="date">2026-06-23 (KST) · feature/media-stats/data-ingest</div>
+      <div class="title">원시자료 확보·정돈</div>
+      <div class="summary">언론수용자 조사 7개년(2019~2025)+매뉴얼 확보, data/raw 표준 구조 정돈(파일명 통일·zip/중첩폴더 제거), INVENTORY.md, zip 오분류 버그 교정.</div>
+    </a>
+    <a class="card" href="log/2026-06-23-media-stats-data-spec.html">
+      <div class="date">2026-06-23 (KST) · feature/media-stats/data-spec</div>
+      <div class="title">데이터 명세·카탈로그 정립</div>
+      <div class="summary">KPF 사이트 실측(182건), 언론수용자 조사 14개년 카탈로그·2019 분절점 식별, 데이터 명세서·다운로드 가이드 작성.</div>
+    </a>
+    <a class="card" href="log/2026-06-23-media-stats-scaffold.html">
+      <div class="date">2026-06-23 (KST) · docs/media-stats-scaffold</div>
+      <div class="title">폴더구조 정립 + 사전 리서치 종합</div>
+      <div class="summary">대회 폴더 스캐폴딩, 시장조사·전략 종합(앵글 A+B "뉴스 건강검진" 확정), 루트 README 등록.</div>
+    </a>
+    <!-- 신규 로그는 이 위에 카드로 추가 (최신순) -->
+  </div>
+
+  <footer>새 작업 기록: <code>_template.html</code> 복사 → <code>log/YYYY-MM-DD-&lt;slug&gt;.html</code> → 이 카드 목록·진척률 갱신 · <code>skills/agent-ops/dashboard.md</code> (R2)</footer>
+</div>
+</body>
+</html>

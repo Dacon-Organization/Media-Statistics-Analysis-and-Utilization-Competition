@@ -90,15 +90,16 @@ Media-Statistics-Analysis-and-Utilization-Competition/
 │   ├── design/             ← 요구사항·기능·API·ERD 명세 (예정)
 │   ├── report/             ← 논문형 PDF 보고서 원고 (예정)
 │   └── specs/              ← brainstorming/plan 산출 spec (예정)
-├── data/
-│   ├── raw/                ← KPF 원시자료 (대용량은 gitignore)
-│   ├── interim/            ← 중간 가공
-│   └── processed/          ← 분석용 정제 데이터
+├── data/                   ← 데이터(.sav/.csv/.xlsx 포함, PDF 제외) · raw/audience 2019~2025
+│   ├── raw/ · interim/ · processed/
+├── dev/dashboard/          ← 프로젝트 진척 대시보드(작업 로그)
 ├── notebooks/              ← EDA·지수설계·클러스터링 분석 (예정)
 ├── src/                    ← 재사용 분석 파이프라인 모듈 (예정)
 ├── web/                    ← Next.js "뉴스 건강검진" 데모 (예정)
 └── assets/                 ← 차트·이미지 산출물
 ```
+
+> 각 폴더에는 용도를 설명하는 `README.md`가 있습니다. 데이터 버전관리 정책은 [`data/README.md`](data/README.md) 참조.
 
 ---
 
@@ -115,4 +116,4 @@ Media-Statistics-Analysis-and-Utilization-Competition/
 - [ ] 웹 데모 구현
 - [ ] 논문형 PDF 보고서 작성
 
-> 작업 진척 시각화: [`dev/dashboard/index.html`](../dev/dashboard/index.html) (R2)
+> 작업 진척 시각화: [`dev/dashboard/index.html`](dev/dashboard/index.html) (프로젝트 대시보드, R2) · 전사 허브: [`../dev/dashboard/index.html`](../dev/dashboard/index.html)

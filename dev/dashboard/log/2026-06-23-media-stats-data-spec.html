@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>언론통계 대회 — 데이터 명세·카탈로그 · 작업 대시보드</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-progress { background: rgba(210,153,34,.15); color: var(--progress); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .t-blocked { background: rgba(248,81,73,.15); color: var(--blocked); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  a { color: var(--accent); }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>언론통계 대회 — 데이터 명세·카탈로그 정립</h1>
+  <div class="meta">
+    📅 <b>2026-06-23 (KST)</b> · 🌿 브랜치 <b>feature/media-stats/data-spec</b> · 🔗 PR (생성 예정)
+  </div>
+  <div class="bar"><i style="width:42%"></i></div>
+
+  <section>
+    <h2>✅ 완료 (Done)</h2>
+    <ul>
+      <li><span class="tag t-done">DONE</span><div>KPF 언론통계 사이트 실측 조사<div class="sub">목록 182건·21p 구조, POST 페이지네이션(go_Page), 다운로드는 연구활용 동의 선행 → 수동 필요 확인</div></div></li>
+      <li><span class="tag t-done">DONE</span><div>메인 시계열 카탈로그 확정 — 언론수용자 조사 14개년<div class="sub">2012~2025, 게시물 번호·정확한 제목 매핑. 2019 조사명 분절점(의식조사→조사) 식별</div></div></li>
+      <li><span class="tag t-done">DONE</span><div>데이터 명세서 작성<div class="sub">docs/design/data-spec.md — 카탈로그·지수↔변수 가설 매핑·시장조사 재검증 체크리스트</div></div></li>
+      <li><span class="tag t-done">DONE</span><div>수동 다운로드 가이드 작성<div class="sub">data/raw/DOWNLOAD-GUIDE.md — 우선순위별 정확한 제목·저장 폴더 구조</div></div></li>
+      <li><span class="tag t-done">DONE</span><div>.gitignore 원시자료 보호 규칙 추가<div class="sub">data/{raw,interim,processed} 데이터 제외, 가이드 md·.gitkeep만 커밋</div></div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔍 검증 (Verify)</h2>
+    <ul>
+      <li><span class="tag t-done">OK</span><div>git check-ignore — .sav/.xlsx 제외, DOWNLOAD-GUIDE.md 추적 확인</div></li>
+      <li><span class="tag t-done">OK</span><div>목록 1~3p 실데이터로 번호·연도·제목 교차 확인</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔜 다음 할 일 (Next)</h2>
+    <ul>
+      <li><span class="tag t-progress">대기</span><div>사용자: 원시자료 수동 다운로드(★1 분석매뉴얼 + ★2 2025 언론수용자) → data/raw/ 저장<div class="sub">우선순위: 높음 (이후 모든 분석의 전제)</div></div></li>
+      <li><span class="tag t-todo">TODO</span><div>분석 매뉴얼 정독 → data-spec §5 변수 명세 채움 → 지수 변수 가용성 확정</div></li>
+      <li><span class="tag t-todo">TODO</span><div>시장조사 수치 재검증(매체 이용률·신뢰도·회피 72%)</div></li>
+      <li><span class="tag t-todo">TODO</span><div>심화 설계(요구사항·기능·API·ERD) — 데이터 확정과 병행 가능</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>⚠️ 차단/리스크 (Blocker)</h2>
+    <ul>
+      <li><span class="tag t-blocked">BLOCK</span><div>다운로드가 연구활용 동의 필요 → 에이전트 자동 수집 불가. 사용자 수동 다운로드에 의존.</div></li>
+      <li><span class="tag t-progress">RISK</span><div>2019 시계열 분절점 — 2012~2018(의식조사) vs 2019~2025(조사) 직결 금지, 공통 변수만 하모나이즈.</div></li>
+      <li><span class="tag t-progress">RISK</span><div>시장조사 인용 수치 재검증 전 보고서/웹 노출 금지.</div></li>
+    </ul>
+  </section>
+
+  <footer>Dacon 작업 대시보드 · skills/agent-ops/dashboard.md 규칙 (R2)</footer>
+</div>
+</body>
+</html>
