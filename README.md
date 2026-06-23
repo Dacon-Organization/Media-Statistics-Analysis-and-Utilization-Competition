@@ -108,7 +108,8 @@ Media-Statistics-Analysis-and-Utilization-Competition/
 - [x] 전략 종합 — 앵글(A+B)·차별화·산출물 확정 → [`docs/groundwork/01-strategy-synthesis.md`](docs/groundwork/01-strategy-synthesis.md)
 - [x] 폴더 구조 정립 + 루트 README 등록
 - [ ] 심화 설계 (요구사항·기능·API·ERD 명세)
-- [ ] KPF 원시자료 확보·검증 (시장조사 인용 수치 재검증 포함)
+- [~] KPF 데이터 명세 — 자료 카탈로그·시계열 분절점·다운로드 가이드 정립 → [`docs/design/data-spec.md`](docs/design/data-spec.md), [`data/raw/DOWNLOAD-GUIDE.md`](data/raw/DOWNLOAD-GUIDE.md)
+- [ ] KPF 원시자료 **수동 다운로드** + 변수 명세 확정 + 시장조사 인용 수치 재검증
 - [ ] 분석 (지수 설계 → 페르소나 군집 → 코호트)
 - [ ] 웹 데모 구현
 - [ ] 논문형 PDF 보고서 작성
