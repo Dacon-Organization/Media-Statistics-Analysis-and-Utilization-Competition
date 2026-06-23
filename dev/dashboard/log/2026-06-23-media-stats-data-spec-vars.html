@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>언론통계 대회 — 2025 .sav 변수 명세 확정 · 로그</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-progress { background: rgba(210,153,34,.15); color: var(--progress); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .t-blocked { background: rgba(248,81,73,.15); color: var(--blocked); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  code { background: #0b0d11; padding: 1px 6px; border-radius: 4px; font-size: .85em; }
+  a { color: var(--accent); }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>2025 .sav 변수 명세 확정 (data-spec §5)</h1>
+  <div class="meta">
+    📅 <b>2026-06-23 (KST)</b> · 🌿 브랜치 <b>feature/media-stats/data-spec-vars</b> · 🔗 PR (생성 예정)
+  </div>
+  <div class="bar"><i style="width:42%"></i></div>
+
+  <section>
+    <h2>✅ 완료 (Done)</h2>
+    <ul>
+      <li><span class="tag t-done">DONE</span><div>2025 설문지겸코드북(38p) + 분석매뉴얼 정독</div></li>
+      <li><span class="tag t-done">DONE</span><div><code>pyreadstat</code>로 2025 <code>.sav</code> 메타 추출 → <code>data-spec.md §5</code> 정확값 갱신<div class="sub">N=6,000 · 223변수 · 인코딩 EUC-KR · <b>가중치 변수 <code>WT</code></b> · 결측코드 9997/9998/9999</div></div></li>
+      <li><span class="tag t-done">DONE</span><div>인구통계·배경 12변수 코드값 확정(SQ1 1~17, DQ2, <b>DQ3=만나이 연속</b>, BQ3~BQ10)</div></li>
+      <li><span class="tag t-done">DONE</span><div>건강지수 4차원 변수 가용성 표 작성(.sav 검증 완료)</div></li>
+      <li><span class="tag t-done">DONE</span><div>재생성 스크립트 <code>src/extract_2025_sav_meta.py</code> + tracked 추출물 <code>docs/design/2025-sav-variables.md</code></div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔍 핵심 발견 (Findings)</h2>
+    <ul>
+      <li><span class="tag t-done">신뢰</span><div>★★★ 매우 풍부 — Q85~Q96(인식·역할·전반/출처별 신뢰·문제점·매체기능·언론인·직업군·사회신뢰)</div></li>
+      <li><span class="tag t-done">다양성</span><div>★★ 가용 — Q84(주경로 17종)+매체 이용여부 게이트 21문항. 단 복수응답 Q80~83은 .sav 미수록</div></li>
+      <li><span class="tag t-progress">검증습관</span><div>△ <b>직접 문항 없음</b>("검증/팩트/확인" 0건). 프록시: Q93(출처인지)·Q34_3/Q56_2·Q91</div></li>
+      <li><span class="tag t-blocked">회피</span><div>△ <b>직접 문항 없음</b>("회피" 0건). 프록시: Q84==9998 + 매체 이용여부 전반 '안함'</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔜 다음 할 일 (Next)</h2>
+    <ul>
+      <li><span class="tag t-todo">TODO</span><div>Task 3: <code>notebooks/01-eda-2025.ipynb</code> — 검증습관·회피 프록시 분포·결측·상관 → 4차원 최종 확정/축소 결정</div></li>
+      <li><span class="tag t-todo">TODO</span><div>전처리 설계(정형+비정형) 논의 후 분석 파이프라인 문서화</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>⚠️ 리스크 (Risk)</h2>
+    <ul>
+      <li><span class="tag t-progress">RISK</span><div>4차원 중 <b>회피·검증습관 직접 측정 불가</b> → 프록시 타당도 미확보 시 지수 신뢰도 저하. 2~3차원 축소 옵션 보유</div></li>
+      <li><span class="tag t-progress">RISK</span><div>가중치 <code>WT</code> 적용 단위·산출식은 매뉴얼에 상세 미기재 → 가중평균 산출 시 KPF 통계표와 대조 검증 필요</div></li>
+    </ul>
+  </section>
+
+  <footer>Dacon 작업 대시보드 · skills/agent-ops/dashboard.md 규칙 (R2)</footer>
+</div>
+</body>
+</html>
