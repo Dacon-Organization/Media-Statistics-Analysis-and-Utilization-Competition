@@ -47,8 +47,8 @@
   </div>
 
   <h2>전체 진척률</h2>
-  <div class="bar"><i style="width:58%"></i></div>
-  <div class="barlabel">데이터·리서치 + 명세 + EDA + 변수매핑 확정 완료 / 지수 산출(03) 착수 전 (대략 58%)</div>
+  <div class="bar"><i style="width:66%"></i></div>
+  <div class="barlabel">데이터·리서치 + 명세 + EDA + 매핑 + 건강지수(NCHI)·페르소나 산출 완료 / 군집·웹데모 전 (대략 66%)</div>
 
   <h2>마일스톤 파이프라인</h2>
   <ul class="pipeline">
@@ -57,13 +57,19 @@
     <li><span class="tag t-done">DONE</span><div>2025 코드북·매뉴얼 정독 → <code>.sav</code> 변수 명세 확정(N=6,000·가중치 WT·4차원 가용성) — <code>docs/design/data-spec.md §5</code></div></li>
     <li><span class="tag t-done">DONE</span><div>2025 .sav EDA(순진 베이스라인→문제진단) → <b>신뢰·다양성 2코어 확정</b>, 검증·회피 보조 강등 — <code>notebooks/01-eda-2025.ipynb</code></div></li>
     <li><span class="tag t-done">DONE</span><div>변수 매핑 확정 — 신뢰 3분리(코어 α=0.90/일반신뢰 통제/Q91 별도) + 다양성 Richness — <code>src/news_health_features.py</code>, <code>notebooks/02</code></div></li>
-    <li><span class="tag t-progress">NEXT</span><div>지수 산출(03): 정규화·기하평균 집계·강건성 → 0~100 건강지수</div></li>
-    <li><span class="tag t-todo">TODO</span><div>분석: 페르소나 군집 → 코호트/추세</div></li>
+    <li><span class="tag t-done">DONE</span><div>건강지수 NCHI 산출 — √(신뢰×다양성) 기하평균 + 2축 4사분면 페르소나(타당도 확인) — <code>notebooks/03</code></div></li>
+    <li><span class="tag t-progress">NEXT</span><div>페르소나 K-means 군집 → 프로파일 → 웹 데모(자가진단)</div></li>
+    <li><span class="tag t-todo">TODO</span><div>코호트/추세(2019~2025) · 논문형 PDF</div></li>
     <li><span class="tag t-todo">TODO</span><div>웹 데모(Next.js 진단 플로우) + 논문형 PDF 보고서</div></li>
   </ul>
 
   <h2>작업 로그 (최신순)</h2>
   <div class="cards">
+    <a class="card" href="log/2026-06-24-media-stats-health-index.html">
+      <div class="date">2026-06-24 (KST) · feature/media-stats/health-index</div>
+      <div class="title">건강지수 NCHI 산출 — 2코어 + 2축 페르소나</div>
+      <div class="summary">집계·방향성 갈림길을 Perplexity Deep Research로 해소 후 산출. NCHI=√(신뢰×다양성) 기하평균(저보완성·HDI/JRC)+산술 강건성. 신뢰×다양성 4사분면 페르소나(건강한 소비자 35%·이중취약형 19%)의 회피율·NCHI가 건강도와 일관(구성타당도). 단조 v1+한계명시. 한국 선행 2축 사례 없음.</div>
+    </a>
     <a class="card" href="log/2026-06-24-media-stats-variable-mapping.html">
       <div class="date">2026-06-24 (KST) · feature/media-stats/variable-mapping</div>
       <div class="title">변수 매핑 확정 — 신뢰 3분리 · 다양성 Richness</div>

@@ -131,3 +131,79 @@ def diversity_metrics(df: pd.DataFrame) -> pd.DataFrame:
 def avoid_flag(df: pd.DataFrame) -> pd.Series:
     """회피 이진 플래그: 주 이용경로가 '이용 안함'(Q84==9998)."""
     return (df[AVOID_VAR] == AVOID_CODE).astype(int)
+
+
+# ── 지수 산출 (Task 03) ───────────────────────────────────────────────
+# 근거: docs/groundwork/04-research-aggregation-direction.md (Perplexity Deep Research)
+#   · 집계 = 기하평균 NCHI=√(T×D) 주 + 산술 강건성 (JRC 저보완성, HDI 2010 전환)
+#   · 방향성 = 단조 v1 (신뢰 역U·다양성 상한은 한계로 기록)
+from sklearn.preprocessing import StandardScaler  # noqa: E402
+
+
+def _scale_1_100(s: pd.Series) -> pd.Series:
+    """관측 min~max를 [1,100]로 선형 환산(기하평균 0붕괴 방지)."""
+    lo, hi = s.min(), s.max()
+    if hi == lo:
+        return pd.Series(50.0, index=s.index)
+    return 1 + (s - lo) / (hi - lo) * 99
+
+
+def trust_index(df: pd.DataFrame, weights: str = "equal") -> pd.Series:
+    """신뢰지수 0~100. 코어 22문항 → z-표준화 → (동일가중 평균 | PCA 제1성분) → [1,100]."""
+    core = mask_special(df, TRUST_CORE)
+    z = pd.DataFrame(StandardScaler().fit_transform(core), index=core.index, columns=core.columns)
+    if weights == "pca":
+        from sklearn.decomposition import PCA
+        valid = z.dropna()
+        pc = PCA(n_components=1).fit(valid)
+        raw = pd.Series(np.nan, index=z.index)
+        raw.loc[valid.index] = pc.transform(valid)[:, 0]
+        if pc.components_[0].sum() < 0:
+            raw = -raw
+    else:
+        raw = z.mean(axis=1)
+    return _scale_1_100(raw)
+
+
+def diversity_index(df: pd.DataFrame) -> pd.Series:
+    """다양성지수 0~100. Richness(뉴스 매체유형 폭) → [1,100]."""
+    return _scale_1_100(diversity_metrics(df)["richness"].astype(float))
+
+
+def nchi(trust: pd.Series, diversity: pd.Series, method: str = "geometric") -> pd.Series:
+    """뉴스 소비 건강지수(NCHI). geometric=√(T·D) 주, arithmetic=(T+D)/2 강건성."""
+    both = pd.DataFrame({"t": trust, "d": diversity}).dropna()
+    if method == "arithmetic":
+        out = both.mean(axis=1)
+    else:
+        out = np.sqrt(both["t"].clip(lower=1) * both["d"].clip(lower=1))
+    return out.reindex(trust.index)
+
+
+# 2축 페르소나 4사분면 (임계값 = 중앙값 기본)
+PERSONA_LABELS = {
+    (True, True): "건강한 소비자",     # 신뢰高·다양高
+    (True, False): "신뢰편향형",       # 신뢰高·다양低
+    (False, True): "비판적 탐색형",     # 신뢰低·다양高
+    (False, False): "이중취약형",      # 신뢰低·다양低
+}
+
+
+def persona_quadrant(trust: pd.Series, diversity: pd.Series,
+                     t_thresh: float | None = None, d_thresh: float | None = None) -> pd.Series:
+    """신뢰×다양성 4사분면 페르소나 라벨. 임계값 미지정 시 각 축 중앙값."""
+    t_thresh = trust.median() if t_thresh is None else t_thresh
+    d_thresh = diversity.median() if d_thresh is None else d_thresh
+    hi_t, hi_d = trust >= t_thresh, diversity >= d_thresh
+    return pd.Series(
+        [PERSONA_LABELS[(bool(t), bool(d))] if pd.notna(t) and pd.notna(d) else np.nan
+         for t, d in zip(hi_t, hi_d)],
+        index=trust.index,
+    )
+
+
+def wmean(values: pd.Series, weight: pd.Series) -> float:
+    """결측 제외 가중평균."""
+    v = pd.to_numeric(values, errors="coerce")
+    m = v.notna() & weight.notna()
+    return float(np.average(v[m], weights=weight[m])) if m.any() else np.nan

@@ -64,7 +64,16 @@ data-spec §5의 **옵션 (b)** 를 데이터로 확정한 것.
 
 ---
 
-## 5. 다음 작업
-1. ✅ ~~`notebooks/02-variable-mapping.ipynb` — 매핑 확정 + 특수코드/역코딩 규칙 코드화~~ — 완료(2026-06-24). SSOT = `src/news_health_features.py`.
-2. `notebooks/03-health-index.ipynb` — 신뢰(z-표준화·동일가중, PCA가중 민감도) + 다양성(Richness Min-Max) → **기하평균** 집계(JRC) → 0~100 척도화. 강건성표(동일가중 vs PCA, 산술 vs 기하).
-3. 검증·회피 보조 레이어 + 페르소나(`04-personas-kmeans`) 입력 연계.
+## 5. 지수 산출 확정 (Task 03, 2026-06-24)
+
+> 근거: [`notebooks/03-health-index.ipynb`](../../notebooks/03-health-index.ipynb) + 방법론 조사 [`docs/groundwork/04-research-aggregation-direction.md`](../groundwork/04-research-aggregation-direction.md). SSOT 함수 `src/news_health_features.py`.
+
+- **신뢰지수**: 코어 22문항 z-표준화 → **동일가중** 평균 → [1,100]. (동일가중 vs PCA r=0.999 → PCA 불필요.)
+- **다양성지수**: Richness → [1,100].
+- **NCHI**: `√(신뢰 × 다양성)` **기하평균 주**(저보완성·JRC/HDI) + **산술평균 강건성 병기**. 가중평균 기하 39 / 산술 45.
+- **방향성 v1**: 단조(높을수록 건강) + 한계 명시(신뢰 역U·다양성 상한은 v2).
+- **2축 페르소나**(중앙값 임계): 건강한 소비자 ~35% / 비판적 탐색형 ~29% / 신뢰편향형 ~18% / 이중취약형 ~19%. 회피율·NCHI가 페르소나 건강도와 일관(타당도 확인).
+
+### 다음 작업
+1. `notebooks/04-personas-kmeans.ipynb` — 신뢰·다양성(+보조 검증/회피) K-means 군집 → 4사분면 정교화.
+2. 페르소나 프로파일 → 웹 데모(자가진단) 입력. 강건성표(임계·집계·가중 민감도).

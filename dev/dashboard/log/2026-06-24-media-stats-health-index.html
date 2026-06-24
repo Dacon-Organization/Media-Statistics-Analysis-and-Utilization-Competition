@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>언론통계 대회 — 건강지수 NCHI 산출(2코어+페르소나) · 로그</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-progress { background: rgba(210,153,34,.15); color: var(--progress); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .t-blocked { background: rgba(248,81,73,.15); color: var(--blocked); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  code { background: #0b0d11; padding: 1px 6px; border-radius: 4px; font-size: .85em; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin-top: 6px; }
+  th, td { border: 1px solid var(--border); padding: 5px 8px; text-align: left; }
+  th { color: var(--accent); }
+  a { color: var(--accent); }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>건강지수 NCHI 산출 — 2코어 + 2축 페르소나 (Task 03)</h1>
+  <div class="meta">
+    📅 <b>2026-06-24 (KST)</b> · 🌿 브랜치 <b>feature/media-stats/health-index</b> · 🔗 PR (생성 예정)
+  </div>
+  <div class="bar"><i style="width:66%"></i></div>
+
+  <section>
+    <h2>✅ 완료 (Done)</h2>
+    <ul>
+      <li><span class="tag t-done">DONE</span><div>집계·방향성 갈림길 외부조사(Perplexity Deep Research) → <code>docs/groundwork/04-research-aggregation-direction.md</code></div></li>
+      <li><span class="tag t-done">DONE</span><div>SSOT 지수함수(trust_index·diversity_index·nchi·persona_quadrant) → <code>src/news_health_features.py</code></div></li>
+      <li><span class="tag t-done">DONE</span><div><code>notebooks/03-health-index.ipynb</code> 실행(0오류) — NCHI·페르소나·연령별·민감도</div></li>
+      <li><span class="tag t-done">DONE</span><div><code>preprocessing-design §5</code> + <code>data-spec §7</code> 갱신</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔍 핵심 산출 (⚠️ 보고서 인용 전 재검증)</h2>
+    <ul>
+      <li><span class="tag t-done">집계</span><div>NCHI = √(신뢰×다양성) <b>기하평균</b>(저보완성·HDI/JRC) + 산술 강건성. 가중평균 기하 <b>39</b> / 산술 45</div></li>
+      <li><span class="tag t-done">방향성</span><div>단조 v1 + 한계명시(신뢰 역U·다양성 상한은 v2)</div></li>
+    </ul>
+    <table>
+      <tr><th>페르소나(가중)</th><th>구성비</th><th>NCHI</th><th>회피율</th></tr>
+      <tr><td>🟢 건강한 소비자</td><td>34.8%</td><td>51.0</td><td>0.0%</td></tr>
+      <tr><td>🟠 비판적 탐색형</td><td>28.9%</td><td>43.5</td><td>0.0%</td></tr>
+      <tr><td>🟡 신뢰편향형</td><td>17.8%</td><td>27.0</td><td>6.9%</td></tr>
+      <tr><td>🔴 이중취약형</td><td>18.5%</td><td>22.3</td><td>13.2%</td></tr>
+    </table>
+    <div class="sub">→ 회피율·NCHI가 페르소나 건강도와 일관(구성타당도). 연령 高→이중취약↑. 한국 선행 2축 사례 없음(최초 가능).</div>
+  </section>
+
+  <section>
+    <h2>🔜 다음 할 일 (Next)</h2>
+    <ul>
+      <li><span class="tag t-todo">TODO</span><div><code>04-personas-kmeans</code> — 신뢰·다양성(+보조) K-means → 4사분면 데이터 주도 정교화</div></li>
+      <li><span class="tag t-todo">TODO</span><div>강건성표(임계·집계·가중) · 페르소나 프로파일 → 웹 데모 입력</div></li>
+    </ul>
+  </section>
+
+  <footer>Dacon 작업 대시보드 · skills/agent-ops/dashboard.md 규칙 (R2)</footer>
+</div>
+</body>
+</html>
