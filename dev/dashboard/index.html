@@ -47,8 +47,8 @@
   </div>
 
   <h2>전체 진척률</h2>
-  <div class="bar"><i style="width:74%"></i></div>
-  <div class="barlabel">데이터·리서치 + 명세 + EDA + 매핑 + 건강지수(NCHI) + K-means 페르소나 검증 완료 / 웹데모 전 (대략 74%)</div>
+  <div class="bar"><i style="width:55%"></i></div>
+  <div class="barlabel">⚙️ 2026-06-24 분석 전면 재설계(CRISP-DM·7개년 확장) — 2025 횡단면 코어는 완료(지수·페르소나), 신규 범위(7개년 정제·하모나이즈·고급모델·검증) 기준 재산정 ≈55%</div>
 
   <h2>마일스톤 파이프라인</h2>
   <ul class="pipeline">
@@ -59,12 +59,18 @@
     <li><span class="tag t-done">DONE</span><div>변수 매핑 확정 — 신뢰 3분리(코어 α=0.90/일반신뢰 통제/Q91 별도) + 다양성 Richness — <code>src/news_health_features.py</code>, <code>notebooks/02</code></div></li>
     <li><span class="tag t-done">DONE</span><div>건강지수 NCHI 산출 — √(신뢰×다양성) 기하평균 + 2축 4사분면 페르소나(타당도 확인) — <code>notebooks/03</code></div></li>
     <li><span class="tag t-done">DONE</span><div>K-means(k=4·2지표) 페르소나 검증 — 규칙 4사분면 독립 재발견(ARI 0.56·일치 80%) + 인구·매체 프로파일·강건성 — <code>notebooks/04</code></div></li>
-    <li><span class="tag t-progress">NEXT</span><div>웹 데모(자가진단 플로우) — 신뢰·다양성 입력 → 페르소나 카드</div></li>
-    <li><span class="tag t-todo">TODO</span><div>코호트/추세(2019~2025) · 논문형 PDF 보고서</div></li>
+    <li><span class="tag t-done">DONE</span><div>🧭 <b>분석 마스터플랜(CRISP-DM 재설계)</b> — 7개년 확장·기법 위계·하모나이즈 전략 확정 — <code>docs/design/analysis-master-plan.md</code></div></li>
+    <li><span class="tag t-progress">NEXT</span><div>P2 Data Understanding — 7개년 통합 로더 + 변수 crosswalk 초안 (<code>src/load_audience.py</code>, <code>notebooks/10</code>)</div></li>
+    <li><span class="tag t-todo">TODO</span><div>P3 정제·하모나이즈 → P4 모델링(요인·군집·분류·회귀·시계열) → P5 검증 → P6 논문·웹데모</div></li>
   </ul>
 
   <h2>작업 로그 (최신순)</h2>
   <div class="cards">
+    <a class="card" href="log/2026-06-24-media-stats-analysis-master-plan.html">
+      <div class="date">2026-06-24 (KST) · feature/media-stats/analysis-master-plan</div>
+      <div class="title">분석 마스터플랜 — CRISP-DM 전면 재설계 (설계 세션)</div>
+      <div class="summary">사용자 피드백 4건(데이터 파악·다개년·실무 워크플로·Perplexity 융합)을 7개년 메타 실측으로 검증 — 인코딩 3종·가중치명 4종·변수명 직결 불가(공통 2개)·2022 N=58,936 발견. 결정: 7개년 추세·코호트 전면 확장 + CRISP-DM 6단계 + 기법 위계(요인·군집·분류·회귀·시계열·ML·DL 조건부). DL은 정형 6천엔 GBM 우위라 정직하게 조건부 배치. analysis-master-plan.md 확정, 다음 세션 P2 Data Understanding 착수.</div>
+    </a>
     <a class="card" href="log/2026-06-24-media-stats-personas-kmeans.html">
       <div class="date">2026-06-24 (KST) · feature/media-stats/personas-kmeans</div>
       <div class="title">데이터 주도 페르소나 정교화 — K-means (Task 04)</div>

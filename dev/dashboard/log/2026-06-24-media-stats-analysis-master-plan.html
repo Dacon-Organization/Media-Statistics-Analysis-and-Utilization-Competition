@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>언론통계 대회 — 분석 마스터플랜(CRISP-DM 재설계) · 로그</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-progress { background: rgba(210,153,34,.15); color: var(--progress); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .t-blocked { background: rgba(248,81,73,.15); color: var(--blocked); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  code { background: #0b0d11; padding: 1px 6px; border-radius: 4px; font-size: .85em; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin-top: 6px; }
+  th, td { border: 1px solid var(--border); padding: 5px 8px; text-align: left; }
+  th { color: var(--accent); }
+  a { color: var(--accent); }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>분석 마스터플랜 — CRISP-DM 전면 재설계 (설계 세션)</h1>
+  <div class="meta">
+    📅 <b>2026-06-24 (KST)</b> · 🌿 브랜치 <b>feature/media-stats/analysis-master-plan</b> · 🔗 PR (생성 예정)
+  </div>
+  <div class="bar"><i style="width:100%"></i></div>
+
+  <section>
+    <h2>🧭 배경 — 사용자 피드백 4건을 데이터로 검증</h2>
+    <ul>
+      <li><span class="tag t-done">검증</span><div>데이터 파악 부족 → 7개년 메타 스캔서 <b>인코딩 3종·가중치명 4종·2022 N=58,936</b> 첫 발견</div></li>
+      <li><span class="tag t-done">검증</span><div>2025만 진행 → 7개년 보유했으나 <b>변수명 직결 불가(공통 교집합 2개)</b> 확인 → crosswalk 필요</div></li>
+      <li><span class="tag t-done">검증</span><div>실무 워크플로 부재 → Data Understanding·Preparation·Evaluation 단계 누락 확인</div></li>
+      <li><span class="tag t-done">검증</span><div>Perplexity 융합·웹데모 후치 → 단계별 브리프 계획 + 웹은 P6 최종</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>✅ 설계 결정 (사용자 확정)</h2>
+    <table>
+      <tr><th>축</th><th>결정</th></tr>
+      <tr><td>분석 범위</td><td>7개년(2019~2025) 추세·코호트 전면 확장</td></tr>
+      <tr><td>파이프라인</td><td>CRISP-DM 6단계 재구성</td></tr>
+      <tr><td>모델링 기법</td><td>요인분석·군집·분류·회귀/인과·연관 + 시계열·ML·DL(조건부)</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>📐 핵심 산출 — analysis-master-plan.md</h2>
+    <ul>
+      <li><span class="tag t-done">DONE</span><div>7개년 데이터 실측 프로파일 + 정합성 난제 5종 명세</div></li>
+      <li><span class="tag t-done">DONE</span><div>CRISP-DM 6단계 ↔ 프로젝트 매핑(신설 노트북 10·11·30 + crosswalk 문서)</div></li>
+      <li><span class="tag t-done">DONE</span><div>모델링 기법 위계(적합성 등급) — <b>DL은 정직하게 조건부</b>(정형 6천엔 GBM 우위)</div></li>
+      <li><span class="tag t-done">DONE</span><div>7개년 하모나이즈(crosswalk) 전략 · Perplexity 단계별 브리프 · MoSCoW·일정(D-29)</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔜 다음 세션 착수 (P2 Data Understanding)</h2>
+    <ul>
+      <li><span class="tag t-todo">TODO</span><div><code>src/load_audience.py</code> — 7개년 통합 로더(인코딩·가중치 통일)</div></li>
+      <li><span class="tag t-todo">TODO</span><div><code>notebooks/10-data-understanding.ipynb</code> + <code>variable-crosswalk.md</code> 초안 · 2022 구조 규명</div></li>
+      <li><span class="tag t-todo">TODO</span><div>Perplexity 브리프(반복횡단면 하모나이즈·측정 비동등)</div></li>
+    </ul>
+  </section>
+
+  <footer>Dacon 작업 대시보드 · skills/agent-ops/dashboard.md 규칙 (R2)</footer>
+</div>
+</body>
+</html>
