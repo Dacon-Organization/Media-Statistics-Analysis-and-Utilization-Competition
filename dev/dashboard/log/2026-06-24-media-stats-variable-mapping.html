@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>언론통계 대회 — 변수 매핑 확정(신뢰 3분리·다양성 Richness) · 로그</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-progress { background: rgba(210,153,34,.15); color: var(--progress); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .t-blocked { background: rgba(248,81,73,.15); color: var(--blocked); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  code { background: #0b0d11; padding: 1px 6px; border-radius: 4px; font-size: .85em; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin-top: 6px; }
+  th, td { border: 1px solid var(--border); padding: 5px 8px; text-align: left; }
+  th { color: var(--accent); }
+  a { color: var(--accent); }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>변수 매핑 확정 — 신뢰 3분리 · 다양성 Richness (Task 02)</h1>
+  <div class="meta">
+    📅 <b>2026-06-24 (KST)</b> · 🌿 브랜치 <b>feature/media-stats/variable-mapping</b> · 🔗 PR (생성 예정)
+  </div>
+  <div class="bar"><i style="width:58%"></i></div>
+
+  <section>
+    <h2>✅ 완료 (Done)</h2>
+    <ul>
+      <li><span class="tag t-done">DONE</span><div>방법론 갈림길 외부조사(Perplexity Deep Research) → <code>docs/groundwork/03-research-index-methodology.md</code></div></li>
+      <li><span class="tag t-done">DONE</span><div>SSOT 설정 모듈 <code>src/news_health_features.py</code> — 차원별 변수맵·특수코드·헬퍼(로딩 캐시·α·다양성지표)</div></li>
+      <li><span class="tag t-done">DONE</span><div>검증 노트북 <code>notebooks/02-variable-mapping.ipynb</code> 실행(0오류) — α·EFA·다양성 진단</div></li>
+      <li><span class="tag t-done">DONE</span><div><code>preprocessing-design.md §3</code> 확정안 갱신 + <code>data-spec §7</code></div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔍 핵심 결정 (연구 근거 + 데이터 검증)</h2>
+    <table>
+      <tr><th>차원</th><th>결정</th><th>근거</th></tr>
+      <tr><td>신뢰 코어(22문항)</td><td>뉴스/언론 신뢰만</td><td>α=0.90·지배요인(제1고유값 7.43)</td></tr>
+      <tr><td>일반화 신뢰(Q95·Q96)</td><td>코어 제외→통제</td><td>r≈0.53 구분 (Uslaner; Kohring&amp;Matthes)</td></tr>
+      <tr><td>문제인식 Q91</td><td>별도 지표(합산 금지)</td><td>r≈−0.19 직교 · 냉소/회의 CFA 보류</td></tr>
+      <tr><td>다양성</td><td>Richness 주지표</td><td>Pielou J≈0.96 천장→균등도 변별력 낮음</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>🧭 방법론 메모</h2>
+    <ul>
+      <li><span class="tag t-done">검증</span><div>일수가중 Shannon이 binary 단조변환을 깸(동일 S에서 H_std&gt;0, J⊥S) — 단 균등도 천장으로 폭(Richness)이 지배. <b>문헌 맹목적용이 아닌 검증 후 채택</b></div></li>
+      <li><span class="tag t-done">경량</span><div>factor_analyzer/pingouin 미설치(env pip 손상) → Cronbach α 자체구현 + sklearn FactorAnalysis로 의존성 0 재현</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔜 다음 할 일 (Next)</h2>
+    <ul>
+      <li><span class="tag t-todo">TODO</span><div><code>03-health-index</code> — 신뢰(z·동일가중, PCA 민감도)+다양성(Richness Min-Max) → 기하평균 집계 → 0~100</div></li>
+      <li><span class="tag t-todo">TODO</span><div>강건성표(동일가중 vs PCA, 산술 vs 기하) · 검증/회피 보조 레이어</div></li>
+    </ul>
+  </section>
+
+  <footer>Dacon 작업 대시보드 · skills/agent-ops/dashboard.md 규칙 (R2)</footer>
+</div>
+</body>
+</html>

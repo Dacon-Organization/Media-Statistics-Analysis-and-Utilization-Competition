@@ -154,4 +154,5 @@
 2. ✅ ~~분석 매뉴얼 + 2025 코드북 정독 → §5 변수 명세 .sav 기준 정확값~~ — 완료(2026-06-23).
 3. ✅ ~~2025 원자료 EDA → 프록시 분포·결측·상관 확인 → 4차원 확정/축소~~ — 완료(2026-06-24). [`notebooks/01-eda-2025.ipynb`](../../notebooks/01-eda-2025.ipynb).
    → **결론: 신뢰·다양성 2개 코어 + 검증·회피 보조 플래그(옵션 b 채택)**. 전처리 설계 착수: [`preprocessing-design.md`](preprocessing-design.md).
-4. 변수 매핑·지수 설계(`notebooks/02~03`) — 신뢰 요인분석, 다양성 가중·비닝·집중도.
+4. ✅ ~~변수 매핑 확정(`notebooks/02-variable-mapping.ipynb`)~~ — 완료(2026-06-24). 신뢰 코어 22문항 α=0.90(일반화 신뢰·문제인식 분리), 다양성=Richness 주지표. SSOT=`src/news_health_features.py`, 방법론 근거=`docs/groundwork/03-research-index-methodology.md`.
+5. 지수 설계(`notebooks/03-health-index.ipynb`) — 신뢰·다양성 정규화·집계(기하평균)·강건성, 0~100 척도화.
