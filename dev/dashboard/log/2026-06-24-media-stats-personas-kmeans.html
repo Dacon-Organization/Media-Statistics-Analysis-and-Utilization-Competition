@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>언론통계 대회 — 데이터 주도 페르소나 K-means(Task 04) · 로그</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-progress { background: rgba(210,153,34,.15); color: var(--progress); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .t-blocked { background: rgba(248,81,73,.15); color: var(--blocked); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  code { background: #0b0d11; padding: 1px 6px; border-radius: 4px; font-size: .85em; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin-top: 6px; }
+  th, td { border: 1px solid var(--border); padding: 5px 8px; text-align: left; }
+  th { color: var(--accent); }
+  a { color: var(--accent); }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>데이터 주도 페르소나 정교화 — K-means (Task 04)</h1>
+  <div class="meta">
+    📅 <b>2026-06-24 (KST)</b> · 🌿 브랜치 <b>feature/media-stats/personas-kmeans</b> · 🔗 PR (생성 예정)
+  </div>
+  <div class="bar"><i style="width:90%"></i></div>
+
+  <section>
+    <h2>🧭 설계 결정 (사용자 확정)</h2>
+    <table>
+      <tr><th>갈림길</th><th>결정</th><th>근거(실데이터)</th></tr>
+      <tr><td>군집 수 k</td><td><b>k=4</b></td><td>실루엣 0.35대 평탄, 4사분면과 1:1 정합·해석가능</td></tr>
+      <tr><td>군집 입력</td><td><b>2지표만</b></td><td>검증·회피 추가 시 실루엣 0.35→0.25 ↓, 표본 30% 손실</td></tr>
+      <tr><td>세그먼트 경계</td><td><b>하이브리드</b></td><td>운영=중앙값 4사분면 규칙, K-means=데이터 독립 재발견 타당화</td></tr>
+      <tr><td>표준화</td><td>z (StandardScaler)</td><td>다양성 우편향 → 표준화 필수</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>✅ 완료 (Done)</h2>
+    <ul>
+      <li><span class="tag t-done">DONE</span><div>SSOT 헬퍼 추가 — <code>region_band·gender_label·kmeans_personas·map_cluster_to_persona·adjusted_rand</code> (<code>src/news_health_features.py</code>)</div></li>
+      <li><span class="tag t-done">DONE</span><div><code>notebooks/04-personas-kmeans.ipynb</code> 빌드+실행(0오류, 19셀) — K스윕·교차검증·프로파일·강건성·웹사양</div></li>
+      <li><span class="tag t-done">DONE</span><div>K-means(k=4)가 규칙 4사분면을 <b>독립 재발견</b> — ARI <b>0.561</b>·라벨 일치 <b>79.7%</b></div></li>
+      <li><span class="tag t-done">DONE</span><div>보조지표(검증·회피) 배제 데이터 근거 기록 + 강건성표(임계·집계·k·표준화)</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔍 핵심 산출 (⚠️ 보고서 인용 전 재검증)</h2>
+    <table>
+      <tr><th>페르소나(가중)</th><th>구성비</th><th>평균연령</th><th>여성%</th><th>NCHI</th></tr>
+      <tr><td>🟢 건강한 소비자</td><td>34.8%</td><td>48</td><td>47.5%</td><td>51</td></tr>
+      <tr><td>🟠 비판적 탐색형</td><td>28.9%</td><td>48</td><td>46.5%</td><td>44</td></tr>
+      <tr><td>🟡 신뢰편향형</td><td>17.8%</td><td>57</td><td>59.5%</td><td>27</td></tr>
+      <tr><td>🔴 이중취약형</td><td>18.5%</td><td>54</td><td>52.2%</td><td>22</td></tr>
+    </table>
+    <div class="sub">→ 연령 高·여성 비중 高가 신뢰편향형·이중취약형에 집중. 이중취약형은 수도권 38%↓·영남 36%↑ 지역 구배. 웹 자가진단 입력 사양(신뢰 축약문항 + 매체유형 체크) 확정.</div>
+  </section>
+
+  <section>
+    <h2>🔜 다음 할 일 (Next)</h2>
+    <ul>
+      <li><span class="tag t-todo">TODO</span><div>웹 데모(자가진단) 프런트 — 신뢰·다양성 입력 → 4사분면 페르소나 카드</div></li>
+      <li><span class="tag t-todo">TODO</span><div>연도 추세(2019~2025) 또는 비정형 선택트랙 검토</div></li>
+    </ul>
+  </section>
+
+  <footer>Dacon 작업 대시보드 · skills/agent-ops/dashboard.md 규칙 (R2)</footer>
+</div>
+</body>
+</html>

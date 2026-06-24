@@ -63,6 +63,26 @@ WEIGHT = "WT"
 AGE = "DQ3"
 AGE_BINS = [18, 29, 39, 49, 59, 69, 200]
 AGE_LABELS = ["19-29", "30-39", "40-49", "50-59", "60-69", "70+"]
+GENDER = "DQ2"                      # 1=남성, 2=여성
+GENDER_LABELS = {1: "남성", 2: "여성"}
+REGION = "SQ1"                      # 17개 시도 코드(표준순서)
+# 17개 시도 → 6개 권역 (인구 프로파일 가독성)
+REGION_BAND = {
+    1: "수도권", 4: "수도권", 9: "수도권",          # 서울·인천·경기
+    2: "영남", 3: "영남", 7: "영남", 15: "영남", 16: "영남",  # 부산·대구·울산·경북·경남
+    5: "호남", 13: "호남", 14: "호남",              # 광주·전북·전남
+    6: "충청", 8: "충청", 11: "충청", 12: "충청",   # 대전·세종·충북·충남
+    10: "강원", 17: "제주",
+}
+
+
+def region_band(df: pd.DataFrame) -> pd.Series:
+    """SQ1(17 시도) → 6 권역 라벨."""
+    return df[REGION].map(REGION_BAND)
+
+
+def gender_label(df: pd.DataFrame) -> pd.Series:
+    return df[GENDER].map(GENDER_LABELS)
 
 
 # ── 로딩 ──────────────────────────────────────────────────────────────
@@ -207,3 +227,38 @@ def wmean(values: pd.Series, weight: pd.Series) -> float:
     v = pd.to_numeric(values, errors="coerce")
     m = v.notna() & weight.notna()
     return float(np.average(v[m], weights=weight[m])) if m.any() else np.nan
+
+
+# ── K-means 검증 (Task 04) ────────────────────────────────────────────
+# 하이브리드 확정: 운영·웹데모는 4사분면 규칙(persona_quadrant), K-means는
+#   '데이터가 같은 4구조를 독립 재발견'했음을 보이는 타당화 근거로만 사용.
+# 결정 근거: k=4(4사분면 정합), 입력=2지표(신뢰·다양성)만(검증·회피 포함 시
+#   실루엣 0.35→0.25 하락·표본 30% 손실). 표준화=z(StandardScaler).
+def kmeans_personas(trust: pd.Series, diversity: pd.Series, k: int = 4,
+                    random_state: int = 42):
+    """표준화된 [신뢰·다양성]에 K-means(k=4). (labels, centers_원척도, model) 반환.
+
+    centers_원척도는 표준화 역변환한 (신뢰, 다양성) 군집 중심.
+    """
+    from sklearn.cluster import KMeans
+    both = pd.DataFrame({"trust": trust, "diversity": diversity}).dropna()
+    sc = StandardScaler().fit(both)
+    km = KMeans(n_clusters=k, n_init=10, random_state=random_state).fit(sc.transform(both))
+    labels = pd.Series(km.labels_, index=both.index, name="cluster").reindex(trust.index)
+    centers = pd.DataFrame(sc.inverse_transform(km.cluster_centers_),
+                           columns=["trust", "diversity"])
+    return labels, centers, km
+
+
+def map_cluster_to_persona(centers: pd.DataFrame,
+                           t_thresh: float, d_thresh: float) -> dict[int, str]:
+    """군집 중심을 임계값 기준 4사분면 페르소나명으로 매핑(K-means↔규칙 대조용)."""
+    return {i: PERSONA_LABELS[(c.trust >= t_thresh, c.diversity >= d_thresh)]
+            for i, c in centers.iterrows()}
+
+
+def adjusted_rand(a: pd.Series, b: pd.Series) -> float:
+    """두 군집해의 일치도(ARI). 규칙기반 4사분면 vs K-means 검증용."""
+    from sklearn.metrics import adjusted_rand_score
+    m = a.notna() & b.notna()
+    return float(adjusted_rand_score(a[m].astype(str), b[m].astype(str)))
