@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>언론통계 대회 — 2025 .sav EDA(순진한 베이스라인→문제진단) · 로그</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-progress { background: rgba(210,153,34,.15); color: var(--progress); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .t-blocked { background: rgba(248,81,73,.15); color: var(--blocked); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  code { background: #0b0d11; padding: 1px 6px; border-radius: 4px; font-size: .85em; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin-top: 6px; }
+  th, td { border: 1px solid var(--border); padding: 5px 8px; text-align: left; }
+  th { color: var(--accent); }
+  a { color: var(--accent); }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>2025 .sav EDA — 순진한 베이스라인 → 문제 진단 (Task 3)</h1>
+  <div class="meta">
+    📅 <b>2026-06-24 (KST)</b> · 🌿 브랜치 <b>feature/media-stats/eda-2025</b> · 🔗 PR (생성 예정)
+  </div>
+  <div class="bar"><i style="width:52%"></i></div>
+
+  <section>
+    <h2>✅ 완료 (Done)</h2>
+    <ul>
+      <li><span class="tag t-done">DONE</span><div><code>notebooks/01-eda-2025.ipynb</code> — 1회 로딩→<code>data/interim</code> parquet 캐시(반복 풀로딩 금지), 경량(텍스트·표) EDA</div></li>
+      <li><span class="tag t-done">DONE</span><div>4차원 후보 변수 분포·결측·특수코드(9997/9998/9999) 프로파일링</div></li>
+      <li><span class="tag t-done">DONE</span><div>순진한 베이스라인 지수 산출 → 4대 전처리 문제 Before/After 진단</div></li>
+      <li><span class="tag t-done">DONE</span><div>전처리 설계 착수본 <code>docs/design/preprocessing-design.md</code> + <code>data-spec §7</code> 갱신</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔍 핵심 발견 (Findings, ⚠️ 보고서 인용 전 재검증)</h2>
+    <table>
+      <tr><th>문제</th><th>증거</th><th>정책</th></tr>
+      <tr><td>역코딩 미적용</td><td>순진 신뢰 3.274→3.061 (Δ+0.21 거품)</td><td>Q91 6−x 역코딩</td></tr>
+      <tr><td>9998 실값 오인</td><td>Q84 raw 평균 439(무의미)</td><td>특수코드 NaN/별도카테고리 분리</td></tr>
+      <tr><td>가중 미적용</td><td>숏폼 +2.9pp·동영상 +2.7pp 과소</td><td>WT 가중(표본 중앙연령 53세)</td></tr>
+      <tr><td>연령 미비닝</td><td>다양성 19–29세 7.5→70+ 4.0</td><td>DQ3 연령대 비닝</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>🎯 의사결정 — 차원 확정/축소</h2>
+    <ul>
+      <li><span class="tag t-done">코어</span><div><b>신뢰</b> ★★★ (배터리 결측·특수코드 0%) — 채택</div></li>
+      <li><span class="tag t-done">코어</span><div><b>다양성</b> ★★ (이용매체 21문항+Q84, 연령 강한 구배) — 채택</div></li>
+      <li><span class="tag t-progress">강등</span><div><b>검증습관</b> △ 구조적 결측 30~74%·약한 상관(r≤0.23) → 보조 지표</div></li>
+      <li><span class="tag t-blocked">강등</span><div><b>회피</b> △ Q84==9998 4.35%뿐 → 이진 행동 플래그</div></li>
+    </ul>
+    <div class="sub">→ data-spec §5 <b>옵션 (b) 신뢰·다양성 2코어</b>를 데이터로 확정.</div>
+  </section>
+
+  <section>
+    <h2>🔜 다음 할 일 (Next)</h2>
+    <ul>
+      <li><span class="tag t-todo">TODO</span><div><code>02-variable-mapping</code> — 코드북↔지수 매핑, 특수코드·역코딩 규칙 코드화</div></li>
+      <li><span class="tag t-todo">TODO</span><div><code>03-health-index</code> — 신뢰 요인분석 + 다양성 가중·비닝·집중도(HHI)</div></li>
+    </ul>
+  </section>
+
+  <footer>Dacon 작업 대시보드 · skills/agent-ops/dashboard.md 규칙 (R2)</footer>
+</div>
+</body>
+</html>

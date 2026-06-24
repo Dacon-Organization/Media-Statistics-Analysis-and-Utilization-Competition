@@ -47,21 +47,27 @@
   </div>
 
   <h2>전체 진척률</h2>
-  <div class="bar"><i style="width:42%"></i></div>
-  <div class="barlabel">데이터·리서치 + 2025 변수 명세 확정 완료 / EDA·지수설계 착수 전 (대략 42%)</div>
+  <div class="bar"><i style="width:52%"></i></div>
+  <div class="barlabel">데이터·리서치 + 변수 명세 + 2025 EDA(차원 확정) 완료 / 지수 설계 착수 전 (대략 52%)</div>
 
   <h2>마일스톤 파이프라인</h2>
   <ul class="pipeline">
     <li><span class="tag t-done">DONE</span><div>사전 리서치·전략(앵글 A 뉴스 건강지수 + B 페르소나) — <code>docs/groundwork/</code></div></li>
     <li><span class="tag t-done">DONE</span><div>데이터 명세·카탈로그 + 원시자료 7개년(2019~2025) 확보·정돈 — <code>docs/design/data-spec.md</code>, <code>data/raw/</code></div></li>
     <li><span class="tag t-done">DONE</span><div>2025 코드북·매뉴얼 정독 → <code>.sav</code> 변수 명세 확정(N=6,000·가중치 WT·4차원 가용성) — <code>docs/design/data-spec.md §5</code></div></li>
-    <li><span class="tag t-progress">NEXT</span><div>2025 .sav EDA → 검증습관·회피 프록시 검증 → 4차원 최종 확정 → 지수 설계</div></li>
-    <li><span class="tag t-todo">TODO</span><div>분석: 지수 산출 → 페르소나 군집 → 코호트/추세</div></li>
+    <li><span class="tag t-done">DONE</span><div>2025 .sav EDA(순진 베이스라인→문제진단) → <b>신뢰·다양성 2코어 확정</b>, 검증·회피 보조 강등 — <code>notebooks/01-eda-2025.ipynb</code></div></li>
+    <li><span class="tag t-progress">NEXT</span><div>변수 매핑·지수 설계: 신뢰 요인분석 + 다양성 가중·비닝·집중도 → 지수 산출</div></li>
+    <li><span class="tag t-todo">TODO</span><div>분석: 페르소나 군집 → 코호트/추세</div></li>
     <li><span class="tag t-todo">TODO</span><div>웹 데모(Next.js 진단 플로우) + 논문형 PDF 보고서</div></li>
   </ul>
 
   <h2>작업 로그 (최신순)</h2>
   <div class="cards">
+    <a class="card" href="log/2026-06-24-media-stats-eda-2025.html">
+      <div class="date">2026-06-24 (KST) · feature/media-stats/eda-2025</div>
+      <div class="title">2025 .sav EDA — 순진한 베이스라인 → 문제 진단</div>
+      <div class="summary">.sav 1회 로딩→parquet 캐시. 4차원 분포·결측·특수코드 점검 후 순진한 베이스라인 지수로 4대 문제(역코딩·9998 실값오인·가중 미적용·연령 미비닝) Before/After 진단. 결론: 신뢰·다양성 2코어 확정, 검증·회피는 보조 플래그 강등(옵션 b). preprocessing-design.md 착수.</div>
+    </a>
     <a class="card" href="log/2026-06-23-media-stats-data-spec-vars.html">
       <div class="date">2026-06-23 (KST) · feature/media-stats/data-spec-vars</div>
       <div class="title">2025 .sav 변수 명세 확정 (data-spec §5)</div>
