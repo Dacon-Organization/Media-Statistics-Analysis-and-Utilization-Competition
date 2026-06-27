@@ -108,6 +108,28 @@ ROUTE_NONUSE: dict[int, set[int]] = {
 # job: 9997=기타(실범주) → 13(기타)로 통일. 결측으로 처리하지 않음.
 JOB_OTHER_CODE = 13
 
+# 언론 신뢰성(credibility) 다지표 배터리 — MGCFA·정렬법 입력(variable-crosswalk-trust-battery.md).
+# 문항: "우리나라 언론은 ~하다" 5점 동의척도(1~5). 문항 prefix는 연도마다 리셋.
+# 핵심 3지표{공정·전문·정확}은 7개년 전부 존재 → 잠재 신뢰성 요인을 2019~2025로 검정 가능.
+CRED_BATTERY: dict[str, dict[int, str | None]] = {
+    # 형용사            2019      2020      2021      2022      2023      2024      2025
+    "cred_fair":         {2019: "Q77_1", 2020: "Q78_1", 2021: "Q78_1", 2022: "Q69_1",
+                          2023: "Q77_1", 2024: "Q77_1", 2025: "Q85_1"},  # 공정하다(7개년)
+    "cred_professional": {2019: "Q77_2", 2020: "Q78_2", 2021: "Q78_2", 2022: "Q69_2",
+                          2023: "Q77_2", 2024: "Q77_2", 2025: "Q85_2"},  # 전문적이다(7개년)
+    "cred_accurate":     {2019: "Q77_3", 2020: "Q78_3", 2021: "Q78_3", 2022: "Q69_3",
+                          2023: "Q77_3", 2024: "Q77_3", 2025: "Q85_3"},  # 정확하다(7개년)
+    "cred_trustworthy":  {2019: "Q77_4", 2020: "Q78_4", 2021: "Q78_4", 2022: "Q69_4",
+                          2023: None, 2024: None, 2025: None},           # 신뢰할수있다(2019~2022)
+    "press_free":        {2019: "Q77_5", 2020: "Q78_5", 2021: "Q78_5", 2022: "Q69_5",
+                          2023: "Q77_4", 2024: "Q77_4", 2025: "Q85_4"},  # 언론자유(별개 구성개념)
+    "media_influence":   {2019: None, 2020: None, 2021: "Q78_6", 2022: "Q69_6",
+                          2023: "Q77_5", 2024: "Q77_5", 2025: "Q85_5"},  # 영향력(2021~2025)
+}
+# credibility 요인 지표(배제: press_free=별개차원, media_influence=valence불일치).
+CRED_FACTOR_CORE3 = ["cred_fair", "cred_professional", "cred_accurate"]   # 주 모형(2019~2025)
+CRED_FACTOR_PLUS4 = CRED_FACTOR_CORE3 + ["cred_trustworthy"]              # 민감도(2019~2022)
+
 
 def read_sav_any(path: Path) -> tuple[pd.DataFrame, object, str]:
     """인코딩을 순차 시도해 (df, meta, encoding)을 반환(extract_all_sav_meta.py와 동일 패턴)."""
@@ -245,6 +267,13 @@ def build_year(year: int) -> pd.DataFrame:
     out["trust_news_used"] = recode_trust(col("trust_news_used"))
     out["trust_society"] = recode_trust(col("trust_society"))
 
+    # 언론 신뢰성(credibility) 다지표 배터리 — MGCFA 입력(5점, 1~5만 유효).
+    # 핵심 3지표{공정·전문·정확}은 7개년 전부, 신뢰=2019~2022, 영향력=2021~2025만 존재.
+    for ind, ymap in CRED_BATTERY.items():
+        src = ymap[year]
+        s = df[src] if (src and src in df.columns) else pd.Series([np.nan] * n, index=df.index)
+        out[ind] = recode_trust(s)
+
     # 매체 주이용경로(코드+라벨)
     rsrc = vmap["media_main_route"][year]
     rvl = meta.variable_value_labels.get(rsrc) if rsrc else None
@@ -295,6 +324,8 @@ def presence_matrix(panel: pd.DataFrame) -> pd.DataFrame:
         "sex", "age", "edu", "income_band9", "income_band7", "job", "region",
         "trust_news_overall", "trust_news_used", "trust_society",
         "media_main_route_code",
+        "cred_fair", "cred_professional", "cred_accurate",
+        "cred_trustworthy", "press_free", "media_influence",
     ]
     rows = []
     for y in YEARS:
@@ -341,6 +372,15 @@ def main() -> None:
     for tcol in ["trust_news_overall", "trust_news_used", "trust_society"]:
         by = panel.groupby("year")[tcol].apply(lambda s: int(s.notna().sum()))
         print(f"  {tcol}: " + ", ".join(f"{y}={by[y]:,}" for y in YEARS))
+
+    print("\n[credibility 배터리 가용성 — 핵심3지표는 7개년 전부 존재 확인]")
+    for ind in CRED_BATTERY:
+        by = panel.groupby("year")[ind].apply(lambda s: int(s.notna().sum()))
+        mark = "(핵심)" if ind in CRED_FACTOR_CORE3 else ""
+        print(f"  {ind:18s}{mark:5s}: " + ", ".join(f"{y}={by[y]:,}" for y in YEARS))
+    cov = panel[CRED_FACTOR_CORE3].notna().all(axis=1).groupby(panel["year"]).sum()
+    print("  → 핵심3지표 동시 응답(완전케이스): "
+          + ", ".join(f"{y}={int(cov[y]):,}" for y in YEARS))
 
     print("=" * 64)
 

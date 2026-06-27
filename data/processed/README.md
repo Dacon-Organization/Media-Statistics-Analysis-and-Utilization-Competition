@@ -35,8 +35,15 @@
 | `trust_society` | 사회 전반신뢰 5점 | **2019 부재(NA)** |
 | `media_main_route` | 뉴스 주이용경로(디코드 한글 라벨) | 비이용→NA. 고정풀·e^H는 P4 |
 | `media_main_route_code` | 주이용경로 원본 코드 | 연도별 코드체계 상이 |
+| `cred_fair`·`cred_professional`·`cred_accurate` | 언론 신뢰성 핵심3지표(공정·전문·정확) 5점 | **7개년 전부**·MGCFA 주 모형 지표 |
+| `cred_trustworthy` | 언론 신뢰성 4번째 지표(신뢰할 수 있다) 5점 | 2019~2022만(민감도 모형) |
+| `press_free` | 언론자유 인식 5점 | 별개 구성개념(credibility 요인 제외) |
+| `media_influence` | 언론 영향력 인식 5점 | 2021~2025·valence 불일치로 요인 제외 |
 | `yr_2019`…`yr_2025` | 연도 더미(0/1) | 추세회귀 통제용 |
 | `is_2022` | 2022 식별 플래그 | 민감도분석·구조단절 통제 |
+
+> 신뢰성 다지표 배터리 명세: [`../../docs/design/variable-crosswalk-trust-battery.md`](../../docs/design/variable-crosswalk-trust-battery.md).
+> 핵심3지표 잠재요인은 **2019~2025 전 구간** 존재 → 단일 요약문항과 달리 2019 포함 MGCFA 가능.
 
 > ⚠️ 신뢰 시계열은 **2020~2025만 유효**(2019 구조적 단절, crosswalk §5-1).
 > ⚠️ 측정 비동등 검정(P4 MGCFA·정렬법) 전 추세 수치 보고서/웹데모 직접 인용 금지.
