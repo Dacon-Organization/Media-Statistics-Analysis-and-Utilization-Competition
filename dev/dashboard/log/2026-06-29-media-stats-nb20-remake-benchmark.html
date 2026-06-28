@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>언론통계 — 노트북 20 벤치마크 스타일 리메이크 · 로그</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-progress { background: rgba(210,153,34,.15); color: var(--progress); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  code { background: #0b0d11; padding: 1px 6px; border-radius: 4px; font-size: .85em; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin-top: 6px; }
+  th, td { border: 1px solid var(--border); padding: 5px 8px; text-align: left; }
+  th { color: var(--accent); }
+  a { color: var(--accent); }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>분석 과정 노트북화 — 20-eda-overview 벤치마크 스타일 리메이크</h1>
+  <div class="meta">
+    📅 <b>2026-06-29 (KST)</b> · 🌿 브랜치 <b>feature/media-stats/nb20-remake-benchmark</b> · 🔗 PR (생성 예정) · 스타일 업그레이드
+  </div>
+  <div class="bar"><i style="width:100%"></i></div>
+
+  <section>
+    <h2>🎯 배경 (사용자 피드백 + 벤치마크 예시)</h2>
+    <p class="sub">사용자가 "가장 잘됐다"고 평가한 데이터분석 예시(ESG greenwashing, .ipynb 93셀 + 논문 .docx)를 제공하며 "이 수준으로 벤치마킹"을 요청. 핵심 스타일: <b>연구질문·목차 표지 / Decision Box(방법 선택 근거·비교표) / [시각화] 설명 셀(축·색·볼 포인트) / "…완료" 구조화 요약(①②③+표+takeaway) / finding-as-heading(제목이 결론) / 종합 결론(연구질문→단계요약→발견→다음) / 스토리텔링</b>. 결정: 20·21을 이 스타일로 먼저 리메이크 후 22 진행, 보고서(.docx)는 노트북 완료 후. 이번 묶음=20 리메이크. R3대로 1묶음 후 정지.</p>
+  </section>
+
+  <section>
+    <h2>✅ 완료 (Done)</h2>
+    <ul>
+      <li><span class="tag t-done">DONE</span><div><code>notebooks/20-eda-overview.ipynb</code> 전면 리메이크 (39셀, md 26/code 13): 표지(연구질문 Q1~Q3·목차) + Decision Box ①(가중치 wt_year_eq)·②(추세 지표 credibility 핵심3지표)·③(2022 과표본 이중처리 EDA vs 검정) + 6패널 각각 <b>[시각화] 설명 → 중간 산출 → figure → "…완료" 구조화 요약</b> + finding-as-heading(예 "2022 한 해가 패널의 65%를 차지한다") + §9 종합(연구질문 답·단계요약표·다음 단계). <b>에러 0·figure 6·glyph 0·검증 PASS</b>. thin 원칙 유지(src/eda_overview.py import, 로직 재구현 0)</div></li>
+      <li><span class="tag t-done">DONE</span><div>코드리뷰 <code>src/eda_overview.py</code> 재확인 — 통과(가중집계·구조적결측 구분·완전케이스 Pearson·P4 인용). 결함 없음, 강제수정 없음</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔍 입증 (검증셀 PASS — 내용 동일, 서술·구조 밀도↑)</h2>
+    <table>
+      <tr><th>요소</th><th>리메이크 전(20·21 v1)</th><th>리메이크 후(벤치마크)</th></tr>
+      <tr><td>표지</td><td>요약 1단락</td><td>연구질문 Q1~Q3 + 목차 표</td></tr>
+      <tr><td>방법 선택</td><td>본문 산문</td><td>Decision Box ①②③(기준·비교표·근거)</td></tr>
+      <tr><td>figure</td><td>바로 임베드</td><td>[시각화] 설명(축·색·볼 포인트) 선행</td></tr>
+      <tr><td>코드 뒤</td><td>관찰 1~2줄</td><td>"…완료" ①②③+takeaway</td></tr>
+      <tr><td>결론</td><td>다음 단계 1줄</td><td>§9 종합(연구질문 답·단계요약표)</td></tr>
+    </table>
+    <p class="sub">수치·검증은 동일(PASS): N합 90,996·2022 64.8%, cred_mean 3.034→…→3.390, 상관 .64/.55/.55, P4 인용. 실행: nbconvert --execute, 에러 0.</p>
+  </section>
+
+  <section>
+    <h2>⏭️ 다음 (인수인계)</h2>
+    <ul>
+      <li><span class="tag t-progress">NEXT</span><div><code>21-mgcfa-invariance</code> 동일 벤치마크 스타일로 리메이크(이미 v1 머지됨 → 표지·Decision Box·[시각화]·완료요약·종합 추가). 그 다음 22-semopy-crossval부터는 처음부터 벤치마크 스타일로</div></li>
+      <li><span class="tag t-todo">LATER</span><div>23·24·30 노트북 → 전부 완료 후 논문형 보고서(.docx: 초록·방법·결과·논의·참고문헌) + 웹데모. Perplexity로 선행연구·삼각검증 레이어 보강</div></li>
+    </ul>
+  </section>
+
+  <footer>R2 작업 대시보드 · <code>skills/agent-ops/dashboard.md</code> · <a href="../index.html">↑ 프로젝트 대시보드</a></footer>
+</div>
+</body>
+</html>

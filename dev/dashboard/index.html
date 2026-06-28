@@ -64,12 +64,17 @@
     <li><span class="tag t-done">DONE</span><div>P3 하모나이즈 + P4 신뢰성 — credibility 배터리 crosswalk·MGCFA 측정비동등·정렬법 잠재추세·Mann-Kendall/APC (<code>src/{mgcfa_invariance,alignment,trend_apc}.py</code>)</div></li>
     <li><span class="tag t-done">DONE</span><div>P4 교차검증 — 복구된 pip로 <b>semopy</b> 설치, 직접구현 MGCFA를 독립 라이브러리로 외부검증(표준적재 최대차 0.0003·CFI/RMSEA 일치) — <code>src/mgcfa_semopy_crossval.py</code></div></li>
     <li><span class="tag t-done">DONE</span><div>P5 Evaluation — <b>통합 평가 서사</b>(증거 사다리·삼각검증·강건성·검증게이트 종합) — <code>docs/design/p5-evaluation.md</code> + <code>src/p5_evaluation.py</code></div></li>
-    <li><span class="tag t-progress">진행중</span><div><b>분석 과정 노트북화(Phase A·입증)</b> — P2~P5를 src import·실행출력 임베드 노트북으로 재현 + src 코드리뷰. <b>10·11·20·21 완료</b>(<code>notebooks/10·11·20·21</code>, 21은 사용자 피드백 반영해 통계 서술 밀도↑), 22~30 잔여</div></li>
+    <li><span class="tag t-progress">진행중</span><div><b>분석 과정 노트북화(Phase A·입증)</b> — P2~P5를 src import·실행출력 임베드 노트북으로 재현 + src 코드리뷰. <b>10·11·21 완료 + 20 벤치마크 리메이크</b>(연구질문·Decision Box·[시각화]·완료요약·종합), 21 리메이크 → 22~30 잔여. 벤치마크 예시(ESG .ipynb+논문) 스타일 채택</div></li>
     <li><span class="tag t-todo">NEXT</span><div>P6 논문형 PDF·웹데모(검증 끝난 결과만 탑재) / 비정형 선택트랙 — <b>노트북 입증 완료 후</b></div></li>
   </ul>
 
   <h2>작업 로그 (최신순)</h2>
   <div class="cards">
+    <a class="card" href="log/2026-06-29-media-stats-nb20-remake-benchmark.html">
+      <div class="date">2026-06-29 (KST) · feature/media-stats/nb20-remake-benchmark</div>
+      <div class="title">분석 과정 노트북화 — 20-eda-overview 벤치마크 스타일 리메이크</div>
+      <div class="summary">사용자가 "가장 잘됐다"고 평가한 데이터분석 예시(ESG greenwashing .ipynb 93셀 + 논문 .docx)를 벤치마크로 제공 → 노트북 스타일 전면 업그레이드 결정(20·21 먼저 리메이크, 보고서는 노트북 완료 후). 20을 39셀(md 26/code 13)로 리메이크: 표지(연구질문 Q1~Q3·목차) + Decision Box ①(가중치)·②(추세 지표)·③(2022 이중처리) + 6패널 각각 [시각화] 설명→중간산출→figure→"…완료" 구조화 요약(①②③+takeaway) + finding-as-heading(제목이 결론) + §9 종합(연구질문 답·단계요약표). 수치·검증은 동일 PASS(N합 90,996·2022 64.8%·cred_mean 3.034→…→3.390·상관 .64/.55/.55·P4 인용), 에러 0·figure 6·glyph 0. thin 원칙 유지(src import). 다음: 21 동일 리메이크 후 22부터 처음부터 벤치마크 스타일.</div>
+    </a>
     <a class="card" href="log/2026-06-29-media-stats-nb21-mgcfa-invariance.html">
       <div class="date">2026-06-29 (KST) · feature/media-stats/notebooks-mgcfa-invariance</div>
       <div class="title">분석 과정 노트북화 — 21-mgcfa-invariance + mgcfa_invariance.py 코드리뷰</div>
