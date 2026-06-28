@@ -60,12 +60,18 @@
     <li><span class="tag t-done">DONE</span><div>건강지수 NCHI 산출 — √(신뢰×다양성) 기하평균 + 2축 4사분면 페르소나(타당도 확인) — <code>notebooks/03</code></div></li>
     <li><span class="tag t-done">DONE</span><div>K-means(k=4·2지표) 페르소나 검증 — 규칙 4사분면 독립 재발견(ARI 0.56·일치 80%) + 인구·매체 프로파일·강건성 — <code>notebooks/04</code></div></li>
     <li><span class="tag t-done">DONE</span><div>🧭 <b>분석 마스터플랜(CRISP-DM 재설계)</b> — 7개년 확장·기법 위계·하모나이즈 전략 확정 — <code>docs/design/analysis-master-plan.md</code></div></li>
-    <li><span class="tag t-progress">NEXT</span><div>P2 Data Understanding — 7개년 통합 로더 + 변수 crosswalk 초안 (<code>src/load_audience.py</code>, <code>notebooks/10</code>)</div></li>
-    <li><span class="tag t-todo">TODO</span><div>P3 정제·하모나이즈 → P4 모델링(요인·군집·분류·회귀·시계열) → P5 검증 → P6 논문·웹데모</div></li>
+    <li><span class="tag t-done">DONE</span><div>P2 Data Understanding — 7개년 crosswalk(v0.2)·하모나이즈(<code>src/harmonize.py</code>, 90,996행)·<b>통합 EDA 시각화 6패널</b>(<code>src/eda_overview.py</code>)</div></li>
+    <li><span class="tag t-done">DONE</span><div>P3 하모나이즈 + P4 신뢰성 — credibility 배터리 crosswalk·MGCFA 측정비동등·정렬법 잠재추세·Mann-Kendall/APC (<code>src/{mgcfa_invariance,alignment,trend_apc}.py</code>)</div></li>
+    <li><span class="tag t-progress">NEXT</span><div>P5 Evaluation(결과 종합·스토리라인) → P6 논문형 PDF·웹데모 / 비정형 선택트랙</div></li>
   </ul>
 
   <h2>작업 로그 (최신순)</h2>
   <div class="cards">
+    <a class="card" href="log/2026-06-28-media-stats-eda-overview.html">
+      <div class="date">2026-06-28 (KST) · feature/media-stats/p2-eda-overview</div>
+      <div class="title">P2 7개년 통합 EDA 시각화 — 신뢰성 배터리 포함 (+ pip 복구)</div>
+      <div class="summary">선행 Task 0: 중단된 conda 트랜잭션 <code>.c~</code> 잔재 21,276개로 손상된 base env pip 복구(메타데이터 1,492 복원·코드 1,458 복원·중복 18,316 삭제) → pip 정상화. Task 1: 하모나이즈 패널(90,996행) 기반 6개 EDA 패널(src/eda_overview.py) — 표본구조·인구통계·신뢰시계열·가용성행렬·상관/분포·P4연결. wt_year_eq로 2022 표본지배 제거. 합성 cred_mean 추이(2024 저점→2025 반등)가 P4 정렬추세·APC 기간효과(r=+0.99)와 동일 비단조 패턴으로 삼각검증. 학력 역구배·연령 정구배 발견. eda-overview.md + figures 6종.</div>
+    </a>
     <a class="card" href="log/2026-06-24-media-stats-analysis-master-plan.html">
       <div class="date">2026-06-24 (KST) · feature/media-stats/analysis-master-plan</div>
       <div class="title">분석 마스터플랜 — CRISP-DM 전면 재설계 (설계 세션)</div>

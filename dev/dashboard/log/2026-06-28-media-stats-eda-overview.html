@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>언론통계 — P2 7개년 통합 EDA 시각화(신뢰성 배터리) · 로그</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-progress { background: rgba(210,153,34,.15); color: var(--progress); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .t-blocked { background: rgba(248,81,73,.15); color: var(--blocked); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  code { background: #0b0d11; padding: 1px 6px; border-radius: 4px; font-size: .85em; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin-top: 6px; }
+  th, td { border: 1px solid var(--border); padding: 5px 8px; text-align: left; }
+  th { color: var(--accent); }
+  a { color: var(--accent); }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>P2 — 7개년(2019~2025) 통합 EDA 시각화 (신뢰성 배터리 포함)</h1>
+  <div class="meta">
+    📅 <b>2026-06-28 (KST)</b> · 🌿 브랜치 <b>feature/media-stats/p2-eda-overview</b> · 🔗 PR (생성 예정)
+  </div>
+  <div class="bar"><i style="width:100%"></i></div>
+
+  <section>
+    <h2>✅ 완료 (Done)</h2>
+    <ul>
+      <li><span class="tag t-done">DONE</span><div><b>Task 0</b> — 로컬 pip 복구(중단된 conda 트랜잭션 <code>.c~</code> 잔재 21,276개 → 메타데이터 1,492 복원·코드 1,458 복원·중복 18,316 삭제). <code>pip install</code> 정상화(semopy/pingouin 설치 가능)</div></li>
+      <li><span class="tag t-done">DONE</span><div><code>src/eda_overview.py</code> — 90,996행 패널 입력, 6개 EDA 패널 PNG 생성(<code>wt_year_eq</code> 가중·한글폰트)</div></li>
+      <li><span class="tag t-done">DONE</span><div>패널 ①~⑥ — 표본구조·인구통계·신뢰시계열·가용성행렬·상관/분포·P4연결 → <code>docs/design/figures/eda_p1~p6_*.png</code></div></li>
+      <li><span class="tag t-done">DONE</span><div>산출 문서 <code>docs/design/eda-overview.md</code> — 패널 링크 + 핵심관찰 + P4 정합 코멘트 + 검증게이트 명시</div></li>
+      <li><span class="tag t-done">DONE</span><div>자기점검 통과 — 연도별 N 합 <b>90,996</b> · 핵심3지표 가용 <b>2019~2025</b> · 단일문항 <b>2020~2025</b>(crosswalk 일치)</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔍 핵심 관찰 (⚠️ data-spec §6 재검증 전 인용 신중)</h2>
+    <table>
+      <tr><th>패널</th><th>관찰</th><th>함의</th></tr>
+      <tr><td>① 표본</td><td>2022 N=58,936(전체 64.8%) 지배 → <code>wt_year_eq</code>가 연도합 12,999로 균등화</td><td>추세·평균은 연도균등 가중 필수</td></tr>
+      <tr><td>② 인구</td><td>성·연령·학력·소득 구성비 2022 전후 급단절 없음</td><td>2022 대표본도 인구구성은 타 연도와 정합(통합 타당)</td></tr>
+      <tr><td>③ 신뢰</td><td>합성 cred_mean 3.03→3.31→<b>3.18→3.39</b>(2024 저점·2025 반등)</td><td>P4 정렬추세와 동일 비단조 패턴</td></tr>
+      <tr><td>④ 가용성</td><td>결측은 무응답 아닌 문항 도입/폐지(구조적 부재)</td><td>2019 단일신뢰·2023+ trustworthy·2019-20 영향력 부재</td></tr>
+      <tr><td>⑤ 상관</td><td>핵심3지표 r=.55~.64 · 학력 역구배(중졸 3.30>대학원 2.98)·연령 정구배(60+ 3.30)</td><td>단일요인 타당 + 회귀 사전가설</td></tr>
+      <tr><td>⑥ P4</td><td>정렬 α 2019→2025 +0.67SD(비동등 2.4%)·기간효과 r=+0.99/+0.96</td><td>신뢰성 상승=시대(기간) 효과, 2019 계단 주의</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>📦 산출물</h2>
+    <ul>
+      <li><span class="tag t-done">FILE</span><div><code>src/eda_overview.py</code> (P4 인용값은 상수 분리·비재계산)</div></li>
+      <li><span class="tag t-done">FILE</span><div><code>docs/design/figures/eda_p1~p6_*.png</code> (6종, 각 50~104KB)</div></li>
+      <li><span class="tag t-done">FILE</span><div><code>docs/design/eda-overview.md</code> (패널 개요·관찰·P4 정합·검증게이트)</div></li>
+      <li><span class="tag t-todo">NOTE</span><div><code>data/processed/*.parquet</code>는 gitignore → <code>python src/harmonize.py</code>로 재빌드</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>⏭️ 다음 후보</h2>
+    <ul>
+      <li><span class="tag t-progress">NEXT</span><div>P5 Evaluation — 결과 종합·스토리라인(MGCFA·정렬·APC·EDA 통합)</div></li>
+      <li><span class="tag t-todo">TODO</span><div>웹데모/대시보드 설계 (검증 끝난 모델만 탑재)</div></li>
+      <li><span class="tag t-todo">TODO</span><div>비정형 선택트랙(외부 텍스트·LLM 피드백)</div></li>
+      <li><span class="tag t-todo">TODO</span><div>(선택) 복구된 pip로 semopy/sirt 교차검증 — P4 직접구현 대조</div></li>
+    </ul>
+  </section>
+
+  <footer>R2 작업 대시보드 · <code>skills/agent-ops/dashboard.md</code> · <a href="../index.html">↑ 프로젝트 대시보드</a></footer>
+</div>
+</body>
+</html>
