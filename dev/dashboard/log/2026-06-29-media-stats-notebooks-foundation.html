@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>언론통계 — 노트북 토대(10·11) + harmonize 코드리뷰 · 로그</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-progress { background: rgba(210,153,34,.15); color: var(--progress); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  code { background: #0b0d11; padding: 1px 6px; border-radius: 4px; font-size: .85em; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin-top: 6px; }
+  th, td { border: 1px solid var(--border); padding: 5px 8px; text-align: left; }
+  th { color: var(--accent); }
+  a { color: var(--accent); }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>분석 과정 노트북화 — 토대(10·11) + harmonize 코드리뷰</h1>
+  <div class="meta">
+    📅 <b>2026-06-29 (KST)</b> · 🌿 브랜치 <b>feature/media-stats/notebooks-foundation</b> · 🔗 PR (생성 예정)
+  </div>
+  <div class="bar"><i style="width:100%"></i></div>
+
+  <section>
+    <h2>🎯 배경 (사용자 피드백)</h2>
+    <p class="sub">"7개년 파이프라인(P2~P5)이 <code>src/*.py</code>+<code>docs/*.md</code>로만 수행돼, 실제 분석 과정을 보여주는 노트북이 없다 → '진짜 한 거 맞아?' 입증 공백." 마스터플랜이 약속한 <code>10-data-understanding</code>·<code>11-data-prep</code>·<code>20~30</code> 노트북이 부재했음. <b>Phase A(입증·재현)</b> 착수: src 단계함수를 import해 과정을 단계별로 보여주는 실행 노트북 + src 코드리뷰. 토대부터(R3 1묶음).</p>
+  </section>
+
+  <section>
+    <h2>✅ 완료 (Done)</h2>
+    <ul>
+      <li><span class="tag t-done">DONE</span><div><code>notebooks/10-data-understanding.ipynb</code> (P2) — 7개년 메타 실측·인코딩 fallback 입증·변수명 Jaccard(공통 2개)·2022 가구용(30,138)vs개인용(58,936)·신뢰배터리 7개년 가용·가용성 행렬. <b>검증셀 PASS</b>(실행 출력 임베드)</div></li>
+      <li><span class="tag t-done">DONE</span><div><code>notebooks/11-data-prep-harmonize.ipynb</code> (P3) — <code>build_year</code> 재코딩 전/후·recode 단위검증(assert)·7개년 결합 90,996행·<code>wt_year_eq</code>로 2022 지배 제거(64.8%→14.3%, figure)·자기점검 PASS·parquet 라운드트립</div></li>
+      <li><span class="tag t-done">DONE</span><div><b>코드리뷰 — <code>src/harmonize.py</code> 통과</b>: 인코딩 fallback·가중치명 통일·<code>wt_year_eq</code> 수식·recode 경계(소득 10→NA, 직업 9997→13, 학력 5→4) 정확. 결함 없음 → 강제수정 없이 통과(과잉수정 금지). <code>extract_all_sav_meta.py</code>는 <code>metadataonly=True</code> 효율화 여지 기록만</div></li>
+      <li><span class="tag t-done">DONE</span><div><code>notebooks/README.md</code> — 2트랙(2025 횡단면 01~04 / 7개년 종단 10~30) 안내·실행 출력 임베드 정책</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔍 입증 (실행 출력 임베드)</h2>
+    <table>
+      <tr><th>노트북</th><th>핵심 검증</th><th>결과</th></tr>
+      <tr><td>10</td><td>연도별 N·인코딩·공통변수(2)·핵심3지표 7개년</td><td>PASS</td></tr>
+      <tr><td>10</td><td>2021 euc-kr 강제 → ReadstatError → utf-8 전환</td><td>fallback 작동 입증</td></tr>
+      <tr><td>11</td><td>recode_trust/age/income/edu/job 경계</td><td>PASS (assert)</td></tr>
+      <tr><td>11</td><td>총 N·핵심3지표·단일문항(2020~)·가중치 균등</td><td>PASS · 90,996×32</td></tr>
+      <tr><td>11</td><td>2022 표본 기여 64.8% → wt_year_eq 14.3%</td><td>균등화 figure 임베드</td></tr>
+    </table>
+    <p class="sub">실행: <code>PYTHONIOENCODING=utf-8 jupyter nbconvert --to notebook --execute --inplace</code> · 에러 0건.</p>
+  </section>
+
+  <section>
+    <h2>⏭️ 다음 (Phase A 잔여 — 다음 세션 인수인계)</h2>
+    <ul>
+      <li><span class="tag t-progress">NEXT</span><div><code>20-eda-overview</code> → <code>21-mgcfa-invariance</code> → <code>22-semopy-crossval</code> → <code>23-alignment-trend</code> → <code>24-trend-apc</code> → <code>30-evaluation</code> 동일 패턴(src import·중간출력·self_validation·실행임베드)으로 노트북화 + 각 src 코드리뷰</div></li>
+      <li><span class="tag t-todo">LATER</span><div>Phase B(확장): 결측 대치·2025 신뢰 22문항 CFA 정교화·예측모델+SHAP·횡단면↔종단 통합. 각 단계 <b>Perplexity Deep Research 체크포인트</b> 경유</div></li>
+    </ul>
+  </section>
+
+  <footer>R2 작업 대시보드 · <code>skills/agent-ops/dashboard.md</code> · <a href="../index.html">↑ 프로젝트 대시보드</a></footer>
+</div>
+</body>
+</html>

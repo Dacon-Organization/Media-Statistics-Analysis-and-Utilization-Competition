@@ -64,11 +64,17 @@
     <li><span class="tag t-done">DONE</span><div>P3 하모나이즈 + P4 신뢰성 — credibility 배터리 crosswalk·MGCFA 측정비동등·정렬법 잠재추세·Mann-Kendall/APC (<code>src/{mgcfa_invariance,alignment,trend_apc}.py</code>)</div></li>
     <li><span class="tag t-done">DONE</span><div>P4 교차검증 — 복구된 pip로 <b>semopy</b> 설치, 직접구현 MGCFA를 독립 라이브러리로 외부검증(표준적재 최대차 0.0003·CFI/RMSEA 일치) — <code>src/mgcfa_semopy_crossval.py</code></div></li>
     <li><span class="tag t-done">DONE</span><div>P5 Evaluation — <b>통합 평가 서사</b>(증거 사다리·삼각검증·강건성·검증게이트 종합) — <code>docs/design/p5-evaluation.md</code> + <code>src/p5_evaluation.py</code></div></li>
-    <li><span class="tag t-progress">NEXT</span><div>P6 논문형 PDF·웹데모(검증 끝난 결과만 탑재) / 비정형 선택트랙(외부 텍스트·LLM 피드백)</div></li>
+    <li><span class="tag t-progress">진행중</span><div><b>분석 과정 노트북화(Phase A·입증)</b> — P2~P5를 src import·실행출력 임베드 노트북으로 재현 + src 코드리뷰. <b>토대 10·11 완료</b>(<code>notebooks/10·11</code>), 20~30 잔여(다음 세션)</div></li>
+    <li><span class="tag t-todo">NEXT</span><div>P6 논문형 PDF·웹데모(검증 끝난 결과만 탑재) / 비정형 선택트랙 — <b>노트북 입증 완료 후</b></div></li>
   </ul>
 
   <h2>작업 로그 (최신순)</h2>
   <div class="cards">
+    <a class="card" href="log/2026-06-29-media-stats-notebooks-foundation.html">
+      <div class="date">2026-06-29 (KST) · feature/media-stats/notebooks-foundation</div>
+      <div class="title">분석 과정 노트북화 — 토대(10·11) + harmonize 코드리뷰</div>
+      <div class="summary">사용자 피드백 반영: 7개년 파이프라인(P2~P5)이 src+docs로만 수행돼 '실제 분석 과정' 노트북이 없던 입증 공백 해소(Phase A·입증/재현 착수). src 단계함수를 import해 과정·중간출력을 보여주는 실행 노트북 2종을 nbconvert --execute로 출력 임베드: 10-data-understanding(P2 — 7개년 메타·인코딩 fallback 입증·변수명 Jaccard 공통2개·2022 가구용30,138/개인용58,936·신뢰배터리 7개년 가용·검증PASS), 11-data-prep-harmonize(P3 — build_year 재코딩 전/후·recode 단위검증 assert·7개년 결합 90,996행·wt_year_eq로 2022 지배 64.8%→14.3% figure·자기점검 PASS·parquet 라운드트립). harmonize.py 코드리뷰 통과(결함 없음, 과잉수정 금지). notebooks/README 2트랙 안내. 잔여 20~30은 다음 세션 인수인계.</div>
+    </a>
     <a class="card" href="log/2026-06-29-media-stats-p5-evaluation.html">
       <div class="date">2026-06-29 (KST) · feature/media-stats/p5-evaluation</div>
       <div class="title">P5 Evaluation — 통합 평가 서사 (MGCFA·정렬·APC·EDA 종합)</div>
