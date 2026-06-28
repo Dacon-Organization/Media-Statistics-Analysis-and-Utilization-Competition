@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>언론통계 — 노트북 21 벤치마크 스타일 리메이크 · 로그</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-progress { background: rgba(210,153,34,.15); color: var(--progress); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  code { background: #0b0d11; padding: 1px 6px; border-radius: 4px; font-size: .85em; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin-top: 6px; }
+  th, td { border: 1px solid var(--border); padding: 5px 8px; text-align: left; }
+  th { color: var(--accent); }
+  a { color: var(--accent); }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>분석 과정 노트북화 — 21-mgcfa-invariance 벤치마크 스타일 리메이크</h1>
+  <div class="meta">
+    📅 <b>2026-06-28 (KST)</b> · 🌿 브랜치 <b>feature/media-stats/nb21-remake-benchmark</b> · 🔗 PR (생성 예정) · 스타일 업그레이드 (Phase A)
+  </div>
+  <div class="bar"><i style="width:100%"></i></div>
+
+  <section>
+    <h2>🎯 배경</h2>
+    <p class="sub">노트북 21(#145로 노트북화 완료)은 통계 밀도는 이미 높으나 벤치마크 "형식"(연구질문·목차 표지 / Decision Box / [시각화] 설명 / "…완료" 요약 / finding-as-heading / 종합 결론)이 부족했다. #147에서 노트북 20을 같은 벤치마크 스타일로 리메이크한 데 이어, <b>21도 형식만 입히고 통계 수치·검증셀·코드리뷰는 동일하게 유지</b>한다. R3대로 1묶음(우선순위 A) 후 정지.</p>
+  </section>
+
+  <section>
+    <h2>✅ 완료 (Done)</h2>
+    <ul>
+      <li><span class="tag t-done">DONE</span><div><code>notebooks/21-mgcfa-invariance.ipynb</code> 전면 리메이크 (39셀, md 27/code 12): <b>표지</b>(결론형 제목·부제 + 연구질문 Q1~Q3 + 목차 표 + thin/검증게이트) + <b>Decision Box ①~④</b>(① numpy/scipy 직접구현 vs semopy / ② 다집단 RMSEA √G 보정 / ③ ΔCFI·ΔRMSEA 임계값 Chen·Rutkowski / ④ 3지표 포화 → CFI 우선·4지표 보강) + <b>[시각화] 설명 셀</b>(주모형 적합 사다리 figure 앞) + <b>"…완료" 구조화 요약</b>(자기검증·주모형·민감도1·민감도2, ①②③+takeaway) + <b>finding-as-heading</b>(예 "측정치 동등은 강하게 성립, 절편은 기준 이내로 지지된다") + <b>§11 종합</b>(연구질문 답·단계요약표·다음 단계). thin 원칙 유지(<code>src/mgcfa_invariance.py</code> import, 로직 재구현 0)</div></li>
+      <li><span class="tag t-done">DONE</span><div>실행·임베드: <code>nbconvert --to notebook --execute --inplace</code> — <b>에러 0 · figure 1 · glyph 경고 0 · 검증셀 PASS</b>. 입력 parquet은 메인 체크아웃에서 복사(gitignore, 미커밋)</div></li>
+      <li><span class="tag t-done">DONE</span><div>기존 코드리뷰(§12, 구 §11)·자기검증셀·assert 전부 보존 — 수치 변화 없음(과잉수정 금지)</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔍 입증 (검증셀 PASS — 내용 동일, 서술·구조 밀도↑)</h2>
+    <table>
+      <tr><th>요소</th><th>리메이크 전(21 v1)</th><th>리메이크 후(벤치마크)</th></tr>
+      <tr><td>표지</td><td>thin·검증게이트 blockquote</td><td>결론형 제목·부제 + 연구질문 Q1~Q3 + 목차 표</td></tr>
+      <tr><td>방법 선택</td><td>본문 산문</td><td>Decision Box ①②③④(기준·비교표·근거)</td></tr>
+      <tr><td>figure</td><td>바로 임베드</td><td>[시각화] 설명(축·색·볼 포인트) 선행</td></tr>
+      <tr><td>코드 뒤</td><td>관찰 1~2줄</td><td>"…완료" ①②③+takeaway (자기검증·주·민1·민2)</td></tr>
+      <tr><td>섹션 제목</td><td>주제형("적합지수")</td><td>finding-as-heading(결론형)</td></tr>
+      <tr><td>결론</td><td>코드리뷰만</td><td>§11 종합(연구질문 답·단계요약표) + §12 코드리뷰</td></tr>
+    </table>
+    <p class="sub">수치·검증 동일(PASS): 주모형 df[0,12,24]·metric ΔCFI −0.0008·scalar ΔCFI −0.0063, 민감도1 scalar ΔCFI −0.0100, 민감도2 configural CFI .9998·metric ΔRMSEA .0016, 자기검증 A·B 모두 True, 모든 단계 ΔCFI ≥ −0.020 충족. <code>docs/design/mgcfa-invariance-results.md</code> 수치와 전부 일치.</p>
+  </section>
+
+  <section>
+    <h2>⏭️ 다음 (인수인계)</h2>
+    <ul>
+      <li><span class="tag t-progress">NEXT</span><div>우선순위 B: <code>22-mgcfa-semopy-crossval</code> — 처음부터 벤치마크 스타일로 신규 작성(대상 <code>src/mgcfa_semopy_crossval.py</code>, 직접구현 MGCFA ↔ semopy 교차검증 · <code>docs/design/mgcfa-semopy-crossval.md</code> 수치 일치 assert)</div></li>
+      <li><span class="tag t-todo">LATER</span><div>23-alignment-trend · 24-trend-apc · 30-evaluation → 전부 완료 후 논문형 보고서(.docx) + 웹데모. Perplexity 선행연구·삼각검증 레이어 보강</div></li>
+    </ul>
+  </section>
+
+  <footer>R2 작업 대시보드 · <code>skills/agent-ops/dashboard.md</code> · <a href="../index.html">↑ 프로젝트 대시보드</a></footer>
+</div>
+</body>
+</html>

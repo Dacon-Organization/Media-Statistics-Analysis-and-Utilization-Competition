@@ -70,6 +70,11 @@
 
   <h2>작업 로그 (최신순)</h2>
   <div class="cards">
+    <a class="card" href="log/2026-06-28-media-stats-nb21-remake-benchmark.html">
+      <div class="date">2026-06-28 (KST) · feature/media-stats/nb21-remake-benchmark</div>
+      <div class="title">분석 과정 노트북화 — 21-mgcfa-invariance 벤치마크 스타일 리메이크</div>
+      <div class="summary">통계 밀도는 이미 높았던 21에 벤치마크 "형식"만 입힘(수치·검증·코드리뷰 동일 유지). 39셀(md 27/code 12)로 재구성: 표지(결론형 제목·부제 + 연구질문 Q1~Q3 + 목차 표 + thin/검증게이트) + Decision Box ①~④(① numpy/scipy 직접구현 vs semopy / ② 다집단 RMSEA √G 보정 / ③ ΔCFI·ΔRMSEA 임계값 Chen·Rutkowski / ④ 3지표 포화→CFI 우선·4지표 보강) + [시각화] 설명 셀(적합 사다리 figure 앞) + "…완료" 구조화 요약(자기검증·주모형·민감도1·민감도2, ①②③+takeaway) + finding-as-heading + §11 종합(연구질문 답·단계요약표·다음). 실행 PASS: 에러 0·figure 1·glyph 0, docs/design/mgcfa-invariance-results.md 수치 전부 일치(주 metric ΔCFI −0.0008·scalar −0.0063, 민1 scalar −0.0100, 민2 configural CFI .9998·metric ΔRMSEA .0016, 모든 단계 ΔCFI ≥ −0.020). thin 원칙 유지(src import). 다음: 22-semopy-crossval부터 처음부터 벤치마크 스타일.</div>
+    </a>
     <a class="card" href="log/2026-06-29-media-stats-nb20-remake-benchmark.html">
       <div class="date">2026-06-29 (KST) · feature/media-stats/nb20-remake-benchmark</div>
       <div class="title">분석 과정 노트북화 — 20-eda-overview 벤치마크 스타일 리메이크</div>
