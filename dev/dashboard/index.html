@@ -70,6 +70,11 @@
 
   <h2>작업 로그 (최신순)</h2>
   <div class="cards">
+    <a class="card" href="log/2026-06-28-media-stats-nb-refactor-design.html">
+      <div class="date">2026-06-28 (KST) · claude/vibrant-ardinghelli-ed3b7a</div>
+      <div class="title">구형 노트북 전면 리팩토링 — 설계 확정 + 다양성 하모나이즈 Perplexity 브리프</div>
+      <div class="summary">사용자 핵심 지적("7개년 보유하고도 2025만 실험한 느낌") 해소 착수. R3대로 코드 전 설계부터 확정. AskUserQuestion 분기 결정: ① 다양성축=A안(crosswalk 정공법 확장 — 패널의 media_main_route는 단일 주경로 1개라 Richness(12 매체 배터리)가 아님 → 7개년 매체이용 배터리 신규 매핑 필요) ② 첫 묶음=03-health-index 다개년 ③ 사용자 지적 "Perplexity 스페이스 활용 안 한다" 수용 → 방법론 갈림길 Deep Research 워크플로 적용. 산출 2종: docs/design/notebook-refactor-plan.md(문제진단·A안근거·모듈 아키텍처 결정=신규 src/health_index_panel.py thin 어댑터, 공통수학은 news_health_features import 재사용, 2025 모듈 이력보존·미결정 4건·로드맵) + docs/groundwork/06-research-diversity-harmonization-brief.md(Perplexity 브리프 역할+배경+Q1~Q5+출력형식: 고정풀·Richness/Shannon/e^H·이용여부vs일수·측정 비동등·주경로 보조축). README 3종 갱신. 다음: 사용자 Perplexity 실행 → 06 결과 반영 → crosswalk·harmonize 확장 → health_index_panel.py → 03 다개년.</div>
+    </a>
     <a class="card" href="log/2026-06-28-media-stats-nb22-semopy-crossval.html">
       <div class="date">2026-06-28 (KST) · feature/media-stats/nb22-semopy-crossval</div>
       <div class="title">분석 과정 노트북화 — 22-mgcfa-semopy-crossval 신규 (벤치마크 + 5단계 배너)</div>

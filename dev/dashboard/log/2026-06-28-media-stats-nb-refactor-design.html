@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>언론통계 — 구형 노트북 리팩토링 설계 확정 + 다양성 하모나이즈 브리프 · 로그</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-progress { background: rgba(210,153,34,.15); color: var(--progress); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  code { background: #0b0d11; padding: 1px 6px; border-radius: 4px; font-size: .85em; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin-top: 6px; }
+  th, td { border: 1px solid var(--border); padding: 5px 8px; text-align: left; }
+  th { color: var(--accent); }
+  a { color: var(--accent); }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>구형 노트북 전면 리팩토링 — 설계 확정 + 다양성 하모나이즈 Perplexity 브리프</h1>
+  <div class="meta">
+    📅 <b>2026-06-28 (KST)</b> · 🌿 브랜치 <b>claude/vibrant-ardinghelli-ed3b7a</b> · 🔗 PR (생성 예정) · 우선순위 A(코드 전 설계)
+  </div>
+  <div class="bar"><i style="width:100%"></i></div>
+
+  <section>
+    <h2>🎯 배경 (사용자 핵심 지적)</h2>
+    <p class="sub">횡단면 트랙 A(01~04, 특히 03 NCHI·04 페르소나)가 7개년 데이터를 보유하고도 <b>"2025 한 해만 실험한 느낌"</b>. 원인 = <code>src/news_health_features.py</code>의 2025 전용 하드코딩. R3대로 <b>코드 전에 설계부터</b> 확정. 사용자 추가 지적: <b>"Perplexity 스페이스를 활용 안 한다"</b> → 방법론 갈림길마다 Deep Research를 써온 워크플로를 다양성 하모나이즈에도 적용.</p>
+  </section>
+
+  <section>
+    <h2>✅ 완료 (Done)</h2>
+    <ul>
+      <li><span class="tag t-done">DONE</span><div><b>분기 결정(AskUserQuestion)</b>: ① 다양성축 = <b>A안(crosswalk 정공법 확장)</b> — 7개년 매체이용 배터리 신규 매핑 ② 첫 묶음 = <b>03-health-index 다개년</b> ③ <b>Perplexity 활용</b> 강조 수용</div></li>
+      <li><span class="tag t-done">DONE</span><div><code>docs/design/notebook-refactor-plan.md</code> 신규: 문제 진단표 · A안 채택근거 · <b>모듈 아키텍처 결정</b>(신규 <code>src/health_index_panel.py</code> = thin 어댑터, 공통수학은 news_health_features import 재사용, 2025 모듈 이력보존) · 미결정 4건 · 로드맵 · 완료정의</div></li>
+      <li><span class="tag t-done">DONE</span><div><code>docs/groundwork/06-research-diversity-harmonization-brief.md</code> 신규: <b>Perplexity Deep Research 브리프</b>(역할+배경+Q1~Q5+출력형식) — 고정풀 정의 · Richness/Shannon/e^H · 이용여부 vs 일수 · 측정 비동등 점검 · 주경로 보조축. 사용자 스페이스 실행 대기</div></li>
+      <li><span class="tag t-done">DONE</span><div>README 3종 갱신: <code>notebooks/README.md</code>(리팩토링 진행중·설계/브리프 링크) · <code>docs/groundwork/README.md</code>(06 추가)</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔍 핵심 설계 판단</h2>
+    <table>
+      <tr><th>쟁점</th><th>결정</th><th>근거</th></tr>
+      <tr><td>다양성 7개년 마련</td><td>A안 crosswalk 확장</td><td>패널 <code>media_main_route</code>는 단일 주경로 1개 ≠ Richness(12 매체 배터리). 진짜 폭 산출엔 배터리 매핑 필요</td></tr>
+      <tr><td>모듈 구조</td><td>신규 <code>health_index_panel.py</code></td><td>패널 스키마(cred_* target_var) ≠ 2025 원변수(Q85_*). 파라미터화 시 분기지옥 · 2025 모듈 이력보존</td></tr>
+      <tr><td>로직 SSOT</td><td>공통수학 import 재사용</td><td>nchi·persona_quadrant·cronbach_alpha 재구현 금지(thin 원칙)</td></tr>
+      <tr><td>방법론 갈림길</td><td>Perplexity 선행</td><td>고정풀·측정 비동등·e^H는 외부 학술근거로 확정 후 코드(03·04·05 워크플로 동일)</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>⏭️ 다음 (인수인계 — 다음 세션)</h2>
+    <ul>
+      <li><span class="tag t-progress">NEXT</span><div><b>사용자 Perplexity 실행 → 06 §결과 반영</b> → <code>variable-crosswalk.md §3.4</code> 7개년 매체이용 배터리 확장 → <code>harmonize.py</code> 고정풀 다양성 컬럼 추가 → <code>src/health_index_panel.py</code> 신설</div></li>
+      <li><span class="tag t-todo">LATER</span><div><code>03-health-index</code> 다개년 리팩토링(NCHI 7개년 추세 + 벤치마크 + 5단계 배너) → <code>04-personas-kmeans</code> 다개년 → 10·11 벤치마크 격상</div></li>
+      <li><span class="tag t-todo">LATER</span><div>잔여 벤치마크 신규: 23-alignment-trend · 24-trend-apc · 30-evaluation → 논문형 .docx + 웹데모</div></li>
+    </ul>
+  </section>
+
+  <footer>R2 작업 대시보드 · <code>skills/agent-ops/dashboard.md</code> · <a href="../index.html">↑ 프로젝트 대시보드</a></footer>
+</div>
+</body>
+</html>

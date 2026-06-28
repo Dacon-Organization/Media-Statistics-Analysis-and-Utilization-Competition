@@ -16,7 +16,9 @@ Jupyter 노트북. **ZIP 추가 산출물로 제출**하며, 대회 심사에서
 | **⑤ 모델링·평가** | P4·P5 | `21`·`22`·`23`·`24`·`30` | `04-personas-kmeans` |
 
 > ⚠️ **현황(2026-06-28)**: 종단 트랙(B)이 메인 라인이며 벤치마크 스타일로 정비 중이다. 횡단면 트랙(A, 01~04)은
-> **2025 단일연도만 실험**한 초기 산출이라, 7개년 전체 데이터 기준으로 **전면 리팩토링 예정**(다음 세션).
+> **2025 단일연도만 실험**한 초기 산출이라, 7개년 전체 데이터 기준으로 **전면 리팩토링 진행 중**.
+> 설계 확정 = [`../docs/design/notebook-refactor-plan.md`](../docs/design/notebook-refactor-plan.md)(다양성축 A안·신규 `src/health_index_panel.py`·03 다개년 우선).
+> 선행조건 = 다양성 하모나이즈 Perplexity 브리프 [`../docs/groundwork/06-research-diversity-harmonization-brief.md`](../docs/groundwork/06-research-diversity-harmonization-brief.md)(실행 대기).
 
 ## 두 트랙
 
