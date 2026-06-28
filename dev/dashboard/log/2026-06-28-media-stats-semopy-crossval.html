@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>언론통계 — MGCFA 교차검증(직접구현 ↔ semopy) · 로그</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-progress { background: rgba(210,153,34,.15); color: var(--progress); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  code { background: #0b0d11; padding: 1px 6px; border-radius: 4px; font-size: .85em; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin-top: 6px; }
+  th, td { border: 1px solid var(--border); padding: 5px 8px; text-align: left; }
+  th { color: var(--accent); }
+  a { color: var(--accent); }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>MGCFA 교차검증 — 직접구현(numpy/scipy) ↔ semopy</h1>
+  <div class="meta">
+    📅 <b>2026-06-28 (KST)</b> · 🌿 브랜치 <b>feature/media-stats/p4-semopy-crossval</b> · 🔗 PR (생성 예정)
+  </div>
+  <div class="bar"><i style="width:100%"></i></div>
+
+  <section>
+    <h2>✅ 완료 (Done)</h2>
+    <ul>
+      <li><span class="tag t-done">DONE</span><div>pip 복구 후 <b>semopy 2.3.11 설치</b> → 직접구현 ML CFA 추정기를 독립 라이브러리로 외부 교차검증</div></li>
+      <li><span class="tag t-done">DONE</span><div><code>src/mgcfa_semopy_crossval.py</code> — 직접구현(<code>mgcfa_invariance</code>) import 후 동일 연도 데이터로 semopy 재적합·대조 + pingouin 신뢰도</div></li>
+      <li><span class="tag t-done">DONE</span><div>결과 문서 <code>docs/design/mgcfa-semopy-crossval.md</code></div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔍 교차검증 결과</h2>
+    <table>
+      <tr><th>검증 항목</th><th>결과</th><th>의미</th></tr>
+      <tr><td>표준적재 (3지표·7집단)</td><td>직접↔semopy 최대차 <b>0.0003</b></td><td>추정 엔진 동일</td></tr>
+      <tr><td>표준적재 (4지표·4집단)</td><td>최대차 <b>0.0001</b>, CFI/RMSEA 4자리 일치</td><td>적합지수 동일</td></tr>
+      <tr><td>연도간 적재 SD</td><td>0.031~0.047 (작음)</td><td>metric 동등 독립 근거</td></tr>
+      <tr><td>Cronbach α (pingouin)</td><td>0.70~0.82 (7개년)</td><td>단일차원·신뢰도 독립 확인</td></tr>
+    </table>
+    <p class="sub">→ 직접구현이 보고한 metric 동등 강지지가 독립 라이브러리로 재확인. P5·웹데모에서 "직접구현 ↔ semopy 교차검증 통과"로 신뢰도 보강.</p>
+  </section>
+
+  <section>
+    <h2>⚠️ 한계 (정직)</h2>
+    <ul>
+      <li><span class="tag t-todo">SCOPE</span><div>완전 동등제약 metric/scalar χ² 재현과 <b>정렬법(alignment) 교차검증</b>은 R <code>sirt</code>/Mplus 영역 → 범위 외. 본 검증은 ladder의 추정 토대(configural·적재·신뢰도)에 한정</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>⏭️ 다음 후보</h2>
+    <ul>
+      <li><span class="tag t-progress">NEXT</span><div>P5 Evaluation — MGCFA(+교차검증)·정렬·APC·EDA 통합 스토리라인</div></li>
+      <li><span class="tag t-todo">TODO</span><div>비정형 선택트랙(외부 텍스트·LLM 피드백) → 최종 웹데모/대시보드</div></li>
+    </ul>
+  </section>
+
+  <footer>R2 작업 대시보드 · <code>skills/agent-ops/dashboard.md</code> · <a href="../index.html">↑ 프로젝트 대시보드</a></footer>
+</div>
+</body>
+</html>

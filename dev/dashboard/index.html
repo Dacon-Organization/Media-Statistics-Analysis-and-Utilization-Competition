@@ -62,11 +62,17 @@
     <li><span class="tag t-done">DONE</span><div>🧭 <b>분석 마스터플랜(CRISP-DM 재설계)</b> — 7개년 확장·기법 위계·하모나이즈 전략 확정 — <code>docs/design/analysis-master-plan.md</code></div></li>
     <li><span class="tag t-done">DONE</span><div>P2 Data Understanding — 7개년 crosswalk(v0.2)·하모나이즈(<code>src/harmonize.py</code>, 90,996행)·<b>통합 EDA 시각화 6패널</b>(<code>src/eda_overview.py</code>)</div></li>
     <li><span class="tag t-done">DONE</span><div>P3 하모나이즈 + P4 신뢰성 — credibility 배터리 crosswalk·MGCFA 측정비동등·정렬법 잠재추세·Mann-Kendall/APC (<code>src/{mgcfa_invariance,alignment,trend_apc}.py</code>)</div></li>
+    <li><span class="tag t-done">DONE</span><div>P4 교차검증 — 복구된 pip로 <b>semopy</b> 설치, 직접구현 MGCFA를 독립 라이브러리로 외부검증(표준적재 최대차 0.0003·CFI/RMSEA 일치) — <code>src/mgcfa_semopy_crossval.py</code></div></li>
     <li><span class="tag t-progress">NEXT</span><div>P5 Evaluation(결과 종합·스토리라인) → P6 논문형 PDF·웹데모 / 비정형 선택트랙</div></li>
   </ul>
 
   <h2>작업 로그 (최신순)</h2>
   <div class="cards">
+    <a class="card" href="log/2026-06-28-media-stats-semopy-crossval.html">
+      <div class="date">2026-06-28 (KST) · feature/media-stats/p4-semopy-crossval</div>
+      <div class="title">MGCFA 교차검증 — 직접구현(numpy/scipy) ↔ semopy</div>
+      <div class="summary">pip 손상기 numpy/scipy로 직접 구현했던 ML CFA 추정기를 복구된 pip로 설치한 독립 라이브러리 semopy 2.3.11로 외부 교차검증. 동일 연도 데이터로 재적합 → 표준적재 직접↔semopy 최대 절대차 0.0003(3지표)·0.0001(4지표), CFI/RMSEA도 소수 4자리까지 일치. 연도간 적재 SD 0.031~0.047(metric 동등 독립근거) + pingouin Cronbach α 0.70~0.82(단일차원 확인). 직접구현 metric 동등 강지지가 독립 검증됨. 한계: 정렬법(alignment) 교차검증은 R sirt/Mplus 영역으로 범위 외 명시.</div>
+    </a>
     <a class="card" href="log/2026-06-28-media-stats-eda-overview.html">
       <div class="date">2026-06-28 (KST) · feature/media-stats/p2-eda-overview</div>
       <div class="title">P2 7개년 통합 EDA 시각화 — 신뢰성 배터리 포함 (+ pip 복구)</div>
