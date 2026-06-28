@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>언론통계 — 노트북 22 신규(벤치마크+5단계) · 로그</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-progress { background: rgba(210,153,34,.15); color: var(--progress); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  code { background: #0b0d11; padding: 1px 6px; border-radius: 4px; font-size: .85em; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin-top: 6px; }
+  th, td { border: 1px solid var(--border); padding: 5px 8px; text-align: left; }
+  th { color: var(--accent); }
+  a { color: var(--accent); }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>분석 과정 노트북화 — 22-mgcfa-semopy-crossval 신규 (벤치마크 + 5단계 배너)</h1>
+  <div class="meta">
+    📅 <b>2026-06-28 (KST)</b> · 🌿 브랜치 <b>feature/media-stats/nb22-semopy-crossval</b> · 🔗 PR (생성 예정) · Phase A 우선순위 B
+  </div>
+  <div class="bar"><i style="width:100%"></i></div>
+
+  <section>
+    <h2>🎯 배경 (사용자 결정)</h2>
+    <p class="sub">노트북 20·21 벤치마크 리메이크에 이어, ① 노트북 22를 <b>처음부터 벤치마크 스타일</b>로 신규 작성하고 ② 사용자 요청대로 <b>5단계 표준 DS 파이프라인</b>을 벤치마크 흐름에 더 녹였다(README 5단계 지도 + 노트북 표지 <code>📍 파이프라인 위치</code> 배너 신설). 22는 노트북 21의 직접구현(numpy/scipy) MGCFA 추정 엔진을 <b>독립 라이브러리 semopy</b>로 외부 교차검증하는 robustness 단계.</p>
+  </section>
+
+  <section>
+    <h2>✅ 완료 (Done)</h2>
+    <ul>
+      <li><span class="tag t-done">DONE</span><div><code>notebooks/22-mgcfa-semopy-crossval.ipynb</code> 신규 (24셀, md 17/code 7): 표지(결론형 제목·부제 + <b>📍 5단계/CRISP-DM 배너</b> + 연구질문 Q1~Q3 + 목차) + Decision Box ①~③(① 교차검증 대상=configural 토대 / ② 비교지표=표준적재 우선 / ③ 검증 경계=정렬법 범위밖 정직한 한계) + [시각화](직접 vs semopy 표준적재 중첩) + "…완료" 요약(주모형·4지표·독립보강) + finding-as-heading + §7 종합(연구질문 답·단계요약표·다음). thin 원칙(src/mgcfa_semopy_crossval.py import)</div></li>
+      <li><span class="tag t-done">DONE</span><div>실행·임베드: <code>nbconvert --execute</code> — <b>에러 0 · figure 1 · glyph 0 · 검증셀 PASS</b>. semopy 2.3.11 · pingouin 정상</div></li>
+      <li><span class="tag t-done">DONE</span><div><code>notebooks/README.md</code>: <b>5단계 ↔ 노트북 지도</b> 표 신설(종단·횡단면 트랙 매핑) + 22 상태 [예정]→[✅] + 횡단면 트랙(01~04) 전면 리팩토링 예정 명시</div></li>
+      <li><span class="tag t-done">DONE</span><div>코드리뷰 <code>src/mgcfa_semopy_crossval.py</code> 통과(표준적재 정의 일관·공정 대조·적합지수 경계처리·독립보강 논리·정직한 한계). 결함 없음</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔍 입증 (검증셀 PASS)</h2>
+    <table>
+      <tr><th>검증</th><th>지표</th><th>결과</th></tr>
+      <tr><td>주모형 3지표·7집단</td><td>표준적재 직접↔semopy 최대차</td><td>0.0003 (엔진 동일)</td></tr>
+      <tr><td>4지표·4집단(비포화)</td><td>적재차 + CFI/RMSEA</td><td>0.0001 + 4자리 일치</td></tr>
+      <tr><td>적재 안정성</td><td>연도간 표준적재 SD</td><td>.031/.047/.032 (metric 독립지지)</td></tr>
+      <tr><td>신뢰도</td><td>Cronbach α(7개년)</td><td>.70~.82 (단일차원 정당)</td></tr>
+    </table>
+    <p class="sub">→ 직접구현 추정 엔진이 독립 라이브러리로 외부 입증 → 노트북 21 metric/scalar 결론 보증. docs/design/mgcfa-semopy-crossval.md 수치 전부 일치.</p>
+  </section>
+
+  <section>
+    <h2>⏭️ 다음 (인수인계 — 다음 세션)</h2>
+    <ul>
+      <li><span class="tag t-progress">NEXT</span><div><b>구형 노트북 전면 리팩토링(전체 데이터 기준)</b> — 사용자 핵심 피드백: "데이터를 엄청 많이 가져왔는데 (2025) 하나만 실험한 느낌 → 전체 데이터로 진행". 횡단면 트랙 01~04를 7개년(또는 가용 14개년) 전체 기준으로 재설계 + 벤치마크 스타일 + 5단계 배너. 10·11도 벤치마크화. <b>상세 복붙 프롬프트는 세션 핸드오프 참조.</b></div></li>
+      <li><span class="tag t-todo">LATER</span><div>23-alignment-trend · 24-trend-apc · 30-evaluation 벤치마크 신규 → 전부 완료 후 논문형 보고서(.docx) + 웹데모, Perplexity 삼각검증</div></li>
+    </ul>
+  </section>
+
+  <footer>R2 작업 대시보드 · <code>skills/agent-ops/dashboard.md</code> · <a href="../index.html">↑ 프로젝트 대시보드</a></footer>
+</div>
+</body>
+</html>
