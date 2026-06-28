@@ -64,12 +64,17 @@
     <li><span class="tag t-done">DONE</span><div>P3 하모나이즈 + P4 신뢰성 — credibility 배터리 crosswalk·MGCFA 측정비동등·정렬법 잠재추세·Mann-Kendall/APC (<code>src/{mgcfa_invariance,alignment,trend_apc}.py</code>)</div></li>
     <li><span class="tag t-done">DONE</span><div>P4 교차검증 — 복구된 pip로 <b>semopy</b> 설치, 직접구현 MGCFA를 독립 라이브러리로 외부검증(표준적재 최대차 0.0003·CFI/RMSEA 일치) — <code>src/mgcfa_semopy_crossval.py</code></div></li>
     <li><span class="tag t-done">DONE</span><div>P5 Evaluation — <b>통합 평가 서사</b>(증거 사다리·삼각검증·강건성·검증게이트 종합) — <code>docs/design/p5-evaluation.md</code> + <code>src/p5_evaluation.py</code></div></li>
-    <li><span class="tag t-progress">진행중</span><div><b>분석 과정 노트북화(Phase A·입증)</b> — P2~P5를 src import·실행출력 임베드 노트북으로 재현 + src 코드리뷰. <b>토대 10·11 + 20-eda-overview 완료</b>(<code>notebooks/10·11·20</code>), 21~30 잔여</div></li>
+    <li><span class="tag t-progress">진행중</span><div><b>분석 과정 노트북화(Phase A·입증)</b> — P2~P5를 src import·실행출력 임베드 노트북으로 재현 + src 코드리뷰. <b>10·11·20·21 완료</b>(<code>notebooks/10·11·20·21</code>, 21은 사용자 피드백 반영해 통계 서술 밀도↑), 22~30 잔여</div></li>
     <li><span class="tag t-todo">NEXT</span><div>P6 논문형 PDF·웹데모(검증 끝난 결과만 탑재) / 비정형 선택트랙 — <b>노트북 입증 완료 후</b></div></li>
   </ul>
 
   <h2>작업 로그 (최신순)</h2>
   <div class="cards">
+    <a class="card" href="log/2026-06-29-media-stats-nb21-mgcfa-invariance.html">
+      <div class="date">2026-06-29 (KST) · feature/media-stats/notebooks-mgcfa-invariance</div>
+      <div class="title">분석 과정 노트북화 — 21-mgcfa-invariance + mgcfa_invariance.py 코드리뷰</div>
+      <div class="summary">사용자 피드백("노트북이 너무 단순/대충 → 하나하나 꼼꼼히") 반영: 21은 함수 호출+assert로 넘기지 않고 측정 동등성 개념·단일요인 CFA 모델식·식별제약(marker λ₁=1·로그 θ/ψ·기준집단 α)·ML 적합함수 F·자유도 직접 부기(적률−자유모수)·CFI/RMSEA·ΔCFI/ΔRMSEA 공식을 한 단계씩 풀어 서술하고 중간 산출(연도별 적률 S·x̄, 추정 적재 복원, df 분해, 적합사다리 figure)을 드러냄(32셀). 시뮬레이션 자기검증(불변→scalar 성립/절편비동등→scalar 실패)로 직접구현 추정기 타당성 입증. 주모형 metric ΔCFI=-0.0008(측정치 강지지)·scalar -0.0063(Chen 이내), 민감도1(2022 cap) 결론 동일, 민감도2(4지표 비포화) metric ΔCFI=-0.0004·ΔRMSEA=0.0016로 교차확인. 검증셀이 docs/design/mgcfa-invariance-results.md 수치 전부 일치 PASS(에러 0·glyph 0). mgcfa_invariance.py 코드리뷰 통과(공식·식별·가중 정확, 경미사항 N vs N-1·3지표 포화 ΔRMSEA는 결함 아님). 모든 단계 ΔCFI ≥ -0.020 → 추세 비교 정당(정렬법 23으로 확정).</div>
+    </a>
     <a class="card" href="log/2026-06-29-media-stats-nb20-eda-overview.html">
       <div class="date">2026-06-29 (KST) · feature/media-stats/notebooks-eda-overview</div>
       <div class="title">분석 과정 노트북화 — 20-eda-overview + eda_overview.py 코드리뷰</div>

@@ -19,7 +19,7 @@ Jupyter 노트북. **ZIP 추가 산출물로 제출**하며, 대회 심사에서
 10-data-understanding.ipynb    # P2 — 7개년 메타·인코딩3종·가중치명4종·변수명 직결불가·2022 구조·crosswalk   [✅]
 11-data-prep-harmonize.ipynb   # P3 — build_year 재코딩(전/후)·7개년 결합(90,996행)·wt_year_eq·자기점검    [✅]
 20-eda-overview.ipynb          # P2 — 7개년 통합 EDA 6패널(src/eda_overview.py)                          [✅]
-21-mgcfa-invariance.ipynb      # P4 — MGCFA 측정 비동등(configural→metric→scalar, ΔCFI/ΔRMSEA)          [예정]
+21-mgcfa-invariance.ipynb      # P4 — MGCFA 측정 비동등(configural→metric→scalar, ΔCFI/ΔRMSEA)          [✅]
 22-mgcfa-semopy-crossval.ipynb # P4 — 직접구현 ↔ semopy 교차검증(표준적재·신뢰도)                          [예정]
 23-alignment-trend.ipynb       # P4 — 정렬법 잠재평균 추세(configural→정렬→비동등비율)                      [예정]
 24-trend-apc.ipynb             # P4 — Mann-Kendall + APC(HAPC·IE) 세대효과 분해                          [예정]

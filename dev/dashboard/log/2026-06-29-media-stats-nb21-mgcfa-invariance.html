@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>언론통계 — 노트북 21(MGCFA 측정 동등성) + mgcfa_invariance 코드리뷰 · 로그</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-progress { background: rgba(210,153,34,.15); color: var(--progress); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  code { background: #0b0d11; padding: 1px 6px; border-radius: 4px; font-size: .85em; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin-top: 6px; }
+  th, td { border: 1px solid var(--border); padding: 5px 8px; text-align: left; }
+  th { color: var(--accent); }
+  a { color: var(--accent); }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>분석 과정 노트북화 — 21-mgcfa-invariance + mgcfa_invariance.py 코드리뷰</h1>
+  <div class="meta">
+    📅 <b>2026-06-29 (KST)</b> · 🌿 브랜치 <b>feature/media-stats/notebooks-mgcfa-invariance</b> · 🔗 PR (생성 예정) · Phase A 잔여 2/6
+  </div>
+  <div class="bar"><i style="width:100%"></i></div>
+
+  <section>
+    <h2>🎯 배경 (사용자 피드백 반영)</h2>
+    <p class="sub">노트북 20 직후 사용자 지적: "노트북을 너무 단순하게 빠르게 만든다 → 대충하는 느낌. 하나하나 세세하고 꼼꼼하게." 이를 반영해 21은 <b>함수 호출+assert로 넘기지 않고</b> 측정 동등성의 의미·모델 설정·식별 제약·ML 적합함수·자유도 부기·적합지수 공식을 <b>한 단계씩 풀어 서술</b>하고 중간 산출(적률·추정 적재·df 분해)을 드러냈다. thin 원칙(로직 재구현 금지)은 유지하되 서술·중간출력 밀도를 높임. R3대로 1묶음 후 정지.</p>
+  </section>
+
+  <section>
+    <h2>✅ 완료 (Done)</h2>
+    <ul>
+      <li><span class="tag t-done">DONE</span><div><code>notebooks/21-mgcfa-invariance.ipynb</code> (P4, 32셀) — <code>src/mgcfa_invariance.py</code> 단계함수 import. ① 측정 동등성 개념(configural/metric/scalar 사다리와 각 단계가 허용하는 비교) ② 단일요인 CFA 모델식·식별제약(marker λ₁=1·로그 θ·ψ·기준집단 α=0) ③ 입력 적률(연도별 S·x̄) ④ ML 적합함수 F와 <b>df 직접 부기</b>(적률−자유모수) ⑤ CFI/RMSEA·ΔCFI/ΔRMSEA 공식·기준 ⑥ <b>시뮬레이션 자기검증</b>(불변→성립/절편비동등→실패) ⑦ 주모형 + 추정 적재 복원 + 적합사다리 figure ⑧ 민감도1(2022 cap) ⑨ 민감도2(4지표 비포화) ⑩ 검증셀 ⑪ 코드리뷰. <b>에러 0·figure 1·glyph 0·검증 PASS</b></div></li>
+      <li><span class="tag t-done">DONE</span><div><b>코드리뷰 — <code>src/mgcfa_invariance.py</code> 통과</b>: ML 적합함수(평균구조 표준형)·자유도 부기(configural df=0 포화/metric 12/scalar 24)·독립모형(−log|R|)·CFI/RMSEA(√G 다집단 보정)·식별(marker·로그파라미터·기준집단 α)·가중처리(연도=집단, 2022 표본상한으로 과검정력 통제) 전부 정확. 경미사항(χ²·RMSEA가 N 사용, 3지표 포화 ΔRMSEA 과장→CFI 우선)은 결함 아님·기록만. 강제수정 없이 통과(과잉수정 금지)</div></li>
+      <li><span class="tag t-done">DONE</span><div><code>notebooks/README.md</code> — 21 [예정]→[✅]</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔍 입증 (검증셀 — docs 수치 일치 assert)</h2>
+    <table>
+      <tr><th>모형</th><th>metric ΔCFI</th><th>scalar ΔCFI</th><th>판정</th></tr>
+      <tr><td>주(3지표·7집단)</td><td>-0.0008</td><td>-0.0063</td><td>측정치 강지지·절편 Chen 이내</td></tr>
+      <tr><td>민감도1(2022 cap 6k)</td><td>-0.0018</td><td>-0.0100</td><td>표본균형도 결론 동일</td></tr>
+      <tr><td>민감도2(4지표·비포화)</td><td>-0.0004 (ΔRMSEA 0.0016)</td><td>-0.0037</td><td>비포화서 측정치 교차확인</td></tr>
+    </table>
+    <p class="sub">자기검증: 불변→scalar CFI&gt;.95 / 절편비동등→scalar ΔCFI≈-0.109. 전 단계 ΔCFI ≥ -0.020(대집단기준) → 추세 비교 정당(정렬법 노트북 23으로 확정). 실행: <code>nbconvert --execute --inplace</code> 600s, 에러 0.</p>
+  </section>
+
+  <section>
+    <h2>⏭️ 다음 (Phase A 잔여 — 인수인계)</h2>
+    <ul>
+      <li><span class="tag t-progress">NEXT</span><div><code>22-mgcfa-semopy-crossval</code> — <code>src/mgcfa_semopy_crossval.py</code>: 직접구현 MGCFA를 독립 라이브러리 <b>semopy</b>로 교차검증(<code>direct_fit</code> vs <code>semopy_fit</code>·표준적재·신뢰도 대조). semopy 설치 확인됨</div></li>
+      <li><span class="tag t-todo">LATER</span><div><code>23-alignment-trend</code> · <code>24-trend-apc</code> · <code>30-evaluation</code> 순차. 이후 Phase B는 Perplexity Deep Research 체크포인트 경유</div></li>
+    </ul>
+  </section>
+
+  <footer>R2 작업 대시보드 · <code>skills/agent-ops/dashboard.md</code> · <a href="../index.html">↑ 프로젝트 대시보드</a></footer>
+</div>
+</body>
+</html>
