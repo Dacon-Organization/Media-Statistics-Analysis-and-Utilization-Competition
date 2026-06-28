@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>언론통계 — 노트북 20(EDA 6패널) + eda_overview 코드리뷰 · 로그</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-progress { background: rgba(210,153,34,.15); color: var(--progress); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  code { background: #0b0d11; padding: 1px 6px; border-radius: 4px; font-size: .85em; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin-top: 6px; }
+  th, td { border: 1px solid var(--border); padding: 5px 8px; text-align: left; }
+  th { color: var(--accent); }
+  a { color: var(--accent); }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>분석 과정 노트북화 — 20-eda-overview + eda_overview.py 코드리뷰</h1>
+  <div class="meta">
+    📅 <b>2026-06-29 (KST)</b> · 🌿 브랜치 <b>feature/media-stats/notebooks-eda-overview</b> · 🔗 PR (생성 예정) · Phase A 잔여 1/6
+  </div>
+  <div class="bar"><i style="width:100%"></i></div>
+
+  <section>
+    <h2>🎯 배경</h2>
+    <p class="sub">노트북 토대(10·11, PR#142) 머지 후 동일 패턴으로 종단 노트북 잔여(20~30) 진행. 이번 묶음은 <b>20-eda-overview</b>(P2 통합 EDA 6패널). <code>src/eda_overview.py</code>를 import해 단계별 중간 산출(표)로 "왜"를 보인 뒤 패널 figure를 인라인 임베드, 검증셀로 <code>docs/design/eda-overview.md</code> 수치 일치를 입증. R3대로 1묶음 후 정지.</p>
+  </section>
+
+  <section>
+    <h2>✅ 완료 (Done)</h2>
+    <ul>
+      <li><span class="tag t-done">DONE</span><div><code>notebooks/20-eda-overview.ipynb</code> (P2) — 6패널(표본구조·인구통계·신뢰시계열·가용성·상관/분포·P4연결)을 src 단계함수로 재현. 각 패널 앞 중간 산출 표 + 관찰 마크다운, 패널 PNG 6개 인라인 임베드. <b>검증셀 PASS</b>(실행 출력 임베드, 에러 0)</div></li>
+      <li><span class="tag t-done">DONE</span><div><b>코드리뷰 — <code>src/eda_overview.py</code> 통과</b>: 가중 집계(<code>wmean</code>/<code>wmean_by_year</code>/<code>wcomp_by_year</code>)가 NA를 col·weight 양쪽 제거 후 <code>np.average(weights=)</code>로 집계(추세·평균 <code>wt_year_eq</code>), 구조적 결측을 무응답과 구분, ⑤a 상관은 탐색용 완전케이스 Pearson(문서 정합), ⑥은 재계산 아닌 P4 인용. 결함 없음 → 강제수정 없이 통과(과잉수정 금지)</div></li>
+      <li><span class="tag t-done">DONE</span><div><code>notebooks/README.md</code> — 20 상태 [예정]→[✅]</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔍 입증 (검증셀 — docs 수치 일치 assert)</h2>
+    <table>
+      <tr><th>항목</th><th>검증</th><th>결과</th></tr>
+      <tr><td>표본구조</td><td>연도별 N·합 90,996·2022 기여 64.8%·N/T 12,999.4</td><td>PASS</td></tr>
+      <tr><td>신뢰추세</td><td>cred_mean 가중평균 3.034→…→3.390(7개년)</td><td>PASS</td></tr>
+      <tr><td>상관</td><td>공정–정확 .64 · 공정–전문 .55 · 전문–정확 .55</td><td>PASS</td></tr>
+      <tr><td>인구구배</td><td>학력 역구배(중졸이하 3.30 &gt; 대학원 2.98)</td><td>PASS</td></tr>
+      <tr><td>P4 인용</td><td>비동등 2.4% · MK τ=+0.33 · α(2025)=0.671</td><td>PASS</td></tr>
+    </table>
+    <p class="sub">실행: <code>PYTHONIOENCODING=utf-8 jupyter nbconvert --to notebook --execute --inplace</code> · 에러 0건 · figure 6개 임베드 · 한글 폰트 정상.</p>
+  </section>
+
+  <section>
+    <h2>⏭️ 다음 (Phase A 잔여 — 인수인계)</h2>
+    <ul>
+      <li><span class="tag t-progress">NEXT</span><div><code>21-mgcfa-invariance</code> — <code>src/mgcfa_invariance.py</code>: <code>group_stats</code>→<code>fit_level</code>(configural/metric/scalar)→<code>fit_indices</code>→<code>run_ladder</code>, ΔCFI/ΔRMSEA. 식별·공식 정확성 리뷰. (헤비 — 단독 묶음 권장)</div></li>
+      <li><span class="tag t-todo">LATER</span><div><code>22-semopy-crossval</code> · <code>23-alignment-trend</code> · <code>24-trend-apc</code> · <code>30-evaluation</code> 순차. 이후 Phase B(확장)는 Perplexity Deep Research 체크포인트 경유</div></li>
+    </ul>
+  </section>
+
+  <footer>R2 작업 대시보드 · <code>skills/agent-ops/dashboard.md</code> · <a href="../index.html">↑ 프로젝트 대시보드</a></footer>
+</div>
+</body>
+</html>
