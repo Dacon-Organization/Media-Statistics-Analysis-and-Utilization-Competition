@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>언론통계 — P5 Evaluation 통합 스토리라인 · 로그</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-progress { background: rgba(210,153,34,.15); color: var(--progress); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  code { background: #0b0d11; padding: 1px 6px; border-radius: 4px; font-size: .85em; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin-top: 6px; }
+  th, td { border: 1px solid var(--border); padding: 5px 8px; text-align: left; }
+  th { color: var(--accent); }
+  a { color: var(--accent); }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>P5 Evaluation — 통합 평가 서사 (MGCFA·정렬·APC·EDA 종합)</h1>
+  <div class="meta">
+    📅 <b>2026-06-29 (KST)</b> · 🌿 브랜치 <b>feature/media-stats/p5-evaluation</b> · 🔗 PR (생성 예정)
+  </div>
+  <div class="bar"><i style="width:100%"></i></div>
+
+  <section>
+    <h2>✅ 완료 (Done)</h2>
+    <ul>
+      <li><span class="tag t-done">DONE</span><div><code>docs/design/p5-evaluation.md</code> — P4·P2 산출을 <b>하나의 평가 스토리라인</b>으로 종합(증거 사다리·삼각검증·강건성·한계). <b>새 추정이 아니라 근거 종합</b>, 모든 수치 출처 명시</div></li>
+      <li><span class="tag t-done">DONE</span><div><code>src/p5_evaluation.py</code> — 인용 상수 기반 종합 figure 2종(<b>parquet 불요</b>): 증거 사다리 + 삼각검증</div></li>
+      <li><span class="tag t-done">DONE</span><div>figure: <code>docs/design/figures/p5_evidence_ladder.png</code> · <code>p5_triangulation.png</code></div></li>
+      <li><span class="tag t-done">DONE</span><div><code>docs/design/README.md</code> 인덱스에 P2·P4·P5 산출 7건 추가(누락 보정)</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🧱 증거 사다리 종합 (하위 토대 → 상위 결론)</h2>
+    <table>
+      <tr><th>#</th><th>단계</th><th>핵심수치</th><th>판정</th></tr>
+      <tr><td>①</td><td>데이터 구조·단일차원성</td><td>상관 .55~.64 · α 0.70~0.82</td><td>양호</td></tr>
+      <tr><td>②</td><td>추정 엔진 교차검증</td><td>직접↔semopy 적재 최대차 0.0003</td><td>일치</td></tr>
+      <tr><td>③</td><td>측정 동등(MGCFA)</td><td>metric ΔCFI −0.0008(강지지)</td><td>통과(scalar 부분)</td></tr>
+      <tr><td>④</td><td>정렬 잠재평균 추세</td><td>2019→2025 +0.671SD · 비동등 2.4%</td><td>비교 정당</td></tr>
+      <tr><td>⑤</td><td>추세검정·세대효과</td><td>MK τ=+0.333 · 기간효과 r=+0.99/+0.96</td><td>시대효과 확정</td></tr>
+    </table>
+    <p class="sub">→ 5단계 전 칸 통과 → "언론 신뢰성 2019→2025 상승은 측정동등·교차검증·삼각일관·강건성으로 뒷받침되는 <b>기간(시대) 효과</b>".</p>
+  </section>
+
+  <section>
+    <h2>🔺 삼각검증 — 세 궤적 종점 방향 일치</h2>
+    <table>
+      <tr><th>궤적</th><th>종점 방향</th><th>MK τ</th></tr>
+      <tr><td>A. 정렬 잠재평균 α</td><td>↑ (2025 +0.671)</td><td>+0.333</td></tr>
+      <tr><td>B. 단일문항 trust_news_overall</td><td>↑ (2025 3.436)</td><td>+0.467</td></tr>
+      <tr><td>C. 합성 cred_mean</td><td>↑ (2025 3.390)</td><td>+0.143</td></tr>
+    </table>
+    <p class="sub">A·C는 2024 저점→2025 반등 변곡점 일치. 단년 저점 시점(A=2024·B=2022)은 어긋남 → 종점 방향만 비교(정직).</p>
+  </section>
+
+  <section>
+    <h2>⚠️ 한계·검증 게이트 (정직)</h2>
+    <ul>
+      <li><span class="tag t-todo">GATE</span><div>재검증 1순위: <b>2019→2020 계단(+0.354)</b> · <b>신뢰 절대수준</b>. KPF 원자료 재검증 전 미검증 수치 직접 인용 금지(data-spec §6)</div></li>
+      <li><span class="tag t-todo">SCOPE</span><div>정렬법 자체 외부 교차검증·완전 동등제약 χ² 재현은 R <code>sirt</code>/Mplus 영역 → 범위 외(직접구현 자기검증 의존)</div></li>
+      <li><span class="tag t-todo">NOTE</span><div>독립 발견(추세와 별개): 코호트 세대 구배 <b>−0.891</b> — 젊을수록 신뢰 인식↓, 향후 하방 압력 시사</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>⏭️ 다음 후보</h2>
+    <ul>
+      <li><span class="tag t-progress">NEXT</span><div>검증 끝난 결과만 탑재하는 <b>최종 웹데모/대시보드</b>(분석 중 와이어프레임 미리 스케치)</div></li>
+      <li><span class="tag t-todo">TODO</span><div>비정형 선택트랙(외부 텍스트·LLM 피드백)으로 발전</div></li>
+    </ul>
+  </section>
+
+  <footer>R2 작업 대시보드 · <code>skills/agent-ops/dashboard.md</code> · <a href="../index.html">↑ 프로젝트 대시보드</a></footer>
+</div>
+</body>
+</html>

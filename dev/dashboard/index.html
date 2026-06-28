@@ -63,11 +63,17 @@
     <li><span class="tag t-done">DONE</span><div>P2 Data Understanding — 7개년 crosswalk(v0.2)·하모나이즈(<code>src/harmonize.py</code>, 90,996행)·<b>통합 EDA 시각화 6패널</b>(<code>src/eda_overview.py</code>)</div></li>
     <li><span class="tag t-done">DONE</span><div>P3 하모나이즈 + P4 신뢰성 — credibility 배터리 crosswalk·MGCFA 측정비동등·정렬법 잠재추세·Mann-Kendall/APC (<code>src/{mgcfa_invariance,alignment,trend_apc}.py</code>)</div></li>
     <li><span class="tag t-done">DONE</span><div>P4 교차검증 — 복구된 pip로 <b>semopy</b> 설치, 직접구현 MGCFA를 독립 라이브러리로 외부검증(표준적재 최대차 0.0003·CFI/RMSEA 일치) — <code>src/mgcfa_semopy_crossval.py</code></div></li>
-    <li><span class="tag t-progress">NEXT</span><div>P5 Evaluation(결과 종합·스토리라인) → P6 논문형 PDF·웹데모 / 비정형 선택트랙</div></li>
+    <li><span class="tag t-done">DONE</span><div>P5 Evaluation — <b>통합 평가 서사</b>(증거 사다리·삼각검증·강건성·검증게이트 종합) — <code>docs/design/p5-evaluation.md</code> + <code>src/p5_evaluation.py</code></div></li>
+    <li><span class="tag t-progress">NEXT</span><div>P6 논문형 PDF·웹데모(검증 끝난 결과만 탑재) / 비정형 선택트랙(외부 텍스트·LLM 피드백)</div></li>
   </ul>
 
   <h2>작업 로그 (최신순)</h2>
   <div class="cards">
+    <a class="card" href="log/2026-06-29-media-stats-p5-evaluation.html">
+      <div class="date">2026-06-29 (KST) · feature/media-stats/p5-evaluation</div>
+      <div class="title">P5 Evaluation — 통합 평가 서사 (MGCFA·정렬·APC·EDA 종합)</div>
+      <div class="summary">P4·P2의 흩어진 산출을 하나의 평가 스토리라인으로 종합(새 추정 아닌 근거 종합, 전 수치 출처 명시). ① 평가 4기준(측정동등·재현성·삼각일관·강건성) ② 증거 사다리 5단계(데이터구조→교차검증→측정동등→정렬추세→추세/세대)가 하위→상위로 다음을 정당화 ③ 삼각검증(정렬 잠재평균·단일문항·합성 cred_mean 종점 방향 일치 + 2024 저점·2025 반등 변곡점, APC 기간효과 r≈0.99) ④ 강건성(가중·표본상한·3vs4지표·집계 변형 전부 동방향) ⑤ 한계·검증게이트(2019→2020 계단·신뢰 절대수준 재검증 1순위, 정렬법 외부검증 R sirt/Mplus 범위 외, 코호트 구배 −0.891 별개 발견). docs/design/p5-evaluation.md + figure 2종(증거사다리·삼각검증) + README 인덱스 보정.</div>
+    </a>
     <a class="card" href="log/2026-06-28-media-stats-semopy-crossval.html">
       <div class="date">2026-06-28 (KST) · feature/media-stats/p4-semopy-crossval</div>
       <div class="title">MGCFA 교차검증 — 직접구현(numpy/scipy) ↔ semopy</div>
