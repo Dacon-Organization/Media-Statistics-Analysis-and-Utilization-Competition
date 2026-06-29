@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>harmonize.py 다양성 확장 · 작업 대시보드</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  a { color: var(--accent); }
+  code { background: #0b0d11; padding: 1px 6px; border-radius: 4px; font-size: .85em; }
+  table { width: 100%; border-collapse: collapse; font-size: .8rem; margin-top: 8px; }
+  th, td { border: 1px solid var(--border); padding: 4px 6px; text-align: center; }
+  th { color: var(--accent); }
+  td.m { text-align: left; }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>harmonize.py 확장 — 다양성 고정풀 Richness 패널</h1>
+  <div class="meta">
+    📅 <b>2026-06-29 (KST)</b> · 🌿 <b>claude/blissful-newton-310702</b> · 🔗 PR 예정 · ⚙️ Opus 4.8 · 🅰️ A 트랙 ②/④
+  </div>
+  <div class="bar"><i style="width:50%"></i></div>
+
+  <section>
+    <h2>✅ 완료 (Done)</h2>
+    <ul>
+      <li><span class="tag t-done">DONE</span><div><b>값코딩 데이터 검증</b> — 인터넷 OR·다중응답(Q29/Q28/Q26/Q33) 실값 분포로 이진화 규칙 확정(PC code=2, none=9998 등)</div></li>
+      <li><span class="tag t-done">DONE</span><div><code>USE_BATTERY</code>(8매체×7년) + <code>USE_NEW_MEDIA</code>(숏폼·OTT·AI) 스펙 + 디스크립터 4종(bin/days/freq/or) 리졸버</div></li>
+      <li><span class="tag t-done">DONE</span><div><code>build_year</code>에 <code>use_*</code> 8컬럼 + <code>richness_fixed8</code>(0~8) + <code>richness_incl</code>(신설포함) 파생</div></li>
+      <li><span class="tag t-done">DONE</span><div><code>presence_matrix</code>·<code>main</code> self-validation 4항(이용률·Richness·이진성·범위) — 패널 재생성 검증 통과</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>📊 self-validation 결과 (가중 prevalence %)</h2>
+    <table>
+      <tr><th>매체</th><th>2019</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th></tr>
+      <tr><td class="m">종이신문</td><td>12</td><td>10</td><td>9</td><td>10</td><td>10</td><td>10</td><td>8</td></tr>
+      <tr><td class="m">잡지</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>2</td><td>2</td></tr>
+      <tr><td class="m">TV</td><td>83</td><td>85</td><td>83</td><td>77</td><td>76</td><td>72</td><td>81</td></tr>
+      <tr><td class="m">라디오</td><td>10</td><td>8</td><td>8</td><td>5</td><td>7</td><td>7</td><td>7</td></tr>
+      <tr><td class="m">인터넷·포털</td><td>80</td><td>79</td><td>80</td><td>77</td><td>73</td><td>72</td><td>71</td></tr>
+      <tr><td class="m">메신저</td><td>13</td><td>15</td><td>17</td><td>12</td><td>14</td><td>17</td><td>13</td></tr>
+      <tr><td class="m">SNS</td><td>11</td><td>12</td><td>12</td><td>8</td><td>9</td><td>11</td><td>8</td></tr>
+      <tr><td class="m">동영상</td><td>12</td><td>24</td><td>27</td><td>20</td><td>25</td><td>18</td><td><b>30</b></td></tr>
+      <tr><td class="m"><b>Richness8</b></td><td>2.22</td><td>2.33</td><td>2.36</td><td>2.09</td><td>2.15</td><td>2.08</td><td>2.22</td></tr>
+    </table>
+    <div class="sub" style="margin-top:8px">✅ 전부 0/1 · richness 범위 [0,8] · 전셀NA행=0. <b>동영상 뉴스 12→30%</b>(디지털 전환) · Δ신설 0→+0.30(2025). ⚠️ fixed8(0~8)≠2025단년(0~12) 절대비교 금지·방향성만.</div>
+  </section>
+
+  <section>
+    <h2>🔜 다음 (A 트랙 ③④)</h2>
+    <ul>
+      <li><span class="tag t-todo">TODO</span><div>③ <code>src/health_index_panel.py</code> 신설(thin) — <code>load_panel</code>·<code>trust_index_panel</code>·<code>diversity_index_panel</code>·<code>nchi_by_year</code> (공통수학은 news_health_features import, 재구현 금지)</div></li>
+      <li><span class="tag t-todo">TODO</span><div>④ <code>notebooks/03-health-index</code> 다개년 리팩토링(벤치마크 + v1→v2 변경이력)</div></li>
+      <li><span class="tag t-todo">TODO</span><div>그 후 사용자 순서 23→24→30</div></li>
+    </ul>
+  </section>
+
+  <footer>Dacon 작업 대시보드 · skills/agent-ops/dashboard.md (R2) · 1작업–1정지(R3)</footer>
+</div>
+</body>
+</html>

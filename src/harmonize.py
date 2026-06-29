@@ -130,6 +130,91 @@ CRED_BATTERY: dict[str, dict[int, str | None]] = {
 CRED_FACTOR_CORE3 = ["cred_fair", "cred_professional", "cred_accurate"]   # 주 모형(2019~2025)
 CRED_FACTOR_PLUS4 = CRED_FACTOR_CORE3 + ["cred_trustworthy"]              # 민감도(2019~2022)
 
+# ── 다양성 Richness 고정풀 — 매체별 뉴스 이용여부 배터리 (variable-crosswalk v0.3 §3.4-bis) ──
+# 근거: docs/groundwork/06-research-diversity-harmonization-brief.md §결과 R1~R3
+#   R1 고정풀=7개년 공통 8매체 / R2 지표=Richness(Hill0) 주 / R3 형식=이용여부(>0) 이진화.
+# 디스크립터: ("bin",var)=여부 1/2 → 1/0 ; ("days",var)=일수 0~7, >0 ;
+#   ("freq",var)=빈도 응답유무(2019 종이신문, 결측=비열독→0) ;
+#   ("or",[(col,code)...],[none_col...])=다중응답/기기분리 OR 통합(코드 일치 시 이용=1, none_col만 응답=0).
+# ⚠️ 값코딩은 각 연도 .sav 임베디드 코드북 실값 분포로 검증 확정(2026-06-29).
+USE_BATTERY: dict[str, dict[int, tuple]] = {
+    "use_paper": {2019: ("freq", "Q3_01_1"), 2020: ("days", "Q3x1"), 2021: ("days", "Q3x1"),
+                  2022: ("bin", "Q1"), 2023: ("bin", "Q1"), 2024: ("bin", "Q1"), 2025: ("bin", "Q1")},
+    "use_magazine": {2019: ("bin", "Q23"), 2020: ("bin", "Q24"), 2021: ("bin", "Q24"),
+                     2022: ("bin", "Q13"), 2023: ("bin", "Q8"), 2024: ("bin", "Q8"), 2025: ("bin", "Q8")},
+    "use_tv": {2019: ("bin", "Q10"), 2020: ("bin", "Q11"), 2021: ("bin", "Q11"),
+               2022: ("bin", "Q19"), 2023: ("bin", "Q13"), 2024: ("bin", "Q13"), 2025: ("bin", "Q13")},
+    "use_radio": {2019: ("bin", "Q17"), 2020: ("bin", "Q18"), 2021: ("bin", "Q18"),
+                  2022: ("bin", "Q27"), 2023: ("bin", "Q20"), 2024: ("bin", "Q20"), 2025: ("bin", "Q20")},
+    "use_internet": {
+        2019: ("or", [("Q28_1", 1), ("Q28_2", 1)], ["Q28_9998"]),
+        2020: ("or", [("Q35", 1), ("Q29_1", 1), ("Q29_2", 2)], []),
+        2021: ("or", [("Q35", 1), ("Q29_1", 1), ("Q29_2", 2)], []),
+        2022: ("or", [("Q33_1", 1), ("Q33_2", 1)], ["Q33_9998"]),
+        2023: ("or", [("Q26_1", 1), ("Q26_2", 2)], ["Q26_9998"]),
+        2024: ("or", [("Q26_1", 1), ("Q26_2", 2)], ["Q26_9998"]),
+        2025: ("or", [("Q26_1", 1), ("Q26_2", 2)], ["Q26_9998"])},
+    "use_messenger": {2019: ("bin", "Q48"), 2020: ("bin", "Q50"), 2021: ("bin", "Q50"),
+                      2022: ("bin", "Q45"), 2023: ("bin", "Q40"), 2024: ("bin", "Q40"), 2025: ("bin", "Q39")},
+    "use_sns": {2019: ("bin", "Q56"), 2020: ("bin", "Q58"), 2021: ("bin", "Q58"),
+                2022: ("bin", "Q51"), 2023: ("bin", "Q46"), 2024: ("bin", "Q46"), 2025: ("bin", "Q46")},
+    "use_video": {2019: ("bin", "Q64"), 2020: ("bin", "Q66"), 2021: ("bin", "Q66"),
+                  2022: ("bin", "Q57"), 2023: ("bin", "Q52"), 2024: ("bin", "Q52"), 2025: ("bin", "Q53")},
+}
+FIXED_POOL8 = list(USE_BATTERY)  # 8매체 고정풀 → richness_fixed8 (0~8)
+
+# 신설 디지털매체(고정풀 외 보조, 06 §결과 R1-ⓑ; '신설포함' richness_incl용). 부재연도=NA.
+USE_NEW_MEDIA: dict[str, dict[int, tuple]] = {
+    "use_short": {2023: ("bin", "Q58"), 2024: ("bin", "Q58"), 2025: ("bin", "Q61")},
+    "use_ott":   {2023: ("bin", "Q64"), 2024: ("bin", "Q64"), 2025: ("bin", "Q67")},
+    "use_ai":    {2025: ("bin", "Q73")},
+}
+
+
+def _use_bin(s: pd.Series) -> pd.Series:
+    """여부 1=이용/2=비이용 → 1/0, 그 외(특수코드·무응답)→NA."""
+    x = _num(s)
+    return x.map({1: 1.0, 2: 0.0}).where(x.isin([1, 2]))
+
+
+def _use_days(s: pd.Series) -> pd.Series:
+    """이용 일수(0~7) → used=(일수>0). 범위 밖→NA."""
+    x = _num(s).where(lambda v: (v >= 0) & (v <= 7))
+    return (x > 0).astype(float).where(x.notna())
+
+
+def _use_freq(s: pd.Series) -> pd.Series:
+    """2019 종이신문 열독 빈도(1~7 응답=열독, 결측=게이트 스킵=비열독) → 1/0."""
+    return _num(s).between(1, 7).astype(float)
+
+
+def _use_or(df: pd.DataFrame, pairs: list, none_cols: list, n: int) -> pd.Series:
+    """다중응답/기기분리 OR 통합: 양성코드 일치 매체 1개 이상→1, 응답했으나 비이용→0, 미응답→NA."""
+    used = pd.Series(0.0, index=df.index)
+    answered = pd.Series(False, index=df.index)
+    for col, code in pairs:
+        if col in df.columns:
+            c = _num(df[col])
+            used = used.mask(c == code, 1.0)
+            answered = answered | c.notna()
+    for col in none_cols:
+        if col in df.columns:
+            answered = answered | _num(df[col]).notna()
+    return used.where(answered)
+
+
+def resolve_use(df: pd.DataFrame, desc: tuple, n: int) -> pd.Series:
+    """USE_BATTERY 디스크립터 → 이진 이용여부 Series(1/0/NA)."""
+    kind = desc[0]
+    if kind in ("bin", "days", "freq"):
+        col = desc[1]
+        if col not in df.columns:
+            return pd.Series([np.nan] * n, index=df.index)
+        return {"bin": _use_bin, "days": _use_days, "freq": _use_freq}[kind](df[col])
+    if kind == "or":
+        return _use_or(df, desc[1], desc[2], n)
+    raise ValueError(f"unknown use descriptor: {desc}")
+
 
 def read_sav_any(path: Path) -> tuple[pd.DataFrame, object, str]:
     """인코딩을 순차 시도해 (df, meta, encoding)을 반환(extract_all_sav_meta.py와 동일 패턴)."""
@@ -281,12 +366,23 @@ def build_year(year: int) -> pd.DataFrame:
     out["media_main_route_code"] = rcode
     out["media_main_route"] = rlabel
 
+    # 다양성 Richness 고정풀 8매체 이용여부 + 신설 보조매체 (crosswalk v0.3 §3.4-bis)
+    for med, ydesc in USE_BATTERY.items():
+        out[med] = resolve_use(df, ydesc[year], n)
+    for med, ydesc in USE_NEW_MEDIA.items():
+        out[med] = resolve_use(df, ydesc[year], n) if year in ydesc else np.nan
+    # richness: NA는 비이용(0) 취급해 합산(formative 합산구성, 06 §결과 R4). min_count=1→전셀 NA만 NA.
+    out["richness_fixed8"] = out[FIXED_POOL8].sum(axis=1, min_count=1)
+    new_cols = list(USE_NEW_MEDIA)
+    out["richness_incl"] = out[FIXED_POOL8 + new_cols].sum(axis=1, min_count=1)
+
     # 파생: 출생 코호트(조사연도 - 만나이)
     out["birth_cohort"] = (year - out["age"]).round()
 
     print(f"OK {year}: N={n:,} enc={enc} wt={wname}"
           f" | trust_overall_valid={out['trust_news_overall'].notna().sum():,}"
-          f" income9_valid={out['income_band9'].notna().sum():,}")
+          f" income9_valid={out['income_band9'].notna().sum():,}"
+          f" richness8_mean={out['richness_fixed8'].mean():.2f}")
     return out
 
 
@@ -326,6 +422,7 @@ def presence_matrix(panel: pd.DataFrame) -> pd.DataFrame:
         "media_main_route_code",
         "cred_fair", "cred_professional", "cred_accurate",
         "cred_trustworthy", "press_free", "media_influence",
+        *FIXED_POOL8, "richness_fixed8",
     ]
     rows = []
     for y in YEARS:
@@ -381,6 +478,35 @@ def main() -> None:
     cov = panel[CRED_FACTOR_CORE3].notna().all(axis=1).groupby(panel["year"]).sum()
     print("  → 핵심3지표 동시 응답(완전케이스): "
           + ", ".join(f"{y}={int(cov[y]):,}" for y in YEARS))
+
+    # ── 다양성 고정풀 self-validation (crosswalk §3.4-bis self-validation 4항) ──
+    # 이용률 = 전표본 대비 used==1 비율(가중). NA=비이용(0) 취급 — richness 합산과 동일 정의.
+    print("\n[다양성 고정풀 8매체 — 연도별 뉴스이용 prevalence(가중 wt_year_eq, %)]")
+    for med in FIXED_POOL8:
+        rates = []
+        for y in YEARS:
+            sub = panel[panel["year"] == y]
+            w = sub["wt_year_eq"]
+            r = (w * sub[med].fillna(0)).sum() / w.sum() * 100
+            rates.append(f"{y}={r:.0f}")
+        print(f"  {med:14s}: " + ", ".join(rates))
+
+    print("\n[Richness 고정풀(0~8) — 연도별 가중평균 + 신설포함 대비]")
+    for y in YEARS:
+        sub = panel[panel["year"] == y]
+        w = sub["wt_year_eq"]
+        r8 = (w * sub["richness_fixed8"]).sum() / w.sum()
+        ri = (w * sub["richness_incl"]).sum() / w.sum()
+        print(f"  {y}: fixed8={r8:.2f}  incl={ri:.2f}  (Δ신설={ri - r8:+.2f})")
+
+    # ① 이진성 ② 범위 점검
+    nonbin = {m: int((~panel[m].dropna().isin([0.0, 1.0])).sum()) for m in FIXED_POOL8}
+    bad = {m: c for m, c in nonbin.items() if c}
+    print(f"\n[self-validation] use_* 비이진 셀(0이어야 정상): {bad or 'OK(전부 0/1)'}")
+    print(f"  richness_fixed8 범위 [{panel['richness_fixed8'].min():.0f}, "
+          f"{panel['richness_fixed8'].max():.0f}] (기대 0~8) · "
+          f"전셀NA행={int(panel['richness_fixed8'].isna().sum())}")
+    print("  ⚠️ fixed8(0~8)은 2025단년 Richness(0~12)와 구성 매체수 상이 → 절대수준 비교 금지·방향성만(06 §결과 R4).")
 
     print("=" * 64)
 
