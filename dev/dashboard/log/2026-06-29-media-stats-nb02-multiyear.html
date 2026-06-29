@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>02-variable-mapping 다개년 리팩토링 · 작업 대시보드</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  a { color: var(--accent); }
+  code { background: #0b0d11; padding: 1px 6px; border-radius: 4px; font-size: .85em; }
+  table { width: 100%; border-collapse: collapse; font-size: .8rem; margin-top: 8px; }
+  th, td { border: 1px solid var(--border); padding: 4px 6px; text-align: center; }
+  th { color: var(--accent); }
+  td.m { text-align: left; }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>02-variable-mapping.ipynb 다개년 리팩토링 — 개념→변수 정렬</h1>
+  <div class="meta">
+    📅 <b>2026-06-29 (KST)</b> · 🌿 <b>claude/m7-nb02-multiyear</b> · 🔗 PR 예정 · ⚙️ Opus 4.8 · 🅰️ A 트랙
+  </div>
+  <div class="bar"><i style="width:100%"></i></div>
+
+  <section>
+    <h2>✅ 완료 (Done)</h2>
+    <ul>
+      <li><span class="tag t-done">DONE</span><div><code>notebooks/02-variable-mapping.ipynb</code> v1(2025 단년 코드북↔지수) → <b>v2(7개년 개념→변수 정렬)</b> 전면 리팩토링. <code>harmonize.py</code>·<code>health_index_panel.py</code> import 기반, 25셀·도식 4종.</div></li>
+      <li><span class="tag t-done">DONE</span><div><b>§1 신뢰 크로스워크</b> — <code>CRED_BATTERY</code> 형용사×7개년 가용성 지도. 문항번호 리셋(Q77→Q78→Q69→Q85)→형용사 정렬, 7개년 공통=핵심3(공정·전문·정확) 확정(DB① + [발견 ①]).</div></li>
+      <li><span class="tag t-done">DONE</span><div><b>§2 신뢰 reflective</b> — pooled 상관(0.55~0.64)·α=0.805·연도별 α(0.70~0.82). press_free·media_influence 배제 정당화(별개 차원, [발견 ②]).</div></li>
+      <li><span class="tag t-done">DONE</span><div><b>§3 다양성 정렬</b> — <code>USE_BATTERY</code> 8매체 디스크립터 지도(bin46·or7·days2·freq1→이용여부). 고정풀8 formative·방향성만(DB② + [발견 ③]).</div></li>
+      <li><span class="tag t-done">DONE</span><div><b>§4 정렬→지수</b> — <code>trust/diversity/nchi</code> 패널 어댑터 호출. 같은 NCHI 안 이원 규칙(신뢰=연도 비교/다양성=방향성만) 도출([발견 ④]).</div></li>
+      <li><span class="tag t-done">DONE</span><div>표지(연구질문·목차·CRISP-DM 배너) + <b>v1→v2 변경이력</b> + 최종 매핑표(SSOT 7개년판) + 종합·한계·다음(21·22·03). 구형 노트북/src 삭제 없음.</div></li>
+      <li><span class="tag t-done">DONE</span><div>빌드=nbformat 스크래치패드(미커밋), <code>PYTHONIOENCODING=utf-8</code> 실행. 패널 parquet <code>harmonize.py</code> 재생성 후 검증.</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>📊 검증 (nbformat valid · 출력 보존)</h2>
+    <table>
+      <tr><th>지표</th><th>2019</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th></tr>
+      <tr><td class="m">핵심3 완전케이스 N</td><td>5,040</td><td>5,010</td><td>5,010</td><td>58,936</td><td>5,000</td><td>6,000</td><td>6,000</td></tr>
+      <tr><td class="m">핵심3 Cronbach α</td><td>.782</td><td>.809</td><td>.801</td><td>.816</td><td>.790</td><td>.781</td><td><b>.701</b></td></tr>
+      <tr><td class="m">신뢰지수(연도비교 가능)</td><td>51.3</td><td>56.6</td><td>58.0</td><td>55.7</td><td>55.2</td><td>54.8</td><td><b>60.1</b></td></tr>
+      <tr><td class="m">다양성 fixed8(방향성만)</td><td>28.5</td><td>29.8</td><td>30.3</td><td>26.8</td><td>27.7</td><td>26.8</td><td>28.5</td></tr>
+    </table>
+    <div class="sub" style="margin-top:8px">✅ nbformat valid · 코드셀 8개 전부 출력 보존 · PNG 도식 4종 임베드 · error 0 · U+2212 0(ASCII "-"만) · Malgun Gothic·<code>axes.unicode_minus=False</code>. pooled α=0.805 · 형식 56칸{bin46·or7·days2·freq1}. ⚠️ 다양성은 formative → 절대수준 비교 금지·방향성만(06 §결과 R4), 신뢰만 연도 비교.</div>
+  </section>
+
+  <section>
+    <h2>🔍 핵심 발견</h2>
+    <ul>
+      <li><span class="tag t-done">①</span><div>신뢰 문항번호는 해마다 리셋 → <b>형용사로 정렬</b>해야 이어지고, 7개년 공통은 <b>공정·전문·정확 셋</b>뿐(trustworthy 4개년·influence 5개년 배제).</div></li>
+      <li><span class="tag t-done">②</span><div>핵심3는 pooled α=0.805·상관 0.55~0.64로 <b>한 요인을 반영(reflective)</b> → 연도 비교 허용. press_free 추가 시 α 불변=별개 차원.</div></li>
+      <li><span class="tag t-done">③</span><div>8매체는 형식이 freq/days/bin/or로 흩어져도 <b>'이용여부'로 정렬</b> → 고정풀8. formative라 방향성만(신설은 보조 incl).</div></li>
+      <li><span class="tag t-done">④</span><div>같은 NCHI 안에서도 <b>신뢰=연도 비교 / 다양성=방향성만</b> — §1~3 정렬에서 직접 도출된 이원 규칙(03·21·22 토대).</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔜 다음 (잔여)</h2>
+    <ul>
+      <li><span class="tag t-todo">TODO</span><div>사용자 순서 잔여: <code>23</code> · <code>24</code> · <code>30</code> (01·03·04·02 다개년 완료)</div></li>
+    </ul>
+  </section>
+
+  <footer>Dacon 작업 대시보드 · skills/agent-ops/dashboard.md (R2) · 1작업–1정지(R3)</footer>
+</div>
+</body>
+</html>
