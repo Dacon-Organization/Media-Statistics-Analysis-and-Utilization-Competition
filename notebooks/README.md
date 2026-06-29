@@ -15,8 +15,8 @@ Jupyter 노트북. **ZIP 추가 산출물로 제출**하며, 대회 심사에서
 | **④ 피처 엔지니어링** | P3·P4 | (crosswalk·credibility 배터리) | `02-variable-mapping`·`03-health-index` |
 | **⑤ 모델링·평가** | P4·P5 | `21`·`22`·`23`·`24`·`30` | `04-personas-kmeans` |
 
-> ⚠️ **현황(2026-06-28)**: 종단 트랙(B)이 메인 라인이며 벤치마크 스타일로 정비 중이다. 횡단면 트랙(A, 01~04)은
-> **2025 단일연도만 실험**한 초기 산출이라, 7개년 전체 데이터 기준으로 **전면 리팩토링 진행 중**.
+> ⚠️ **현황(2026-06-29)**: 종단 트랙(B)은 **10·11·20·21·22가 벤치마크 스타일 완료**(연구질문·목차·📍배너·Decision Box·[발견]·종합),
+> 23·24·30은 신규 예정. 횡단면 트랙(A, 01~04)은 **2025 단일연도만 실험**한 초기 산출이라, 7개년 전체 데이터 기준으로 **전면 리팩토링 진행 중**.
 > 설계 확정 = [`../docs/design/notebook-refactor-plan.md`](../docs/design/notebook-refactor-plan.md)(다양성축 A안·신규 `src/health_index_panel.py`·03 다개년 우선).
 > 선행조건 = 다양성 하모나이즈 Perplexity 브리프 [`../docs/groundwork/06-research-diversity-harmonization-brief.md`](../docs/groundwork/06-research-diversity-harmonization-brief.md)(실행 대기).
 
@@ -34,8 +34,8 @@ Jupyter 노트북. **ZIP 추가 산출물로 제출**하며, 대회 심사에서
 `src/*.py`(로직 SSOT)를 **import해 단계별 과정·중간 출력을 보여주는** 실행 노트북.
 로직을 재구현하지 않고(thin), `self_validation()`·assert로 입증한다. 출처 보고서는 `docs/design/`.
 ```
-10-data-understanding.ipynb    # P2 — 7개년 메타·인코딩3종·가중치명4종·변수명 직결불가·2022 구조·crosswalk   [✅]
-11-data-prep-harmonize.ipynb   # P3 — build_year 재코딩(전/후)·7개년 결합(90,996행)·wt_year_eq·자기점검    [✅]
+10-data-understanding.ipynb    # P2 — 7개년 메타·인코딩3종·가중치명4종·변수명 직결불가·2022 구조·crosswalk   [✅ 벤치마크]
+11-data-prep-harmonize.ipynb   # P3 — build_year 재코딩(전/후)·7개년 결합(90,996행)·wt_year_eq·자기점검    [✅ 벤치마크]
 20-eda-overview.ipynb          # P2 — 7개년 통합 EDA 6패널(src/eda_overview.py)                          [✅]
 21-mgcfa-invariance.ipynb      # P4 — MGCFA 측정 비동등(configural→metric→scalar, ΔCFI/ΔRMSEA)          [✅]
 22-mgcfa-semopy-crossval.ipynb # P4 — 직접구현 ↔ semopy 교차검증(표준적재 최대차 0.0003·α)              [✅]
