@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>다양성 하모나이즈 게이트 · 작업 대시보드</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-progress { background: rgba(210,153,34,.15); color: var(--progress); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .t-blocked { background: rgba(248,81,73,.15); color: var(--blocked); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  a { color: var(--accent); }
+  code { background: #0b0d11; padding: 1px 6px; border-radius: 4px; font-size: .85em; }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>다양성 하모나이즈 게이트 충당 (06 §결과)</h1>
+  <div class="meta">
+    📅 <b>2026-06-29 (KST)</b> · 🌿 브랜치 <b>claude/blissful-newton-310702</b> · 🔗 PR 예정 · ⚙️ 모델 Opus 4.8
+  </div>
+  <div class="bar"><i style="width:60%"></i></div>
+
+  <section>
+    <h2>🎯 이번 블록 목표</h2>
+    <ul>
+      <li><span class="tag t-done">PIVOT</span><div>04-personas-kmeans 다개년이 <b>다양성 게이트에 실제로 묶임</b> 확인(2축 중 다양성 7개년 패널 부재)<div class="sub">harmonize.py는 신뢰축만 패널화, 매체이용 배터리/다양성은 P4로 명시 유보(L215-216)</div></div></li>
+      <li><span class="tag t-done">DECIDE</span><div>사용자 지시: <b>"Perplexity 도구를 강력 활용해 재조사"</b> → 게이트(06 §결과)를 에이전트 학술 리서치로 직접 충당</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>✅ 완료 (Done)</h2>
+    <ul>
+      <li><span class="tag t-done">DONE</span><div><b>학술 리서치</b> 4개 framing × arXiv/PubMed semantic 검색 + 핵심 2논문 전문 패시지 검증<div class="sub">Hill numbers · formative vs reflective · media repertoire · 측정불변</div></div></li>
+      <li><span class="tag t-done">DONE</span><div><b>06 §결과 충당</b> — R1~R5 권고 + 요약표 + 재현가능 논문 3편 + 리스크 2 + 대안 1<div class="sub">각 권고에 출처 ID(pmid/pmcid/arxiv) 정박</div></div></li>
+      <li><span class="tag t-done">DONE</span><div><b>§2 체크리스트 5건 "방법 확정"</b> 표기(코드 반영은 우선순위 A 블록으로 이월)</div></li>
+      <li><span class="tag t-done">DONE</span><div>브리프 머리말 상태 갱신: <code>브리프(실행대기) → §결과 충당 완료(코드 반영 대기)</code></div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🧭 확정된 방법론 결정 (R1~R5)</h2>
+    <ul>
+      <li><span class="tag t-done">R1</span><div>고정풀 = 7개년 공통매체(주) + 신설 디지털매체(보조) 병기</div></li>
+      <li><span class="tag t-done">R2</span><div>지표 = <b>Richness(Hill0)</b> 주, e^H(Hill1)는 일수 가용 연도 민감도 [pmid:40128333]</div></li>
+      <li><span class="tag t-done">R3</span><div>형식통일 = 일수→<b>여부(&gt;0) 이진화</b> 하향통일</div></li>
+      <li><span class="tag t-done">R4</span><div>다양성=<b>formative</b> → MGCFA 측정불변 부적용, 고정풀·2버전·무응답 민감도로 대체 [PMC4624594]</div></li>
+      <li><span class="tag t-done">R5</span><div>주이용경로 = <b>집중도(HHI/Gini)</b> 보조축 채택 [arxiv:2410.23842]</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔜 다음 할 일 (Next) — 우선순위 A 블록</h2>
+    <ul>
+      <li><span class="tag t-todo">TODO</span><div>① <code>variable-crosswalk.md §3.4</code> — 7개년 매체이용 배터리 고정풀 역추적 매핑<div class="sub">우선순위: 높음 (A 진입점)</div></div></li>
+      <li><span class="tag t-todo">TODO</span><div>② <code>src/harmonize.py</code> 확장 — 고정풀 매체이용 컬럼 + Richness/e^H 파생 + self-validation</div></li>
+      <li><span class="tag t-todo">TODO</span><div>③ <code>src/health_index_panel.py</code> 신설(thin) — load_panel·trust/diversity_index_panel·nchi_by_year</div></li>
+      <li><span class="tag t-todo">TODO</span><div>④ <code>notebooks/03-health-index</code> 다개년 리팩토링(벤치마크 스타일 + v1→v2 변경이력)</div></li>
+      <li><span class="tag t-todo">TODO</span><div>그 후 사용자 순서 1→2→3: <b>23-alignment-trend → 24-trend-apc → 30-evaluation</b>(신뢰축, 게이트 무관)</div></li>
+    </ul>
+  </section>
+
+  <footer>Dacon 작업 대시보드 · skills/agent-ops/dashboard.md 규칙 (R2) · 1작업–1정지(R3)</footer>
+</div>
+</body>
+</html>
