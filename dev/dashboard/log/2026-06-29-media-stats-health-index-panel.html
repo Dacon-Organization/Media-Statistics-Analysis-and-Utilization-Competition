@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>health_index_panel.py 신설 · 작업 대시보드</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  a { color: var(--accent); }
+  code { background: #0b0d11; padding: 1px 6px; border-radius: 4px; font-size: .85em; }
+  table { width: 100%; border-collapse: collapse; font-size: .8rem; margin-top: 8px; }
+  th, td { border: 1px solid var(--border); padding: 4px 6px; text-align: center; }
+  th { color: var(--accent); }
+  td.m { text-align: left; }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>health_index_panel.py 신설 — 7개년 건강지수 패널 어댑터</h1>
+  <div class="meta">
+    📅 <b>2026-06-29 (KST)</b> · 🌿 <b>claude/m3-health-index-panel</b> · 🔗 PR 예정 · ⚙️ Opus 4.8 · 🅰️ A 트랙 ③/④
+  </div>
+  <div class="bar"><i style="width:75%"></i></div>
+
+  <section>
+    <h2>✅ 완료 (Done)</h2>
+    <ul>
+      <li><span class="tag t-done">DONE</span><div><code>src/health_index_panel.py</code> 신설 — <b>thin 어댑터</b>(공통수학 <code>_scale_1_100</code>·<code>nchi</code>·<code>wmean</code>은 <code>news_health_features</code> import, 재구현 금지). 2025 단년 모듈은 이력보존.</div></li>
+      <li><span class="tag t-done">DONE</span><div><code>load_panel()</code> — 패널 parquet 로드(없으면 <code>harmonize.py</code> 실행 안내). 입력=90,996행.</div></li>
+      <li><span class="tag t-done">DONE</span><div><code>trust_index_panel()</code> — cred 핵심3{공정·전문·정확} pooled z평균 → <code>_scale_1_100</code> → 연도 가중평균. reflective·MGCFA 측정불변 → <b>연도 비교 가능</b>(2019~2025).</div></li>
+      <li><span class="tag t-done">DONE</span><div><code>diversity_index_panel()</code> — <code>richness_fixed8</code> 기반 + 신설포함(<code>richness_incl</code>) <b>2버전 병기</b>. ⚠️ formative → 절대수준 비교 금지·방향성만(06 §결과 R4).</div></li>
+      <li><span class="tag t-done">DONE</span><div><code>nchi_by_year()</code> — 연도별 √(신뢰×다양성) 기하평균(<code>nchi</code> 재사용). fixed8 주지표 + incl 보조.</div></li>
+      <li><span class="tag t-done">DONE</span><div>가중치 <code>wt_year_eq</code>(2022 표본지배 보정) 기본 · 패널 재생성(harmonize) 후 실행 검증.</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>📊 self-validation 결과 (전부 통과)</h2>
+    <table>
+      <tr><th>연도</th><th>2019</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th></tr>
+      <tr><td class="m">신뢰지수(cred3)</td><td>51.3</td><td>56.6</td><td>58.0</td><td>55.7</td><td>55.2</td><td>54.8</td><td><b>60.1</b></td></tr>
+      <tr><td class="m">다양성(fixed8)</td><td>28.5</td><td>29.8</td><td>30.3</td><td>26.8</td><td>27.7</td><td>26.8</td><td>28.5</td></tr>
+      <tr><td class="m">다양성(incl)</td><td>21.0</td><td>22.0</td><td>22.3</td><td>19.8</td><td>22.0</td><td>21.1</td><td><b>23.7</b></td></tr>
+      <tr><td class="m"><b>NCHI(fixed8)</b></td><td>38.2</td><td>41.1</td><td>41.9</td><td>38.6</td><td>39.1</td><td>38.3</td><td>41.4</td></tr>
+    </table>
+    <div class="sub" style="margin-top:8px">✅ 전 지수 [1,100] 범위·NA=0·연도 7개 전부 커버. ✅ <b>2025 방향 정합</b>: 패널↔단년 신뢰 corr=<b>+0.806</b>, 다양성 corr=<b>+0.943</b>(둘 다 &gt;0). ⚠️ 다양성·NCHI 절대수준은 formative 한계 → 종단 해석은 방향성 위주.</div>
+  </section>
+
+  <section>
+    <h2>🔜 다음 (A 트랙 ④ → 잔여)</h2>
+    <ul>
+      <li><span class="tag t-todo">TODO</span><div>④ <code>notebooks/03-health-index</code> 다개년 리팩토링(벤치마크 스타일 + v1 2025단년→v2 7개년 패널 변경이력)</div></li>
+      <li><span class="tag t-todo">TODO</span><div>그 후 사용자 순서 잔여: 01~04 다개년 · 23 · 24 · 30</div></li>
+    </ul>
+  </section>
+
+  <footer>Dacon 작업 대시보드 · skills/agent-ops/dashboard.md (R2) · 1작업–1정지(R3)</footer>
+</div>
+</body>
+</html>
