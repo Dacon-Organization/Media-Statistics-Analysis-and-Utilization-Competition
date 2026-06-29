@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>01-eda-2025 다개년 리팩토링 · 작업 대시보드</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .t-key { background: rgba(210,153,34,.18); color: var(--progress); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  a { color: var(--accent); }
+  code { background: #0b0d11; padding: 1px 6px; border-radius: 4px; font-size: .85em; }
+  table { width: 100%; border-collapse: collapse; font-size: .8rem; margin-top: 8px; }
+  th, td { border: 1px solid var(--border); padding: 4px 6px; text-align: center; }
+  th { color: var(--accent); }
+  td.m { text-align: left; }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>01-eda-2025.ipynb 다개년 리팩토링 — 단년 스냅샷의 함정에서 전체 패널로</h1>
+  <div class="meta">
+    📅 <b>2026-06-29 (KST)</b> · 🌿 <b>claude/m6-nb01-multiyear</b> · 🔗 PR 예정 · ⚙️ Opus 4.8 · 🅰️ A 트랙
+  </div>
+  <div class="bar"><i style="width:100%"></i></div>
+
+  <section>
+    <h2>✅ 완료 (Done)</h2>
+    <ul>
+      <li><span class="tag t-done">DONE</span><div><code>notebooks/01-eda-2025.ipynb</code> v1(2025 단년·N=6,000)→<b>v2(7개년 패널·N=90,996)</b> 전면 리팩토링. 입력=<code>health_index_panel.load_panel()</code>. 목적 재정의: "단년 차원 확정" → <b>"순진한 통합이 만드는 편향의 문제정의"</b>. 23셀·코드 8셀·PNG 5종.</div></li>
+      <li><span class="tag t-done">DONE</span><div><b>§1 표본 구조</b> — 연도별 N 막대(2022=64.8% 지배) + <code>wt_year_eq</code> 균등화 효과. Decision Box① (연도균등 가중) + [발견①].</div></li>
+      <li><span class="tag t-done">DONE</span><div><b>§2 순진 베이스라인</b> — naive pool vs 연도균등 정량 대비 표·도식([발견②]).</div></li>
+      <li><span class="tag t-done">DONE</span><div><b>§3 결측 진단</b> — 연도×변수 유효응답 히트맵(0='문항 부재', 무응답 아님) + [발견③].</div></li>
+      <li><span class="tag t-done">DONE</span><div><b>§4 인구 분포</b> — 연도별 연령 박스 + 연령군 구성비(가중 전/후)([발견④]).</div></li>
+      <li><span class="tag t-done">DONE</span><div><b>§5 핵심변수 분포</b> — cred 핵심3(reflective·연도 비교) vs richness_fixed8(formative·방향성만). Decision Box②(이원 해석 규칙) + [발견⑤].</div></li>
+      <li><span class="tag t-done">DONE</span><div><b>§6 종합</b> — 문제정의→설계결정 매핑(4종)·v2 한계표·다음. 표지+연구질문Q1~3+목차+CRISP-DM(P1·P2) 배너+v1→v2 변경이력. README A트랙 01 다개년 갱신.</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔑 핵심 — 전체 데이터로 과적합·편향을 정확히 노출 (사용자 '전체데이터' 원칙)</h2>
+    <ul>
+      <li><span class="tag t-key">[발견①]</span><div><b>2022 한 해가 패널의 64.8%</b>(58,936/90,996) — 연도 무보정 단순 풀링은 사실상 "2022 조사"를 7개년의 얼굴로 오인. <code>wt_year_eq</code>가 연도 기여를 1/7로 균등화해 지배 제거.</div></li>
+      <li><span class="tag t-key">[발견②]</span><div><b>순진 통합 편향 정량화</b> — naive pool vs 연도균등: 평균연령 <b>+2.5세</b> 과대(51.4 vs 48.9), 인터넷 뉴스이용 <b>-5.0%p</b>(75.2 vs 80.2)·온라인동영상 <b>-3.9%p</b> 과소. 2022가 최고령·최저 디지털이면서 표본 65%인 탓.</div></li>
+      <li><span class="tag t-done">[발견③]</span><div>결측의 절반은 무응답이 아닌 <b>구조적 문항 부재</b>(단일문항 신뢰=2019 부재, use_short/ott=2022 이전 부재, use_ai=2025만). cred 핵심3은 7개년 100% → 비교는 공통 존재 변수로만 정직.</div></li>
+      <li><span class="tag t-done">[발견⑤]</span><div><b>이원 해석 규칙</b> 확정 — 신뢰=reflective(측정불변→연도 비교 가능), 다양성=formative(고정풀→방향성만). 03·21·22로 이어지는 종단 해석의 토대(DB②).</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>📊 검증 (nbformat valid · 출력 보존)</h2>
+    <table>
+      <tr><th>지표</th><th>순진 pool</th><th>연도균등</th><th>Δ(순진-균등)</th></tr>
+      <tr><td class="m">평균 연령(세)</td><td>51.4</td><td>48.9</td><td><b>+2.5</b></td></tr>
+      <tr><td class="m">인터넷 뉴스이용 %</td><td>75.2</td><td>80.2</td><td><b>-5.0</b></td></tr>
+      <tr><td class="m">온라인동영상 %</td><td>20.4</td><td>24.3</td><td><b>-3.9</b></td></tr>
+    </table>
+    <div class="sub" style="margin-top:8px">✅ nbformat valid · 코드셀 8개 전부 출력 보존 · PNG 도식 5종(표본구조·순진vs균등·가용성 히트맵·연령분포·핵심축 분포) · error 0 · U+2212 0(ASCII "-") · Malgun Gothic·<code>axes.unicode_minus=False</code> · self-check PASS(N=90,996·2022=64.8%·연도 7개). 패널 parquet harmonize 재생성(gitignore). 20-eda-overview와 역할 분리(01=문제정의·20=정제 통합그림). 구형 노트북·src 삭제 없음. ⚠️ 다양성 절대수준 formative → 방향성만(06 §결과 R4).</div>
+  </section>
+
+  <section>
+    <h2>🔜 다음 (잔여)</h2>
+    <ul>
+      <li><span class="tag t-todo">TODO</span><div><b>02 다개년</b>(변수 매핑 — 2025 단일연도 잔존) · <b>23·24·30</b> 신규(정렬법 추세·APC·P5 종합)</div></li>
+    </ul>
+  </section>
+
+  <footer>Dacon 작업 대시보드 · skills/agent-ops/dashboard.md (R2) · 1작업–1정지(R3)</footer>
+</div>
+</body>
+</html>
