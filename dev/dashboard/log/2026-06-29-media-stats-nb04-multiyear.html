@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>04-personas-kmeans 다개년 리팩토링 · 작업 대시보드</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .t-key { background: rgba(210,153,34,.18); color: var(--progress); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  a { color: var(--accent); }
+  code { background: #0b0d11; padding: 1px 6px; border-radius: 4px; font-size: .85em; }
+  table { width: 100%; border-collapse: collapse; font-size: .8rem; margin-top: 8px; }
+  th, td { border: 1px solid var(--border); padding: 4px 6px; text-align: center; }
+  th { color: var(--accent); }
+  td.m { text-align: left; }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>04-personas-kmeans.ipynb 다개년 리팩토링 — 단년 과적합의 정직한 교정</h1>
+  <div class="meta">
+    📅 <b>2026-06-29 (KST)</b> · 🌿 <b>claude/m5-nb04-multiyear</b> · 🔗 PR 예정 · ⚙️ Opus 4.8 · 🅰️ A 트랙
+  </div>
+  <div class="bar"><i style="width:100%"></i></div>
+
+  <section>
+    <h2>✅ 완료 (Done)</h2>
+    <ul>
+      <li><span class="tag t-done">DONE</span><div><code>notebooks/04-personas-kmeans.ipynb</code> v1(2025 단년)→<b>v2(7개년 패널)</b> 전면 리팩토링. <code>health_index_panel</code>·<code>news_health_features</code> K-means 유틸 import(thin). 25셀·PNG 4종.</div></li>
+      <li><span class="tag t-done">DONE</span><div><b>§1 다양성 이산성 복선</b> — richness_fixed8(0~8)이 1~3에 ~85% 집중 → 군집 난이도 예고.</div></li>
+      <li><span class="tag t-done">DONE</span><div><b>§2 K 스윕</b> — 실루엣 평탄 → 해석가능성으로 k=4 채택([발견①]).</div></li>
+      <li><span class="tag t-done">DONE</span><div><b>§3 교차검증</b> — 파티션 ARI=0.244, 군집 중심이 4사분면 中 <b>3개만 덮음</b>(신뢰편향형 미분리). Decision Box(하이브리드·규범적 프레임) + [발견②].</div></li>
+      <li><span class="tag t-done">DONE</span><div><b>§5 프로파일</b> — 규칙 4사분면 가중 인구·매체8 히트맵. 저다양 유형=고령·TV 편중 식별([발견④]).</div></li>
+      <li><span class="tag t-done">DONE</span><div><b>§6 강건성 + §7 종합</b>(v1→v2 한계·v3 로드맵·웹데모 자가진단 사양). 표지+연구질문+CRISP-DM 배너+v1→v2 변경이력표.</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔑 핵심 — 전체 데이터가 단년 과적합을 교정 (사용자 '전체데이터' 원칙)</h2>
+    <ul>
+      <li><span class="tag t-key">[발견③]</span><div><b>§4 단년 vs 7개년 ARI</b> — v1은 2025 단년·옛 측정(22문항·12문항)에서 ARI <b>0.56</b>으로 "4사분면 재발견" 주장. <b>일관 측정(cred3·fixed8)</b>으로 7개년 돌리면 연도별 <b>0.13~0.41</b>·pooled 0.244로 어느 해도 강한 일치(0.5) 미달.</div></li>
+      <li><span class="tag t-key">결론</span><div>동일 2025라도 일관 측정 시 ARI=0.128 → "데이터가 자연히 4집단"은 <b>단년·측정 특수성(과적합)</b>이었음. <b>4사분면 = 규범적 프레임</b>(emergent 아님). 다양성축 이산·우편향이 비지도 군집을 신뢰축 분할로 몰아감.</div></li>
+      <li><span class="tag t-done">함의</span><div>규범적이어도 재현·설명·개입 타게팅엔 유효 → <b>하이브리드(운영=규칙·K-means=진단)</b> 더 강하게 정당화. 저다양 두 유형(고령·TV 편중)이 다양성 개입 우선 대상.</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>📊 검증 (nbformat valid · 출력 보존)</h2>
+    <table>
+      <tr><th>연도</th><th>2019</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th><th>pooled</th></tr>
+      <tr><td class="m">파티션 ARI(일관 측정)</td><td>0.31</td><td>0.37</td><td>0.25</td><td>0.20</td><td>0.32</td><td>0.41</td><td><b>0.13</b></td><td>0.24</td></tr>
+    </table>
+    <div class="sub" style="margin-top:8px">✅ nbformat valid · 코드셀 12개 전부 출력 보존 · PNG 도식 4종(K스윕·산점도·ARI막대·매체 히트맵) · error 0 · U+2212 0(ASCII "-") · Malgun Gothic·<code>axes.unicode_minus=False</code>. 패널 parquet harmonize 재생성(gitignore). 구형 <code>news_health_features.py</code>·노트북 삭제 없음. ⚠️ 다양성·페르소나 절대수준 formative·이산 한계 → 방향성만(06 §결과 R4).</div>
+  </section>
+
+  <section>
+    <h2>🔜 다음 (잔여)</h2>
+    <ul>
+      <li><span class="tag t-todo">TODO</span><div><b>01·02 다개년</b>(⚠️ 01은 전체 데이터로 데이터 파악 — 단일연도 금지, 과적합·편향 설명 가능하게) · <b>23·24·30</b> 신규</div></li>
+    </ul>
+  </section>
+
+  <footer>Dacon 작업 대시보드 · skills/agent-ops/dashboard.md (R2) · 1작업–1정지(R3)</footer>
+</div>
+</body>
+</html>

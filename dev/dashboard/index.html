@@ -64,12 +64,17 @@
     <li><span class="tag t-done">DONE</span><div>P3 하모나이즈 + P4 신뢰성 — credibility 배터리 crosswalk·MGCFA 측정비동등·정렬법 잠재추세·Mann-Kendall/APC (<code>src/{mgcfa_invariance,alignment,trend_apc}.py</code>)</div></li>
     <li><span class="tag t-done">DONE</span><div>P4 교차검증 — 복구된 pip로 <b>semopy</b> 설치, 직접구현 MGCFA를 독립 라이브러리로 외부검증(표준적재 최대차 0.0003·CFI/RMSEA 일치) — <code>src/mgcfa_semopy_crossval.py</code></div></li>
     <li><span class="tag t-done">DONE</span><div>P5 Evaluation — <b>통합 평가 서사</b>(증거 사다리·삼각검증·강건성·검증게이트 종합) — <code>docs/design/p5-evaluation.md</code> + <code>src/p5_evaluation.py</code></div></li>
-    <li><span class="tag t-progress">진행중</span><div><b>분석 과정 노트북화(Phase A·입증)</b> — P2~P5를 src import·실행출력 임베드 노트북으로 재현 + src 코드리뷰. <b>10·11·20·21·22 벤치마크 완료 + 03 다개년 v2 완료</b>(연구질문·📍배너·Decision Box·[발견]/[시각화]·완료요약·종합) → 01·02·04 다개년·23·24·30 잔여. 벤치마크 예시(ESG .ipynb+논문) 스타일 채택</div></li>
+    <li><span class="tag t-progress">진행중</span><div><b>분석 과정 노트북화(Phase A·입증)</b> — P2~P5를 src import·실행출력 임베드 노트북으로 재현 + src 코드리뷰. <b>10·11·20·21·22 벤치마크 완료 + 03·04 다개년 v2 완료</b>(연구질문·📍배너·Decision Box·[발견]/[시각화]·완료요약·종합) → 01·02 다개년·23·24·30 잔여. 벤치마크 예시(ESG .ipynb+논문) 스타일 채택</div></li>
     <li><span class="tag t-todo">NEXT</span><div>P6 논문형 PDF·웹데모(검증 끝난 결과만 탑재) / 비정형 선택트랙 — <b>노트북 입증 완료 후</b></div></li>
   </ul>
 
   <h2>작업 로그 (최신순)</h2>
   <div class="cards">
+    <a class="card" href="log/2026-06-29-media-stats-nb04-multiyear.html">
+      <div class="date">2026-06-29 (KST) · claude/m5-nb04-multiyear &nbsp;<span class="tag t-done">A트랙</span></div>
+      <div class="title">🧭 04-personas-kmeans.ipynb 다개년 리팩토링 — 단년 과적합의 정직한 교정</div>
+      <div class="summary">v1(2025 단년)→v2(7개년 패널). K-means 페르소나를 7개년 일관 측정(cred3·fixed8)으로 재검증. 핵심 발견(전체데이터 원칙): v1은 2025 단년·옛 측정에서 ARI 0.56으로 "4사분면 재발견" 주장했으나, 일관 측정 7개년은 연도별 0.13~0.41·pooled 0.244로 강한 일치(0.5) 미달 → 동일 2025도 0.128. "데이터가 자연히 4집단"은 단년·측정 특수성(과적합)이며 4사분면=규범적 프레임(emergent 아님, 다양성 이산성이 군집을 신뢰축 분할로 몰아감). 하이브리드(운영=규칙·K-means=진단) 더 강하게 정당화. 저다양 두 유형=고령·TV 편중→다양성 개입 우선. 25셀·도식 4종(K스윕·산점도·ARI막대·매체 히트맵)·nbformat valid·출력 보존·U+2212 0. 잔여 01·02 다개년·23·24·30.</div>
+    </a>
     <a class="card" href="log/2026-06-29-media-stats-nb03-multiyear.html">
       <div class="date">2026-06-29 (KST) · claude/m4-nb03-multiyear &nbsp;<span class="tag t-done">A트랙 ④</span></div>
       <div class="title">🩺 03-health-index.ipynb 다개년 리팩토링 — 7개년 NCHI 추세</div>
