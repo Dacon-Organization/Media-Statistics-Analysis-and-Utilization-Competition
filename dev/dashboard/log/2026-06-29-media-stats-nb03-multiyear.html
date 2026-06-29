@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>03-health-index 다개년 리팩토링 · 작업 대시보드</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  a { color: var(--accent); }
+  code { background: #0b0d11; padding: 1px 6px; border-radius: 4px; font-size: .85em; }
+  table { width: 100%; border-collapse: collapse; font-size: .8rem; margin-top: 8px; }
+  th, td { border: 1px solid var(--border); padding: 4px 6px; text-align: center; }
+  th { color: var(--accent); }
+  td.m { text-align: left; }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>03-health-index.ipynb 다개년 리팩토링 — 7개년 NCHI 추세</h1>
+  <div class="meta">
+    📅 <b>2026-06-29 (KST)</b> · 🌿 <b>claude/m4-nb03-multiyear</b> · 🔗 PR 예정 · ⚙️ Opus 4.8 · 🅰️ A 트랙 ④
+  </div>
+  <div class="bar"><i style="width:100%"></i></div>
+
+  <section>
+    <h2>✅ 완료 (Done)</h2>
+    <ul>
+      <li><span class="tag t-done">DONE</span><div><code>notebooks/03-health-index.ipynb</code> v1(2025 단년) → <b>v2(7개년 패널)</b> 전면 리팩토링. <code>health_index_panel.py</code>(#156) import 기반, 21셀·도식 4종.</div></li>
+      <li><span class="tag t-done">DONE</span><div><b>§1 신뢰지수 추세</b> — <code>trust_index_panel()</code> 호출, reflective·MGCFA 측정불변 → <b>연도 비교 가능</b> 명시(Decision Box ① + [발견 ①]).</div></li>
+      <li><span class="tag t-done">DONE</span><div><b>§2 다양성 추세</b> — fixed8(주)·incl(보조) 2버전 + <b>RAW Richness 신설 기여</b>(지수 독립정규화 → 레벨 비교 불가 정정). ⚠️ formative·방향성만(DB② + [발견 ②]).</div></li>
+      <li><span class="tag t-done">DONE</span><div><b>§3 NCHI 추세</b> — <code>nchi_by_year()</code> fixed8·incl 병기. 다양성 병목 발견([발견 ③]).</div></li>
+      <li><span class="tag t-done">DONE</span><div><b>§4 페르소나 구성비 추세</b> — pooled 중앙값 고정 임계값, 누적영역 도식. 고신뢰층↑·신뢰편향형 누수 발견([발견 ④]).</div></li>
+      <li><span class="tag t-done">DONE</span><div>표지(연구질문·목차·CRISP-DM 배너) + <b>v1→v2 변경이력 표</b> + 종합·한계(v3 로드맵)·다음. 구형 모듈/노트북 삭제 없음.</div></li>
+      <li><span class="tag t-done">DONE</span><div>빌드=nbformat 스크래치패드(미커밋), <code>PYTHONIOENCODING=utf-8</code> 실행. 패널 parquet <code>harmonize.py</code> 재생성 후 검증.</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>📊 검증 (nbformat valid · 출력 보존)</h2>
+    <table>
+      <tr><th>연도</th><th>2019</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th></tr>
+      <tr><td class="m">신뢰지수(연도비교 가능)</td><td>51.3</td><td>56.6</td><td>58.0</td><td>55.7</td><td>55.2</td><td>54.8</td><td><b>60.1</b></td></tr>
+      <tr><td class="m">다양성 fixed8(방향성)</td><td>28.5</td><td>29.8</td><td>30.3</td><td>26.8</td><td>27.7</td><td>26.8</td><td>28.5</td></tr>
+      <tr><td class="m"><b>NCHI fixed8</b></td><td>38.2</td><td>41.1</td><td>41.9</td><td>38.6</td><td>39.1</td><td>38.3</td><td>41.4</td></tr>
+      <tr><td class="m">RAW 신설기여(incl-fixed8)</td><td>0.00</td><td>0.00</td><td>0.00</td><td>0.00</td><td>+0.18</td><td>+0.15</td><td><b>+0.30</b></td></tr>
+    </table>
+    <div class="sub" style="margin-top:8px">✅ nbformat valid · 코드셀 9개 전부 출력 보존 · PNG 도식 4종 임베드 · error 0 · U+2212 0(ASCII "-"만) · Malgun Gothic·<code>axes.unicode_minus=False</code>. ⚠️ 다양성·NCHI 절대수준은 formative 한계 → 종단 해석은 방향성 위주(06 §결과 R4), 신뢰만 연도 비교.</div>
+  </section>
+
+  <section>
+    <h2>🔍 핵심 발견</h2>
+    <ul>
+      <li><span class="tag t-done">①</span><div>신뢰는 2019 저점(51.3) → 2021·2025 정점(58.0·60.1) <b>완만한 우상향</b>(측정불변 → 비교 유효).</div></li>
+      <li><span class="tag t-done">②</span><div>fixed8 다양성은 평탄, 최근 증가분은 <b>RAW 기준 신설 채널(숏폼·OTT·AI) 기여</b>(2025 +0.30).</div></li>
+      <li><span class="tag t-done">③</span><div>NCHI는 신뢰가 끌어도 <b>낮은 다양성이 천장</b> → 병목은 신뢰 아닌 다양성.</div></li>
+      <li><span class="tag t-done">④</span><div>고신뢰층 비중↑(42%→63%)이나 다양성 정체로 <b>신뢰편향형 누수</b>(12%→20%).</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔜 다음 (잔여)</h2>
+    <ul>
+      <li><span class="tag t-todo">TODO</span><div>사용자 순서 잔여: <code>01~04 다개년</code> · <code>23</code> · <code>24</code> · <code>30</code></div></li>
+    </ul>
+  </section>
+
+  <footer>Dacon 작업 대시보드 · skills/agent-ops/dashboard.md (R2) · 1작업–1정지(R3)</footer>
+</div>
+</body>
+</html>

@@ -64,12 +64,17 @@
     <li><span class="tag t-done">DONE</span><div>P3 하모나이즈 + P4 신뢰성 — credibility 배터리 crosswalk·MGCFA 측정비동등·정렬법 잠재추세·Mann-Kendall/APC (<code>src/{mgcfa_invariance,alignment,trend_apc}.py</code>)</div></li>
     <li><span class="tag t-done">DONE</span><div>P4 교차검증 — 복구된 pip로 <b>semopy</b> 설치, 직접구현 MGCFA를 독립 라이브러리로 외부검증(표준적재 최대차 0.0003·CFI/RMSEA 일치) — <code>src/mgcfa_semopy_crossval.py</code></div></li>
     <li><span class="tag t-done">DONE</span><div>P5 Evaluation — <b>통합 평가 서사</b>(증거 사다리·삼각검증·강건성·검증게이트 종합) — <code>docs/design/p5-evaluation.md</code> + <code>src/p5_evaluation.py</code></div></li>
-    <li><span class="tag t-progress">진행중</span><div><b>분석 과정 노트북화(Phase A·입증)</b> — P2~P5를 src import·실행출력 임베드 노트북으로 재현 + src 코드리뷰. <b>10·11·20·21·22 벤치마크 완료</b>(연구질문·📍배너·Decision Box·[발견]/[시각화]·완료요약·종합) → 23·24·30 신규 잔여. 벤치마크 예시(ESG .ipynb+논문) 스타일 채택</div></li>
+    <li><span class="tag t-progress">진행중</span><div><b>분석 과정 노트북화(Phase A·입증)</b> — P2~P5를 src import·실행출력 임베드 노트북으로 재현 + src 코드리뷰. <b>10·11·20·21·22 벤치마크 완료 + 03 다개년 v2 완료</b>(연구질문·📍배너·Decision Box·[발견]/[시각화]·완료요약·종합) → 01·02·04 다개년·23·24·30 잔여. 벤치마크 예시(ESG .ipynb+논문) 스타일 채택</div></li>
     <li><span class="tag t-todo">NEXT</span><div>P6 논문형 PDF·웹데모(검증 끝난 결과만 탑재) / 비정형 선택트랙 — <b>노트북 입증 완료 후</b></div></li>
   </ul>
 
   <h2>작업 로그 (최신순)</h2>
   <div class="cards">
+    <a class="card" href="log/2026-06-29-media-stats-nb03-multiyear.html">
+      <div class="date">2026-06-29 (KST) · claude/m4-nb03-multiyear &nbsp;<span class="tag t-done">A트랙 ④</span></div>
+      <div class="title">🩺 03-health-index.ipynb 다개년 리팩토링 — 7개년 NCHI 추세</div>
+      <div class="summary">v1(2025 단년)→v2(7개년 패널) 전면 리팩토링. health_index_panel.py(#156) import 기반 21셀·도식 4종. §1 신뢰 추세(reflective·연도비교 가능, 51.3→60.1 우상향) §2 다양성 fixed8·incl 2버전 + RAW 신설기여(2025 +0.30·formative 방향성만) §3 NCHI 38~42(다양성 병목) §4 페르소나 구성비(고신뢰층 42→63%·신뢰편향형 누수 12→20%). 표지(연구질문·CRISP-DM 배너)+v1→v2 변경이력+Decision Box+[발견]+종합. nbformat valid·출력 보존·U+2212 0·구형 모듈/노트북 삭제 없음. 잔여 01~04 다개년·23·24·30.</div>
+    </a>
     <a class="card" href="log/2026-06-29-media-stats-health-index-panel.html">
       <div class="date">2026-06-29 (KST) · claude/m3-health-index-panel &nbsp;<span class="tag t-done">A트랙 ③</span></div>
       <div class="title">🩺 health_index_panel.py 신설 — 7개년 건강지수 패널 어댑터</div>
