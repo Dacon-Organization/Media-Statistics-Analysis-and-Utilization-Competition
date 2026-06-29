@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>crosswalk §3.4-bis 매체배터리 · 작업 대시보드</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-progress { background: rgba(210,153,34,.15); color: var(--progress); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .t-blocked { background: rgba(248,81,73,.15); color: var(--blocked); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  a { color: var(--accent); }
+  code { background: #0b0d11; padding: 1px 6px; border-radius: 4px; font-size: .85em; }
+  table { width: 100%; border-collapse: collapse; font-size: .82rem; margin-top: 8px; }
+  th, td { border: 1px solid var(--border); padding: 4px 7px; text-align: center; }
+  th { color: var(--accent); }
+  td.m { text-align: left; color: var(--text); }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>crosswalk §3.4-bis — 7개년 매체이용 배터리 고정풀</h1>
+  <div class="meta">
+    📅 <b>2026-06-29 (KST)</b> · 🌿 <b>claude/blissful-newton-310702</b> · 🔗 PR 예정 · ⚙️ Opus 4.8 · 🅰️ A 트랙 ①/④
+  </div>
+  <div class="bar"><i style="width:25%"></i></div>
+
+  <section>
+    <h2>🎯 목표 (A 트랙 진입점)</h2>
+    <ul>
+      <li><span class="tag t-done">①</span><div>다양성 Richness <b>고정풀 8매체</b>를 7개년 .sav 임베디드 코드북에서 <b>전수 역추적</b> → variable-crosswalk <code>§3.4-bis</code> 신설. ②harmonize.py ③health_index_panel.py ④03 다개년의 선행조건.</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>✅ 완료 (Done)</h2>
+    <ul>
+      <li><span class="tag t-done">DONE</span><div>2025 코어 배터리(<code>news_health_features.NEWS_DAYS</code> 12매체) 구조 파악 → 고정풀 8매체 선별</div></li>
+      <li><span class="tag t-done">DONE</span><div><b>7개년 .sav 코드북 직접 스캔</b>(pyreadstat metadataonly) — 종이신문·잡지 열독, TV·라디오 시청/청취, 인터넷·메신저·SNS·동영상 뉴스이용 여부 변수 확정</div></li>
+      <li><span class="tag t-done">DONE</span><div><b>2019 디지털 배터리 존재 확인</b>(Q28 인터넷·Q48 메신저·Q56 SNS·Q64 동영상) → 8매체 전부 7개년 가용 입증</div></li>
+      <li><span class="tag t-done">DONE</span><div><code>§3.4-bis</code> 7×8 매핑표 + 재코딩 규칙(여부/일수>0/인터넷 OR 통합) + 신설매체 보조표 + self-validation 4항</div></li>
+      <li><span class="tag t-done">DONE</span><div>crosswalk <b>v0.2→v0.3</b> 버전업 + target_var 사전에 <code>use_*</code> 8종 등록 + media_main_route를 HHI 보조축으로 재정의</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🧭 확정된 고정풀 매핑 (요약)</h2>
+    <table>
+      <tr><th>매체</th><th>2019</th><th>2020·21</th><th>2022</th><th>2023·24</th><th>2025</th></tr>
+      <tr><td class="m">종이신문</td><td>Q3_01_1▲</td><td>Q3x1▲</td><td>Q1</td><td>Q1</td><td>Q1</td></tr>
+      <tr><td class="m">뉴스잡지</td><td>Q23</td><td>Q24</td><td>Q13</td><td>Q8</td><td>Q8</td></tr>
+      <tr><td class="m">TV</td><td>Q10</td><td>Q11</td><td>Q19</td><td>Q13</td><td>Q13</td></tr>
+      <tr><td class="m">라디오</td><td>Q17</td><td>Q18</td><td>Q27</td><td>Q20</td><td>Q20</td></tr>
+      <tr><td class="m">인터넷·포털◆</td><td>Q28</td><td>Q35∪Q29</td><td>Q33_1∪2</td><td>Q26_1∪2</td><td>Q26_1∪2</td></tr>
+      <tr><td class="m">메신저</td><td>Q48</td><td>Q50</td><td>Q45</td><td>Q40</td><td>Q39</td></tr>
+      <tr><td class="m">SNS</td><td>Q56</td><td>Q58</td><td>Q51</td><td>Q46</td><td>Q46</td></tr>
+      <tr><td class="m">동영상</td><td>Q64</td><td>Q66</td><td>Q57</td><td>Q52</td><td>Q53</td></tr>
+    </table>
+    <div class="sub" style="margin-top:8px">▲ 일수>0 이진화 · ◆ 기기/포털 분리분 OR 통합 · Richness=Σuse(0~8). ⚠️ 2025단년(0~12)과 절대수준 비교 금지·방향성만.</div>
+  </section>
+
+  <section>
+    <h2>🔜 다음 할 일 (Next) — A 트랙 ②~④</h2>
+    <ul>
+      <li><span class="tag t-todo">TODO</span><div>② <code>src/harmonize.py</code> 확장 — §3.4-bis 명세대로 <code>use_*</code> 8컬럼 + <code>richness_fixed8</code> 파생 + self-validation 4항</div></li>
+      <li><span class="tag t-todo">TODO</span><div>③ <code>src/health_index_panel.py</code> 신설(thin) — <code>diversity_index_panel</code>·<code>trust_index_panel</code>·<code>nchi_by_year</code> (공통수학은 news_health_features import)</div></li>
+      <li><span class="tag t-todo">TODO</span><div>④ <code>notebooks/03-health-index</code> 다개년 리팩토링(벤치마크 스타일 + v1→v2 변경이력)</div></li>
+      <li><span class="tag t-todo">TODO</span><div>그 후 사용자 순서 23→24→30</div></li>
+    </ul>
+  </section>
+
+  <footer>Dacon 작업 대시보드 · skills/agent-ops/dashboard.md (R2) · 1작업–1정지(R3)</footer>
+</div>
+</body>
+</html>
