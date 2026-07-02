@@ -47,8 +47,8 @@
   </div>
 
   <h2>전체 진척률</h2>
-  <div class="bar"><i style="width:55%"></i></div>
-  <div class="barlabel">⚙️ 2026-06-24 분석 전면 재설계(CRISP-DM·7개년 확장) — 2025 횡단면 코어는 완료(지수·페르소나), 신규 범위(7개년 정제·하모나이즈·고급모델·검증) 기준 재산정 ≈55%</div>
+  <div class="bar"><i style="width:62%"></i></div>
+  <div class="barlabel">⚙️ 2026-06-24 분석 전면 재설계(CRISP-DM·7개년 확장) 기준 재산정 — 노트북 입증 Phase A는 13개 중 11개 완료(잔여 24·30), P6 논문형 PDF·웹데모 미착수 ≈62%</div>
 
   <h2>마일스톤 파이프라인</h2>
   <ul class="pipeline">
@@ -64,12 +64,17 @@
     <li><span class="tag t-done">DONE</span><div>P3 하모나이즈 + P4 신뢰성 — credibility 배터리 crosswalk·MGCFA 측정비동등·정렬법 잠재추세·Mann-Kendall/APC (<code>src/{mgcfa_invariance,alignment,trend_apc}.py</code>)</div></li>
     <li><span class="tag t-done">DONE</span><div>P4 교차검증 — 복구된 pip로 <b>semopy</b> 설치, 직접구현 MGCFA를 독립 라이브러리로 외부검증(표준적재 최대차 0.0003·CFI/RMSEA 일치) — <code>src/mgcfa_semopy_crossval.py</code></div></li>
     <li><span class="tag t-done">DONE</span><div>P5 Evaluation — <b>통합 평가 서사</b>(증거 사다리·삼각검증·강건성·검증게이트 종합) — <code>docs/design/p5-evaluation.md</code> + <code>src/p5_evaluation.py</code></div></li>
-    <li><span class="tag t-progress">진행중</span><div><b>분석 과정 노트북화(Phase A·입증)</b> — P2~P5를 src import·실행출력 임베드 노트북으로 재현 + src 코드리뷰. <b>10·11·20·21·22 벤치마크 완료 + 01·02·03·04 다개년 v2 완료</b>(연구질문·📍배너·Decision Box·[발견]/[시각화]·완료요약·종합) → 23·24·30 잔여. 벤치마크 예시(ESG .ipynb+논문) 스타일 채택</div></li>
+    <li><span class="tag t-progress">진행중</span><div><b>분석 과정 노트북화(Phase A·입증)</b> — P2~P5를 src import·실행출력 임베드 노트북으로 재현 + src 코드리뷰. <b>10·11·20·21·22·23 벤치마크 완료 + 01·02·03·04 다개년 v2 완료</b>(연구질문·📍배너·Decision Box·[발견]/[시각화]·완료요약·종합) → 24·30 잔여. 벤치마크 예시(ESG .ipynb+논문) 스타일 채택</div></li>
     <li><span class="tag t-todo">NEXT</span><div>P6 논문형 PDF·웹데모(검증 끝난 결과만 탑재) / 비정형 선택트랙 — <b>노트북 입증 완료 후</b></div></li>
   </ul>
 
   <h2>작업 로그 (최신순)</h2>
   <div class="cards">
+    <a class="card" href="log/2026-07-02-media-stats-nb23-alignment-trend.html">
+      <div class="date">2026-07-02 (KST) · feature/media-stats/23-alignment-trend &nbsp;<span class="tag t-done">B트랙</span></div>
+      <div class="title">📈 23-alignment-trend.ipynb 신설 — 정렬법 잠재평균 추세(파이프라인 최초의 추세 수치)</div>
+      <div class="summary">src/alignment.py(SSOT) thin import 벤치마크 노트북(31셀·PNG 3종). scalar 미확정(21) 조건에서 정렬법(A&amp;M 2014) 3단계(configural→정렬회전→비동등비율)로 잠재평균 추세 최초 보고. 핵심: ①주모형(3지표·연도균등 정렬가중·B=200) — 2019 대비 전 연도 +0.30~+0.67 SD 상향·비단조(2024 저점→2025 최고 +0.671)·비동등 2.4%(1/42)≤20% → alignment-adjusted 비교 정당(Q2 해결). ②robustness 2종(A&amp;M 표준가중 +0.673/설계가중적률 +0.610)·민감도 4지표(2019~2022 단조 +0.435·비동등 6.2%)·단일문항(종점 방향 일치·Spearman 0.200) 전 변형 재현. ③DB① 정렬법 채택 사유(3지표 포화 → partial scalar 탐색 불가·정량 게이트), DB② 연도균등 주모형(2022 64.8% 표본지배 제거), DB③ 해석 경계(2019→2020 계단 +0.354=추세의 절반 → 원자료 재검증 최우선·후퇴선 명시). ④시뮬 자기검증 3종(불변/부분비동등 회복·과다비동등 저하=게이트 실질성)·§8 검증 셀 문서 수치 assert PASS. nbformat valid·출력 보존·U+2212 0. 잔여 24·30.</div>
+    </a>
     <a class="card" href="log/2026-06-29-media-stats-nb02-multiyear.html">
       <div class="date">2026-06-29 (KST) · claude/m7-nb02-multiyear &nbsp;<span class="tag t-done">A트랙</span></div>
       <div class="title">🔗 02-variable-mapping.ipynb 다개년 리팩토링 — 개념→변수 정렬</div>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>23-alignment-trend.ipynb 신설 · 작업 대시보드</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  a { color: var(--accent); }
+  code { background: #0b0d11; padding: 1px 6px; border-radius: 4px; font-size: .85em; }
+  table { width: 100%; border-collapse: collapse; font-size: .8rem; margin-top: 8px; }
+  th, td { border: 1px solid var(--border); padding: 4px 6px; text-align: center; }
+  th { color: var(--accent); }
+  td.m { text-align: left; }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>23-alignment-trend.ipynb 신설 — 정렬법 잠재평균 추세(B트랙 잔여 ①)</h1>
+  <div class="meta">
+    📅 <b>2026-07-02 (KST)</b> · 🌿 <b>feature/media-stats/23-alignment-trend</b> · 🔗 PR 예정 · ⚙️ Fable 5 · 🅱️ B트랙(종단)
+  </div>
+  <div class="bar"><i style="width:100%"></i></div>
+
+  <section>
+    <h2>✅ 완료 (Done)</h2>
+    <ul>
+      <li><span class="tag t-done">DONE</span><div><code>notebooks/23-alignment-trend.ipynb</code> <b>신설</b>(벤치마크 스타일 31셀·PNG 3종) — <code>src/alignment.py</code>(SSOT) thin import, 정렬법(Asparouhov &amp; Muthén 2014) 3단계(configural→정렬회전→비동등비율)로 <b>파이프라인 최초의 잠재평균 추세 수치 보고</b>.</div></li>
+      <li><span class="tag t-done">DONE</span><div>주모형(3지표·연도균등·B=200): 2019 대비 전 연도 <b>+0.30~+0.67 SD 상향</b>·비단조(2024 저점→<b>2025 최고 +0.671</b>)·<b>비동등 2.4%(1/42) ≤20% → alignment-adjusted 비교 정당</b>.</div></li>
+      <li><span class="tag t-done">DONE</span><div>robustness 2종(A&amp;M 표준가중 Δα=+0.673 / 설계가중적률 +0.610, 비동등 2.4%·14.3%) + 민감도 4지표(2019~2022 단조 +0.435, 비동등 6.2%) + 단일문항 교차확인(종점 방향 일치·Spearman 0.200) — 전 변형 게이트 통과.</div></li>
+      <li><span class="tag t-done">DONE</span><div>Decision Box 3종: ①scalar 강행/partial/정렬법 중 정렬법 채택(포화 구조·정량 게이트) ②정렬가중 연도균등 주모형(2022 표본지배 제거, wt_year_eq 정신) ③해석 경계표(허용/방향성만/금지/검증게이트 — 2019→2020 계단 +0.354 재검증 최우선).</div></li>
+      <li><span class="tag t-done">DONE</span><div>§8 검증 셀: SSOT 문서 <code>alignment-trust-trend.md</code> 수치(α 7개·1/42·robustness Δα·민감도·단일문항 Δ+0.138·Spearman) assert 재현 PASS. §3 시뮬 자기검증(불변/부분비동등 회복·과다비동등 저하) PASS.</div></li>
+      <li><span class="tag t-done">DONE</span><div><code>notebooks/README.md</code> 현황 갱신(23 ✅ 벤치마크·A트랙 01~04 다개년 완료 반영, 잔여 24·30).</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔍 검증 (How verified)</h2>
+    <ul>
+      <li><span class="tag t-done">PASS</span><div><code>jupyter nbconvert --execute --inplace</code> 전셀 실행(부트스트랩 총 590회 포함) — 실행 출력·figure 임베드 커밋, nbformat valid, U+2212 0.</div></li>
+      <li><span class="tag t-done">PASS</span><div>점추정 스모크 테스트: 주모형 α = 문서 §1과 소수 셋째자리 일치(+0.354/+0.474/+0.453/+0.394/+0.298/+0.671).</div></li>
+      <li><span class="tag t-done">PASS</span><div>자기검증 3시나리오(A 완전불변 corr&gt;.99 / B 부분비동등 회복 / C 과다비동등 저하) — 20% 게이트의 실질성 확인.</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>⏭️ 다음 할 일 (Next)</h2>
+    <ul>
+      <li><span class="tag t-todo">P1</span><div><code>24-trend-apc.ipynb</code> 신설 — Mann-Kendall 추세검정 + APC(HAPC·IE) 세대효과 분해(<code>src/trend_apc.py</code>·<code>docs/design/trend-apc-results.md</code> 기반). 23이 정당화한 추세를 "누가·언제 효과인가"로 분해.</div></li>
+      <li><span class="tag t-todo">P2</span><div><code>30-evaluation.ipynb</code> 신설 — 증거 사다리·삼각검증 종합(<code>src/p5_evaluation.py</code>). B트랙 완결.</div></li>
+      <li><span class="tag t-todo">P3</span><div>전체 노트북 일관성 검토 1회(사용자 확정 순서: 노트북 먼저 → 맨 마지막 일괄 검토) → P6 논문형 PDF·웹데모.</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>⚠️ 차단/리스크 (Blocker)</h2>
+    <ul>
+      <li><span class="tag t-todo">게이트</span><div>추세 수치는 KPF 원자료 재검증(<code>data-spec.md §6</code>) 전 보고서·웹데모 직접 인용 신중 — 특히 2019→2020 계단(+0.354)은 2019 문항 맥락 확인 선행(DB③ 후퇴선 명시).</div></li>
+    </ul>
+  </section>
+
+  <footer>skills/agent-ops/dashboard.md (R2) · 1작업–1정지 (R3) 준수</footer>
+</div>
+</body>
+</html>
