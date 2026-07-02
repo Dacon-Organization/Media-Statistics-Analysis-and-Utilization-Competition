@@ -47,8 +47,8 @@
   </div>
 
   <h2>전체 진척률</h2>
-  <div class="bar"><i style="width:62%"></i></div>
-  <div class="barlabel">⚙️ 2026-06-24 분석 전면 재설계(CRISP-DM·7개년 확장) 기준 재산정 — 노트북 입증 Phase A는 13개 중 11개 완료(잔여 24·30), P6 논문형 PDF·웹데모 미착수 ≈62%</div>
+  <div class="bar"><i style="width:66%"></i></div>
+  <div class="barlabel">⚙️ 2026-06-24 분석 전면 재설계(CRISP-DM·7개년 확장) 기준 재산정 — 노트북 입증 Phase A는 13개 중 12개 완료(잔여 30), P6 논문형 PDF·웹데모 미착수 ≈66%</div>
 
   <h2>마일스톤 파이프라인</h2>
   <ul class="pipeline">
@@ -64,12 +64,17 @@
     <li><span class="tag t-done">DONE</span><div>P3 하모나이즈 + P4 신뢰성 — credibility 배터리 crosswalk·MGCFA 측정비동등·정렬법 잠재추세·Mann-Kendall/APC (<code>src/{mgcfa_invariance,alignment,trend_apc}.py</code>)</div></li>
     <li><span class="tag t-done">DONE</span><div>P4 교차검증 — 복구된 pip로 <b>semopy</b> 설치, 직접구현 MGCFA를 독립 라이브러리로 외부검증(표준적재 최대차 0.0003·CFI/RMSEA 일치) — <code>src/mgcfa_semopy_crossval.py</code></div></li>
     <li><span class="tag t-done">DONE</span><div>P5 Evaluation — <b>통합 평가 서사</b>(증거 사다리·삼각검증·강건성·검증게이트 종합) — <code>docs/design/p5-evaluation.md</code> + <code>src/p5_evaluation.py</code></div></li>
-    <li><span class="tag t-progress">진행중</span><div><b>분석 과정 노트북화(Phase A·입증)</b> — P2~P5를 src import·실행출력 임베드 노트북으로 재현 + src 코드리뷰. <b>10·11·20·21·22·23 벤치마크 완료 + 01·02·03·04 다개년 v2 완료</b>(연구질문·📍배너·Decision Box·[발견]/[시각화]·완료요약·종합) → 24·30 잔여. 벤치마크 예시(ESG .ipynb+논문) 스타일 채택</div></li>
+    <li><span class="tag t-progress">진행중</span><div><b>분석 과정 노트북화(Phase A·입증)</b> — P2~P5를 src import·실행출력 임베드 노트북으로 재현 + src 코드리뷰. <b>10·11·20·21·22·23·24 벤치마크 완료 + 01·02·03·04 다개년 v2 완료</b>(연구질문·📍배너·Decision Box·[발견]/[시각화]·완료요약·종합) → 30 잔여. 벤치마크 예시(ESG .ipynb+논문) 스타일 채택</div></li>
     <li><span class="tag t-todo">NEXT</span><div>P6 논문형 PDF·웹데모(검증 끝난 결과만 탑재) / 비정형 선택트랙 — <b>노트북 입증 완료 후</b></div></li>
   </ul>
 
   <h2>작업 로그 (최신순)</h2>
   <div class="cards">
+    <a class="card" href="log/2026-07-03-media-stats-nb24-trend-apc.html">
+      <div class="date">2026-07-03 (KST) · feature/media-stats/24-trend-apc &nbsp;<span class="tag t-done">B트랙</span></div>
+      <div class="title">🧬 24-trend-apc.ipynb 신설 — MK 추세검정 + APC 세대효과 분해(추세의 성격과 정체)</div>
+      <div class="summary">src/trend_apc.py(SSOT, alignment.py 재사용) thin import 벤치마크 노트북(PNG 2종). 23이 정당화한 추세를 두 축으로 분해. 핵심: ①MK 이층 보고 — 점추정 정확 p=0.381 비유의를 정직 보고하되 부트스트랩 불확실성 전파로 P(S&gt;0)=1.00(증가 방향 견고)·Sen +0.0595/년·교차검정 3지표(잠재/단일문항/합성) τ 부호 전부 양(+). ②APC 삼각검증 — HAPC-GLMM(2022 하향표집)·IE(wt_year_eq 가중)의 기간효과가 정렬추세와 r=+0.990/+0.960·상호 +0.988 → 상승=기간(시대) 효과(노화·세대구성 아님). ③연령효과 미미(범위 0.111, U자)·코호트 구배 -0.891(1935~49년생 +0.10~+0.19 → 2000년대생 -0.14 이하) → 세대교체 시 총평균 하방 압력 함의. ④DB① MK+Sen 채택(n=7 순열 정확분포·OLS 기각) DB② cred_mean 합성(metric 동등 근거)·2022 이중 처리(방법별 중화 후 일치=인공물 배제) DB③ "유의한 추세" 표현 금지·크기 단독 인용 금지. ⑤자기검증 2종(MK 3패턴·IE 회복)·§8 문서수치 assert PASS(N=38,060). nbformat valid·U+2212 0. P4 체인(21→22→23→24) 완결, 잔여 30.</div>
+    </a>
     <a class="card" href="log/2026-07-02-media-stats-nb23-alignment-trend.html">
       <div class="date">2026-07-02 (KST) · feature/media-stats/23-alignment-trend &nbsp;<span class="tag t-done">B트랙</span></div>
       <div class="title">📈 23-alignment-trend.ipynb 신설 — 정렬법 잠재평균 추세(파이프라인 최초의 추세 수치)</div>

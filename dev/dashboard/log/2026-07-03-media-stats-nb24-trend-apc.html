@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>24-trend-apc.ipynb 신설 · 작업 대시보드</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  a { color: var(--accent); }
+  code { background: #0b0d11; padding: 1px 6px; border-radius: 4px; font-size: .85em; }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>24-trend-apc.ipynb 신설 — MK 추세검정 + APC 세대효과 분해(B트랙 잔여 ②)</h1>
+  <div class="meta">
+    📅 <b>2026-07-03 (KST)</b> · 🌿 <b>feature/media-stats/24-trend-apc</b> · 🔗 PR 예정 · ⚙️ Fable 5 · 🅱️ B트랙(종단)
+  </div>
+  <div class="bar"><i style="width:100%"></i></div>
+
+  <section>
+    <h2>✅ 완료 (Done)</h2>
+    <ul>
+      <li><span class="tag t-done">DONE</span><div><code>notebooks/24-trend-apc.ipynb</code> <b>신설</b>(벤치마크 스타일·PNG 2종) — <code>src/trend_apc.py</code>(SSOT, <code>alignment.py</code> 재사용) thin import. 23이 정당화한 추세의 <b>통계적 성격(MK)</b>과 <b>정체(APC)</b>를 분해.</div></li>
+      <li><span class="tag t-done">DONE</span><div>MK 이층 보고: 점추정 <b>정확 p=0.381 비유의를 정직하게 보고</b>하되, 부트스트랩 불확실성 전파로 <b>P(S&gt;0)=1.00</b>(방향 견고) · Sen +0.0595/년 · 교차검정 3지표 τ 부호 전부 양(+).</div></li>
+      <li><span class="tag t-done">DONE</span><div>APC 삼각검증: HAPC-GLMM(2022 하향표집)·IE(wt_year_eq 가중)의 기간효과가 정렬추세와 <b>r=+0.990/+0.960</b>, 상호 +0.988 → <b>상승=기간(시대) 효과</b>. 연령효과 미미(범위 0.111)·<b>코호트 구배 -0.891</b>(젊을수록 낮음 → 하방 압력 함의).</div></li>
+      <li><span class="tag t-done">DONE</span><div>Decision Box 3종: ①MK+Sen 채택(OLS/종점차 기각, n=7 순열 정확분포) ②APC 산출변수(cred_mean, metric 동등 근거)·2022 이중 처리(방법별 중화) ③해석 경계("유의한 추세" 표현 금지·크기 단독 인용 금지·검증 게이트).</div></li>
+      <li><span class="tag t-done">DONE</span><div>§8 검증 셀: <code>trend-apc-results.md</code> 수치(S=7·p=0.3813·Sen·P(S&gt;0)·τ 3종·상관 3종·N=38,060·연령범위·코호트 구배) assert 재현 PASS. §2 자기검증(MK 3패턴·IE 기간효과 회복) PASS.</div></li>
+      <li><span class="tag t-done">DONE</span><div><code>notebooks/README.md</code> 현황 갱신(24 ✅ 벤치마크, 잔여 30) + 대시보드 R2 로그·롤업.</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔍 검증 (How verified)</h2>
+    <ul>
+      <li><span class="tag t-done">PASS</span><div><code>jupyter nbconvert --execute --inplace</code> 전셀 실행(부트스트랩 B=150 MK 전파·HAPC-GLMM N=38,060 포함) — 에러 0·실행 출력·figure 임베드 커밋·nbformat valid·U+2212 0.</div></li>
+      <li><span class="tag t-done">PASS</span><div>자기검증 2종(MK 증가/감소/평탄 판정 정확·APC 알려진 기간효과 회복 corr&gt;0.95, rank_ok=True).</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>⏭️ 다음 할 일 (Next)</h2>
+    <ul>
+      <li><span class="tag t-todo">P1</span><div><code>30-evaluation.ipynb</code> 신설 — 증거 사다리·삼각검증 종합(<code>src/p5_evaluation.py</code>·<code>docs/design/p5-evaluation.md</code>). <b>B트랙 완결(마지막 잔여)</b>.</div></li>
+      <li><span class="tag t-todo">P2</span><div>전체 노트북(13개) 일관성 검토 1회(사용자 확정 순서) → P6 논문형 PDF·웹데모(마감 7/23).</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>⚠️ 차단/리스크 (Blocker)</h2>
+    <ul>
+      <li><span class="tag t-todo">게이트</span><div>KPF 원자료 재검증(<code>data-spec.md §6</code>) 전 직접 인용 신중. "유의한 단조 추세" 표현은 DB③에서 명시적 금지(점추정 p=0.381) — 방향·정체·구배까지만 보고 가능.</div></li>
+    </ul>
+  </section>
+
+  <footer>skills/agent-ops/dashboard.md (R2) · 1작업–1정지 (R3) 준수</footer>
+</div>
+</body>
+</html>
