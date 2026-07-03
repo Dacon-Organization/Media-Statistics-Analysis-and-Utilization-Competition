@@ -47,8 +47,8 @@
   </div>
 
   <h2>전체 진척률</h2>
-  <div class="bar"><i style="width:66%"></i></div>
-  <div class="barlabel">⚙️ 2026-06-24 분석 전면 재설계(CRISP-DM·7개년 확장) 기준 재산정 — 노트북 입증 Phase A는 13개 중 12개 완료(잔여 30), P6 논문형 PDF·웹데모 미착수 ≈66%</div>
+  <div class="bar"><i style="width:72%"></i></div>
+  <div class="barlabel">⚙️ 2026-06-24 분석 전면 재설계(CRISP-DM·7개년 확장) 기준 재산정 — 노트북 입증 <b>Phase A 13/13 완료(B트랙 완결)</b>, 잔여 = 13개 일관성 검토 1회 + P6 논문형 PDF·웹데모 ≈72%</div>
 
   <h2>마일스톤 파이프라인</h2>
   <ul class="pipeline">
@@ -64,12 +64,17 @@
     <li><span class="tag t-done">DONE</span><div>P3 하모나이즈 + P4 신뢰성 — credibility 배터리 crosswalk·MGCFA 측정비동등·정렬법 잠재추세·Mann-Kendall/APC (<code>src/{mgcfa_invariance,alignment,trend_apc}.py</code>)</div></li>
     <li><span class="tag t-done">DONE</span><div>P4 교차검증 — 복구된 pip로 <b>semopy</b> 설치, 직접구현 MGCFA를 독립 라이브러리로 외부검증(표준적재 최대차 0.0003·CFI/RMSEA 일치) — <code>src/mgcfa_semopy_crossval.py</code></div></li>
     <li><span class="tag t-done">DONE</span><div>P5 Evaluation — <b>통합 평가 서사</b>(증거 사다리·삼각검증·강건성·검증게이트 종합) — <code>docs/design/p5-evaluation.md</code> + <code>src/p5_evaluation.py</code></div></li>
-    <li><span class="tag t-progress">진행중</span><div><b>분석 과정 노트북화(Phase A·입증)</b> — P2~P5를 src import·실행출력 임베드 노트북으로 재현 + src 코드리뷰. <b>10·11·20·21·22·23·24 벤치마크 완료 + 01·02·03·04 다개년 v2 완료</b>(연구질문·📍배너·Decision Box·[발견]/[시각화]·완료요약·종합) → 30 잔여. 벤치마크 예시(ESG .ipynb+논문) 스타일 채택</div></li>
-    <li><span class="tag t-todo">NEXT</span><div>P6 논문형 PDF·웹데모(검증 끝난 결과만 탑재) / 비정형 선택트랙 — <b>노트북 입증 완료 후</b></div></li>
+    <li><span class="tag t-done">DONE</span><div><b>분석 과정 노트북화(Phase A·입증) 완결 — 13/13</b> — P2~P5를 src import·실행출력 임베드 노트북으로 재현 + src 코드리뷰. <b>B트랙 10·11·20·21·22·23·24·30 벤치마크 + A트랙 01·02·03·04 다개년 v2</b>(연구질문·📍배너·Decision Box·[발견]/[시각화]·완료요약·종합). 벤치마크 예시(ESG .ipynb+논문) 스타일</div></li>
+    <li><span class="tag t-todo">NEXT</span><div>전체 노트북 13개 <b>일관성 검토 1회</b>(수치·용어·상호참조) → P6 논문형 PDF·웹데모(검증 끝난 결과만 탑재·KPF 원자료 재검증 게이트 해소) / 비정형 선택트랙</div></li>
   </ul>
 
   <h2>작업 로그 (최신순)</h2>
   <div class="cards">
+    <a class="card" href="log/2026-07-03-media-stats-nb30-evaluation.html">
+      <div class="date">2026-07-03 (KST) · feature/media-stats/30-evaluation &nbsp;<span class="tag t-done">B트랙 완결</span></div>
+      <div class="title">🪜 30-evaluation.ipynb 신설 — P5 증거 사다리·삼각검증 종합(노트북 입증 Phase A 13/13)</div>
+      <div class="summary">src/p5_evaluation.py(SSOT: 인용 상수 5종·LADDER·도식 2종) thin import 벤치마크 노트북(23셀·figure 2종). 새 분석 없음을 표지에 명시 — P2~P4 산출의 메타 종합(23=비교 자격 판정·24=성격/정체 분해와 위상 구분). 핵심: ①평가 4관문(C1 측정동등·C2 재현성·C3 삼각일관·C4 강건성) 전부 통과 + 증거 사다리 ①~⑤ 전 칸 통과(③ scalar만 '부분' — 정렬법이 설계적으로 흡수, 반박 지점 특정 가능 구조). ②삼각검증 — 일치(종점 방향 3/3·2025 반등 변곡·MK 부호 3/3·APC 동행 r=+0.990/+0.960)와 정직한 불일치(단년 저점 A=2024 vs B=2022·Spearman +0.200) 분리 보고. ③강건성 6축 전부 동방향 + 민감점 4건(2019→2020 계단 등). ④DB① 인정 기준=4관문 직렬 DB② 불일치=분리 보고(체리피킹·평균 뭉개기 기각) DB③ 결론 자격등급 4층(검증된 결과/방향만/독립 발견 코호트 -0.891/금지 "유의한 추세"). ⑤§6 상수 drift 검증(핵심 검증 포인트) — 출처 문서 4종 정규식 파싱으로 상수 34개 수치 등호 일치·인용 문자열 11건 실재·재도출 상관 4건 재현 assert PASS. nbformat valid·에러 0·U+2212 0. B트랙(종단) 13개 전부 완료 → 다음 = 일관성 검토 1회 → P6.</div>
+    </a>
     <a class="card" href="log/2026-07-03-media-stats-nb24-trend-apc.html">
       <div class="date">2026-07-03 (KST) · feature/media-stats/24-trend-apc &nbsp;<span class="tag t-done">B트랙</span></div>
       <div class="title">🧬 24-trend-apc.ipynb 신설 — MK 추세검정 + APC 세대효과 분해(추세의 성격과 정체)</div>

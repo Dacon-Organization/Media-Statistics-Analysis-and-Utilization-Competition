@@ -15,8 +15,8 @@ Jupyter 노트북. **ZIP 추가 산출물로 제출**하며, 대회 심사에서
 | **④ 피처 엔지니어링** | P3·P4 | (crosswalk·credibility 배터리) | `02-variable-mapping`·`03-health-index` |
 | **⑤ 모델링·평가** | P4·P5 | `21`·`22`·`23`·`24`·`30` | `04-personas-kmeans` |
 
-> ⚠️ **현황(2026-07-03)**: 종단 트랙(B)은 **10·11·20·21·22·23·24가 벤치마크 스타일 완료**(연구질문·목차·📍배너·Decision Box·[발견]·종합),
-> 30만 신규 예정. 횡단면 트랙(A, 01~04)은 7개년 전체 데이터 기준 리팩토링 **완료**(01·02·03·04 다개년, PR #158~#160).
+> ✅ **현황(2026-07-03)**: 종단 트랙(B)은 **10·11·20·21·22·23·24·30 전부 벤치마크 스타일 완료**(연구질문·목차·📍배너·Decision Box·[발견]·종합) — **B트랙 완결**.
+> 횡단면 트랙(A, 01~04)도 7개년 전체 데이터 기준 리팩토링 **완료**(01·02·03·04 다개년, PR #158~#160). 다음 = 13개 일관성 검토 1회 → P6.
 > 설계 확정 = [`../docs/design/notebook-refactor-plan.md`](../docs/design/notebook-refactor-plan.md)(다양성축 A안·신규 `src/health_index_panel.py`·03 다개년 우선).
 > 선행조건 = 다양성 하모나이즈 Perplexity 브리프 [`../docs/groundwork/06-research-diversity-harmonization-brief.md`](../docs/groundwork/06-research-diversity-harmonization-brief.md)(실행 대기).
 
@@ -41,7 +41,7 @@ Jupyter 노트북. **ZIP 추가 산출물로 제출**하며, 대회 심사에서
 22-mgcfa-semopy-crossval.ipynb # P4 — 직접구현 ↔ semopy 교차검증(표준적재 최대차 0.0003·α)              [✅]
 23-alignment-trend.ipynb       # P4 — 정렬법 잠재평균 추세(Δα=+0.671·비동등 2.4%≤20%→비교 정당)          [✅ 벤치마크]
 24-trend-apc.ipynb             # P4 — MK(P(S>0)=1.00)+APC(기간주도 r≥+0.96·코호트 구배 -0.891)          [✅ 벤치마크]
-30-evaluation.ipynb            # P5 — 증거 사다리·삼각검증 종합(src/p5_evaluation.py)                      [예정]
+30-evaluation.ipynb            # P5 — 증거 사다리·삼각검증 종합(인용 상수 drift 검증·자격등급)            [✅ 벤치마크]
 ```
 
 ## 규칙

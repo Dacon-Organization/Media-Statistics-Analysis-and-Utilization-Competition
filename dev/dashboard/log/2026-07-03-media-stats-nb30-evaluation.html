@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>30-evaluation.ipynb 신설 · 작업 대시보드</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  a { color: var(--accent); }
+  code { background: #0b0d11; padding: 1px 6px; border-radius: 4px; font-size: .85em; }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>30-evaluation.ipynb 신설 — P5 증거 사다리·삼각검증 종합(B트랙 완결)</h1>
+  <div class="meta">
+    📅 <b>2026-07-03 (KST)</b> · 🌿 <b>feature/media-stats/30-evaluation</b> · 🔗 PR 예정 · ⚙️ Fable 5 · 🅱️ B트랙(종단) <b>마지막 잔여</b>
+  </div>
+  <div class="bar"><i style="width:100%"></i></div>
+
+  <section>
+    <h2>✅ 완료 (Done)</h2>
+    <ul>
+      <li><span class="tag t-done">DONE</span><div><code>notebooks/30-evaluation.ipynb</code> <b>신설</b>(벤치마크 23셀·figure 2종 임베드) — <code>src/p5_evaluation.py</code>(SSOT: 인용 상수 5종·LADDER·도식 2종) thin import. <b>새 분석 없음</b>을 표지에 명시: P2~P4 산출의 메타 종합(23=자격 판정·24=성격/정체 분해와 위상 구분).</div></li>
+      <li><span class="tag t-done">DONE</span><div>§1 평가 4관문(C1 측정동등·C2 재현성·C3 삼각일관·C4 강건성) 전부 ✅ + §2 <b>증거 사다리 ①~⑤ 전 칸 통과</b>(③ scalar만 '부분' — 정렬법이 설계적으로 흡수) — 반박 지점 특정 가능 구조로 서술.</div></li>
+      <li><span class="tag t-done">DONE</span><div>§3 삼각검증 — 일치(종점 방향 3/3·2025 반등 변곡·MK 부호 3/3·APC 동행 r=+0.990/+0.960)와 <b>정직한 불일치</b>(단년 저점 A=2024 vs B=2022·Spearman +0.200) 분리 보고. §4 강건성 6축 종합 + 민감점 4건(2019→2020 계단 등).</div></li>
+      <li><span class="tag t-done">DONE</span><div>Decision Box 3종: ①'검증된 결과' 인정 기준=4관문 직렬(p값·적합도 단일 기준 기각) ②불일치 처리=분리 보고(체리피킹·평균 뭉개기 기각 — "불일치 보고 의지가 일치의 증거가치를 올린다") ③결론 자격등급 4층(검증된 결과/방향만/독립 발견 코호트 -0.891/금지 "유의한 추세").</div></li>
+      <li><span class="tag t-done">DONE</span><div>§6 <b>상수 drift 검증(이 노트북의 핵심 검증 포인트)</b> — 출처 문서 4종의 마크다운 표·문장을 정규식 파싱해 모듈 인용 상수 5종 × 전 원소 <b>34개 수치 등호 일치</b> assert + 사다리 인용 문자열 11건 실재 + 재도출 상관 4건(+0.990/+0.960/+0.988/+0.200) 문서 보고치 재현. 문서 간 정합(trend-apc α 열 ↔ alignment §1)까지 확인.</div></li>
+      <li><span class="tag t-done">DONE</span><div><code>notebooks/README.md</code> 현황 갱신(30 ✅ 벤치마크 · <b>B트랙 완결</b>) + 대시보드 R2 로그·롤업(Phase A 13/13).</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔍 검증 (How verified)</h2>
+    <ul>
+      <li><span class="tag t-done">PASS</span><div><code>jupyter nbconvert --execute --inplace</code> 전셀 실행 — 에러 0·nbformat valid·U+2212 0·PNG 2종 임베드(508KB)·실행출력 보존 커밋.</div></li>
+      <li><span class="tag t-done">PASS</span><div>§6 assert 전부 PASS([PASS] 5종 + [검증 PASS]) + §3 자기점검(종점 방향 부호 3/3 양) — 모듈 <code>main()</code> 불변식과 동일.</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>⏭️ 다음 할 일 (Next)</h2>
+    <ul>
+      <li><span class="tag t-todo">P1</span><div><b>전체 노트북 13개 일관성 검토 1회</b>(수치·용어·상호참조 교차 점검 — 사용자 확정 순서상 노트북 전부 완료 후 맨 마지막).</div></li>
+      <li><span class="tag t-todo">P2</span><div>P6 논문형 PDF·웹데모 + <b>KPF 원자료 재검증 게이트 해소</b>(재검증 1순위: 2019→2020 계단·신뢰 절대수준) — 마감 7/23.</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>⚠️ 차단/리스크 (Blocker)</h2>
+    <ul>
+      <li><span class="tag t-todo">게이트</span><div>KPF 원자료 재검증(<code>data-spec.md §6</code>) 전 직접 인용 신중 — 30의 자격등급표(DB③)가 인용 규율의 SSOT: 크기(+0.671 SD 등)는 '방향만' 등급, "유의한 추세" 표현 금지.</div></li>
+    </ul>
+  </section>
+
+  <footer>skills/agent-ops/dashboard.md (R2) · 1작업–1정지 (R3) 준수</footer>
+</div>
+</body>
+</html>
