@@ -47,8 +47,8 @@
   </div>
 
   <h2>전체 진척률</h2>
-  <div class="bar"><i style="width:72%"></i></div>
-  <div class="barlabel">⚙️ 2026-06-24 분석 전면 재설계(CRISP-DM·7개년 확장) 기준 재산정 — 노트북 입증 <b>Phase A 13/13 완료(B트랙 완결)</b>, 잔여 = 13개 일관성 검토 1회 + P6 논문형 PDF·웹데모 ≈72%</div>
+  <div class="bar"><i style="width:78%"></i></div>
+  <div class="barlabel">⚙️ 2026-06-24 분석 전면 재설계(CRISP-DM·7개년 확장) 기준 재산정 — 노트북 입증 <b>Phase A 13/13 + 일관성 검토 완료</b>, 잔여 = P6 논문형 PDF·웹데모 + KPF 원자료 재검증 게이트 ≈78%</div>
 
   <h2>마일스톤 파이프라인</h2>
   <ul class="pipeline">
@@ -65,11 +65,17 @@
     <li><span class="tag t-done">DONE</span><div>P4 교차검증 — 복구된 pip로 <b>semopy</b> 설치, 직접구현 MGCFA를 독립 라이브러리로 외부검증(표준적재 최대차 0.0003·CFI/RMSEA 일치) — <code>src/mgcfa_semopy_crossval.py</code></div></li>
     <li><span class="tag t-done">DONE</span><div>P5 Evaluation — <b>통합 평가 서사</b>(증거 사다리·삼각검증·강건성·검증게이트 종합) — <code>docs/design/p5-evaluation.md</code> + <code>src/p5_evaluation.py</code></div></li>
     <li><span class="tag t-done">DONE</span><div><b>분석 과정 노트북화(Phase A·입증) 완결 — 13/13</b> — P2~P5를 src import·실행출력 임베드 노트북으로 재현 + src 코드리뷰. <b>B트랙 10·11·20·21·22·23·24·30 벤치마크 + A트랙 01·02·03·04 다개년 v2</b>(연구질문·📍배너·Decision Box·[발견]/[시각화]·완료요약·종합). 벤치마크 예시(ESG .ipynb+논문) 스타일</div></li>
-    <li><span class="tag t-todo">NEXT</span><div>전체 노트북 13개 <b>일관성 검토 1회</b>(수치·용어·상호참조) → P6 논문형 PDF·웹데모(검증 끝난 결과만 탑재·KPF 원자료 재검증 게이트 해소) / 비정형 선택트랙</div></li>
+    <li><span class="tag t-done">DONE</span><div>전체 노트북 13개 <b>일관성 검토 1회</b> — 5축(수치·용어·상호참조·형식·U+2212/nbformat) 전수 감사, 수치 전부 일치·경미 3건 수정(20·21 📍배너, 21·22 U+2212, README 태그/stale)</div></li>
+    <li><span class="tag t-todo">NEXT</span><div>P6 논문형 PDF·웹데모(검증 끝난 결과만 탑재·KPF 원자료 재검증 게이트 해소) / 비정형 선택트랙</div></li>
   </ul>
 
   <h2>작업 로그 (최신순)</h2>
   <div class="cards">
+    <a class="card" href="log/2026-07-03-media-stats-notebook-consistency-review.html">
+      <div class="date">2026-07-03 (KST) · feature/media-stats/notebook-consistency-review &nbsp;<span class="tag t-done">Phase A 마감</span></div>
+      <div class="title">🔎 전체 노트북 13개 일관성 검토 1회 — 수치·용어·상호참조 교차 점검</div>
+      <div class="summary">5축 전수 감사(12 .ipynb + README): (a) 공통 수치 — Δα=+0.671·비동등 2.4%·MK τ=+0.333/p=0.381·P(S&gt;0)=1.00·APC r=+0.990/+0.960·코호트 -0.891·N=90,996·2022 64.8%·cred_mean 3.034→3.390 등 노트북 간 전부 일치. (b) reflective/formative 이원 규칙·wt_year_eq 일관, "유의한 추세"는 금지 선언 문맥만(위반 0). (c) 01→11/20, 20→21→22→23→24→30 체인 정상. (d)(e) 경미 3건 수정 — ①20·21 표지 📍 파이프라인 배너 누락 보완 ②21(48곳)·22(1곳) U+2212→ASCII 통일(전 노트북 U+2212=0 달성) ③README [✅ 다개년] 태그·PR 범위 #157~#160 교정·다양성 브리프 stale "실행 대기"→게이트 해소(PR #153). 오탐 판별 기록(04 0.381 출력 우연·21 0.891 시뮬 CFI). 수정 후 재감사: 12개 전부 nbformat VALID·배너/DB/종합 존재. 구조적 불일치 0건 → P6 착수 가능.</div>
+    </a>
     <a class="card" href="log/2026-07-03-media-stats-nb30-evaluation.html">
       <div class="date">2026-07-03 (KST) · feature/media-stats/30-evaluation &nbsp;<span class="tag t-done">B트랙 완결</span></div>
       <div class="title">🪜 30-evaluation.ipynb 신설 — P5 증거 사다리·삼각검증 종합(노트북 입증 Phase A 13/13)</div>

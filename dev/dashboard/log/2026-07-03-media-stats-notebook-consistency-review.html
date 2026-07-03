@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>노트북 13개 일관성 검토 · 작업 대시보드</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  a { color: var(--accent); }
+  code { background: #0b0d11; padding: 1px 6px; border-radius: 4px; font-size: .85em; }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>전체 노트북 13개 일관성 검토 1회 — 수치·용어·상호참조 교차 점검</h1>
+  <div class="meta">
+    📅 <b>2026-07-03 (KST)</b> · 🌿 <b>feature/media-stats/notebook-consistency-review</b> · ⚙️ Fable 5 · 🏁 노트북 입증 Phase A <b>마무리 관문</b>
+  </div>
+  <div class="bar"><i style="width:100%"></i></div>
+
+  <section>
+    <h2>✅ 완료 (Done)</h2>
+    <ul>
+      <li><span class="tag t-done">DONE</span><div><b>5축 전수 감사 스크립트</b>로 12개 .ipynb + README 점검 — (a) 공통 수치 (b) 용어 (c) 상호참조 (d) 형식 요소 (e) U+2212·nbformat. 수치 축은 <b>전부 일치</b>: Δα=+0.671·비동등 2.4%(1/42)·MK τ=+0.333/p=0.381·P(S&gt;0)=1.00·APC r=+0.990/+0.960·코호트 -0.891·N=90,996·2022 64.8%·cred_mean 3.034→3.390·Sen +0.0595·Spearman +0.200·민감도 N=38,060(21↔24 동일 정의).</div></li>
+      <li><span class="tag t-done">DONE</span><div>용어·금지표현 — reflective(신뢰=연도 비교)/formative(다양성=방향성만) 이원 규칙·<code>wt_year_eq</code> 전 노트북 일관. "유의한 추세"는 24·30에서만 등장하며 <b>전부 금지 선언 문맥</b>(위반 0).</div></li>
+      <li><span class="tag t-done">DONE</span><div>상호참조 — 01→11/20/03, 02→10/21/22, 20→21, 21→22, 22→23, 23→24, 24→30 체인 정상. README 지도는 12개 노트북 전부 커버.</div></li>
+      <li><span class="tag t-done">DONE</span><div><b>수정 ①</b> 20·21 표지에 <code>📍 파이프라인 위치</code> 배너 누락(README L8 "각 노트북 표지의 배너" 위반) → 20=③ EDA·시각화(P2)·21=⑤ 모델링·평가(P4 1단계) 배너 삽입(마크다운 전용·출력 보존).</div></li>
+      <li><span class="tag t-done">DONE</span><div><b>수정 ②</b> U+2212 잔존 21(소스 45·출력 3)·22(소스 1) → ASCII '-' 통일(ΔCFI 임계 표기 등 기계적 치환, 소스·출력 짝 맞춤 — 재실행 시 동일 재현). 12개 전부 U+2212=0 달성.</div></li>
+      <li><span class="tag t-done">DONE</span><div><b>수정 ③</b> <code>notebooks/README.md</code> — 03·04 라인 <code>[✅ 다개년]</code> 태그 추가, PR 범위 #158~#160→<b>#157~#160</b> 교정, 다양성 브리프 "실행 대기"(stale)→"게이트 해소(PR #153)" 갱신, 현황 줄 "일관성 검토 완료 → 다음 = P6".</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔍 검증 (How verified)</h2>
+    <ul>
+      <li><span class="tag t-done">PASS</span><div>수정 후 재감사 — 12개 전부 nbformat <b>VALID</b>·U+2212 소스/출력 <b>0</b>·📍배너/Decision Box/종합 <b>전부 존재</b>.</div></li>
+      <li><span class="tag t-done">PASS</span><div>오탐 판별 기록 — 04의 0.381(출력 테이블 우연 일치)·21의 0.891(시뮬 CFI)·[발견 ①] 원형숫자 포맷(정규식 미스) 모두 무해 확인, 실수정 대상에서 제외.</div></li>
+      <li><span class="tag t-done">PASS</span><div>diff 최소성 — 20(+2줄)·22(1줄 치환)·21(치환+배너)만 변경, 코드 셀 로직·figure 무변경.</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>⏭️ 다음 할 일 (Next)</h2>
+    <ul>
+      <li><span class="tag t-todo">P1</span><div><b>P6 논문형 PDF·웹데모</b> + KPF 원자료 재검증 게이트 해소(재검증 1순위: 2019→2020 계단·신뢰 절대수준, <code>data-spec.md §6</code>) — 마감 <b>7/23</b>.</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>⚠️ 차단/리스크 (Blocker)</h2>
+    <ul>
+      <li><span class="tag t-todo">게이트</span><div>KPF 원자료 재검증 전 크기 수치(+0.671 SD 등) 직접 인용 신중 — 30 DB③ 자격등급표가 인용 규율 SSOT.</div></li>
+    </ul>
+  </section>
+
+  <footer>skills/agent-ops/dashboard.md (R2) · 1작업–1정지 (R3) 준수</footer>
+</div>
+</body>
+</html>

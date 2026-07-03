@@ -16,9 +16,9 @@ Jupyter 노트북. **ZIP 추가 산출물로 제출**하며, 대회 심사에서
 | **⑤ 모델링·평가** | P4·P5 | `21`·`22`·`23`·`24`·`30` | `04-personas-kmeans` |
 
 > ✅ **현황(2026-07-03)**: 종단 트랙(B)은 **10·11·20·21·22·23·24·30 전부 벤치마크 스타일 완료**(연구질문·목차·📍배너·Decision Box·[발견]·종합) — **B트랙 완결**.
-> 횡단면 트랙(A, 01~04)도 7개년 전체 데이터 기준 리팩토링 **완료**(01·02·03·04 다개년, PR #158~#160). 다음 = 13개 일관성 검토 1회 → P6.
+> 횡단면 트랙(A, 01~04)도 7개년 전체 데이터 기준 리팩토링 **완료**(01·02·03·04 다개년, PR #157~#160). 13개 일관성 검토 완료(2026-07-03) → 다음 = P6(논문형 PDF·웹데모).
 > 설계 확정 = [`../docs/design/notebook-refactor-plan.md`](../docs/design/notebook-refactor-plan.md)(다양성축 A안·신규 `src/health_index_panel.py`·03 다개년 우선).
-> 선행조건 = 다양성 하모나이즈 Perplexity 브리프 [`../docs/groundwork/06-research-diversity-harmonization-brief.md`](../docs/groundwork/06-research-diversity-harmonization-brief.md)(실행 대기).
+> 다양성 하모나이즈 브리프 [`../docs/groundwork/06-research-diversity-harmonization-brief.md`](../docs/groundwork/06-research-diversity-harmonization-brief.md)는 에이전트 학술 리서치로 §결과 반영 **완료**(게이트 해소, PR #153).
 
 ## 두 트랙
 
@@ -26,8 +26,8 @@ Jupyter 노트북. **ZIP 추가 산출물로 제출**하며, 대회 심사에서
 ```
 01-eda-2025.ipynb              # 7개년 통합 EDA·문제정의(순진 pool 편향 → 설계결정 매핑) [✅ 다개년]
 02-variable-mapping.ipynb      # 개념→변수 정렬(7개년 crosswalk 정합성)                  [✅ 다개년]
-03-health-index.ipynb          # 뉴스 건강 지수(NCHI) 설계·산출
-04-personas-kmeans.ipynb       # 군집 페르소나(K-means)
+03-health-index.ipynb          # 뉴스 건강 지수(NCHI) 설계·산출(7개년 패널 추세·페르소나 구성비) [✅ 다개년]
+04-personas-kmeans.ipynb       # 군집 페르소나(K-means, 단년 과적합 교정 ARI 진단)              [✅ 다개년]
 ```
 
 ### B. 7개년 종단 트랙 (10~30) — CRISP-DM 파이프라인 입증
