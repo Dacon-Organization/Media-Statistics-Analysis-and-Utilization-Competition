@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KPF 원자료 재검증(P6 게이트 해소) · 작업 대시보드</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-progress { background: rgba(210,153,34,.15); color: var(--progress); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .t-blocked { background: rgba(248,81,73,.15); color: var(--blocked); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  a { color: var(--accent); }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>KPF 원자료 재검증 — P6 착수 게이트 해소</h1>
+  <div class="meta">
+    📅 <b>2026-07-11 (KST)</b> · 🌿 브랜치 <b>feature/media-stats/p6-kpf-revalidation</b> · 🔗 PR 생성 예정
+  </div>
+  <div class="bar"><i style="width:82%"></i></div>
+
+  <section>
+    <h2>✅ 완료 (Done)</h2>
+    <ul>
+      <li><span class="tag t-done">DONE</span><div>P6 설계·범위 확정(사용자 결정 3건)<div class="sub">① PDF 먼저→웹데모 ② 재검증 최우선 ③ 웹데모=Next.js 15 정적. colab-mcp 전역 설치(user scope)</div></div></li>
+      <li><span class="tag t-done">DONE</span><div><code>src/kpf_revalidation.py</code> — 원척도(5점)·공식 WT 가중 재계산 스크립트<div class="sub">harmonize SSOT import(재구현 0). 파이프라인 cred_mean 7개년 재현 대조 ±0.001 전부 PASS</div></div></li>
+      <li><span class="tag t-done">DONE</span><div>신뢰 절대수준 재검증 — 공식 보고서와 <b>전 셀 일치</b><div class="sub">2019 배터리 5종(공정 2.81 등)+2020 5종+2023~25 전반/이용 평균·비율 12셀, 분포 %까지 일치 → "KPF 원자료, 20XX" 확정 인용 가능</div></div></li>
+      <li><span class="tag t-done">DONE</span><div>2019→2020 계단(+0.354) 판정 — <b>실재, 인공물 아님</b><div class="sub">워딩·척도·모드(CAPI/TAPI)·시기(6~7월)·가중치·특수코드 전부 배제. 잔여 교란=실사대행사 변경(갤럽→칸타)+코로나19 → 원인 각주 의무</div></div></li>
+      <li><span class="tag t-done">DONE</span><div>시장조사 혼용 규명 — "2021 3.48"=이용매체 신뢰(3.479), "2023 3.27"=전반, "2025 49.0%"=전반 비율<div class="sub">data-spec §6 체크리스트 4건 중 2건 해소·1건 부분 해소(잔여=뉴스회피 72% 출처)</div></div></li>
+      <li><span class="tag t-done">DONE</span><div>문서화 — <code>docs/design/kpf-revalidation.md</code> v0.1(판정 SSOT) + data-spec §6 갱신 + interim README<div class="sub">30 §6 drift 파싱 6종 문서는 무변경(게이트 안전)</div></div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔍 검증 (Verify)</h2>
+    <ul>
+      <li><span class="tag t-done">OK</span><div>재계산 ↔ 공식 보고서 대조 22셀 전부 일치(반올림 자리까지)</div></li>
+      <li><span class="tag t-done">OK</span><div>파이프라인 재현 assert 7/7 PASS · 2020 특수코드(2.5/5.5/9) 실데이터 0건 · 2019 wt1↔wt2 최대차 0.011</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔜 다음 할 일 (Next)</h2>
+    <ul>
+      <li><span class="tag t-todo">TODO</span><div>P6-A 논문형 PDF 착수(구조 설계→집필) — 인용은 kpf-revalidation §0 자격등급 매핑 준수<div class="sub">우선순위: 최상 (마감 7/23, D-12)</div></div></li>
+      <li><span class="tag t-todo">TODO</span><div>P6-B 웹데모(Next.js 15 정적) — PDF 수치 확정 후 이식<div class="sub">우선순위: 상</div></div></li>
+      <li><span class="tag t-todo">TODO</span><div>잔여 게이트 2건 — 매체 이용률 정의 동일성 대조·뉴스회피 72% 출처(해당 수치 인용 시에만)<div class="sub">우선순위: 중</div></div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>⚠️ 차단/리스크 (Blocker)</h2>
+    <ul>
+      <li><span class="tag t-blocked">주의</span><div>colab-mcp는 세션 시작 시 연결 → 이번 세션에선 도구 사용 불가(다음 세션부터). 사용 시 브라우저 Colab 탭 필요. KPF 원자료는 라이선스상 로컬 계산 유지</div></li>
+    </ul>
+  </section>
+
+  <footer>Dacon 작업 대시보드 · skills/agent-ops/dashboard.md 규칙 (R2)</footer>
+</div>
+</body>
+</html>

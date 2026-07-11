@@ -16,6 +16,7 @@
 | [`alignment-trust-trend.md`](alignment-trust-trend.md) | P4 정렬 잠재평균 추세(2019→2025 +0.671SD) | ✅ |
 | [`trend-apc-results.md`](trend-apc-results.md) | P4 추세검정(MK)+APC 세대효과 분해 | ✅ |
 | [`p5-evaluation.md`](p5-evaluation.md) | **P5 통합 평가 서사(증거 사다리·삼각검증 종합)** | ✅ |
+| [`kpf-revalidation.md`](kpf-revalidation.md) | **KPF 원자료 재검증(게이트 해소 SSOT)** — 절대수준·2019→2020 계단 판정 | ✅ v0.1 |
 | (예정) 요구사항 정의서 | B2C/B2G 시나리오·기능 목록 | 예정 |
 | (예정) 기능 명세 | 진단 플로우·지수 산출 로직 | 예정 |
 | (예정) API·ERD 설계 | 풀 프로덕션 가정 아키텍처 | 예정 |
