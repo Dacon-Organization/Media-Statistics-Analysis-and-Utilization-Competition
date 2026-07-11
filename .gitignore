@@ -1,0 +1,70 @@
+# ── 모노레포(Dacon) 루트 .gitignore에서 이 프로젝트에 해당하는 규칙을 이식 ──
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.eggs/
+.ipynb_checkpoints/
+
+# 환경
+.env
+.env.*
+.venv/
+venv/
+
+# IDE / OS
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Node (web/ 데모)
+node_modules/
+
+# 임시 / 로그
+tmp/
+temp/
+*.log
+*.stackdump
+
+# 대용량 데이터 (기본 무시)
+*.csv
+*.xlsx
+*.dta
+*.zip
+*.npy
+*.mp4
+*.model
+*.bin
+*.pem
+*.key
+
+# 명세서 작업 폴더 (협업 레포에 푸시하지 않음)
+docs/md/
+# 사전조사 raw 노트 (산출물만 정제해 git 포함)
+docs/research/
+
+# Serena MCP 캐시 / Playwright 스냅샷
+.serena/
+.playwright-mcp/
+
+# KPF 원시자료 — 공개 오픈데이터이므로 분석 입력(.sav/.csv/.xlsx)은 저장소에 포함한다.
+# 단, PDF(보고서·통계표·코드북·매뉴얼)는 총 ~570MB이고 일부 파일이 GitHub 100MB 한도를 초과해 제외한다.
+# (받는 방법: data/raw/DOWNLOAD-GUIDE.md / 출처·근거: data/README.md)
+data/raw/**/*.pdf
+data/interim/**
+data/processed/**
+!data/**/
+!data/**/.gitkeep
+!data/**/*.md
+# 분석 입력 데이터는 전역 *.csv/*.xlsx 무시 규칙을 덮어써서 포함
+!data/raw/**/*.sav
+!data/raw/**/*.csv
+!data/raw/**/*.xlsx
