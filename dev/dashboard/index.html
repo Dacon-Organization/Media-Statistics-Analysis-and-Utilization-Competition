@@ -47,8 +47,8 @@
   </div>
 
   <h2>전체 진척률</h2>
-  <div class="bar"><i style="width:82%"></i></div>
-  <div class="barlabel">⚙️ 2026-06-24 분석 전면 재설계(CRISP-DM·7개년 확장) 기준 재산정 — Phase A 13/13 + 일관성 검토 + <b>KPF 원자료 재검증 게이트 해소(1순위)</b> 완료, 잔여 = P6 논문형 PDF·웹데모 ≈82%</div>
+  <div class="bar"><i style="width:84%"></i></div>
+  <div class="barlabel">⚙️ 2026-06-24 분석 전면 재설계(CRISP-DM·7개년 확장) 기준 재산정 — Phase A 13/13 + 일관성 검토 + KPF 재검증 게이트 해소 + P6-A 구조 설계 + <b>P6-B-1 figure export</b> 완료, 잔여 = 원고·조판·웹데모 ≈84%</div>
 
   <h2>마일스톤 파이프라인</h2>
   <ul class="pipeline">
@@ -68,11 +68,17 @@
     <li><span class="tag t-done">DONE</span><div>전체 노트북 13개 <b>일관성 검토 1회</b> — 5축(수치·용어·상호참조·형식·U+2212/nbformat) 전수 감사, 수치 전부 일치·경미 3건 수정(20·21 📍배너, 21·22 U+2212, README 태그/stale)</div></li>
     <li><span class="tag t-done">DONE</span><div><b>KPF 원자료 재검증(게이트 해소)</b> — 신뢰 절대수준 공식 보고서와 전 셀 일치·2019→2020 계단 실재 판정(원인 각주 의무)·시장조사 혼용 규명 — <code>docs/design/kpf-revalidation.md</code> + <code>src/kpf_revalidation.py</code></div></li>
     <li><span class="tag t-done">DONE</span><div><b>P6-A 논문형 PDF 구조 설계</b> — 7장 구성(15p)·figure 9종·자격등급 6층 인용 수치표·각주 표준문구·제작 파이프라인 — <code>docs/report/p6-pdf-structure.md</code> (분리 레포 첫 작업)</div></li>
-    <li><span class="tag t-todo">NEXT</span><div>P6-B 원고 집필: figure export(<code>src/export_figures.py</code>) → manuscript.md → md→HTML→PDF 조판 → 웹데모(Next.js 15 정적) / 비정형 선택트랙</div></li>
+    <li><span class="tag t-done">DONE</span><div><b>P6-B-1 figure export</b> — <code>src/export_figures.py</code> 신설, F3(정렬추세)·F4(APC)·F5(NCHI)·F6(페르소나) <code>assets/</code> dpi=200 일괄 생성(SSOT 수치 전 셀 일치 검증)</div></li>
+    <li><span class="tag t-todo">NEXT</span><div>P6-B-2~4: manuscript.md 집필 → md→HTML→PDF 조판·정합 체크리스트 → 웹데모(Next.js 15 정적) / 비정형 선택트랙</div></li>
   </ul>
 
   <h2>작업 로그 (최신순)</h2>
   <div class="cards">
+    <a class="card" href="log/2026-07-12-media-stats-p6b1-export-figures.html">
+      <div class="date">2026-07-12 (KST) · feature/p6b1-export-figures &nbsp;<span class="tag t-done">PR #2 머지</span></div>
+      <div class="title">🖼️ P6-B-1 Figure Export 스크립트 — F3~F6 assets/ 일괄 생성</div>
+      <div class="summary">src/export_figures.py 신설 — p6-pdf-structure §2 선정표의 노트북 인라인 figure 4종을 기존 src 모듈(alignment·trend_apc·health_index_panel·news_health_features) import로 재계산해 dpi=200 PNG export(노트북 savefig 셀 추가 금지 규칙 준수, 신규 의존성 없음). F3 정렬 잠재평균 추세(23 §4, B=200 부트스트랩·2019→2020 음영) — α̂ 7개년(+0.000~+0.671)·비동등 2.4% = SSOT ALIGN_ALPHA 전 셀 일치. F4 APC 3효과 프로파일(24 §6) — 기간효과 상관 HAPC +0.990·IE +0.960 = §3.3 일치. F5 NCHI 추세+페르소나 구성비 2패널(03 §3·§4). F6 페르소나×매체 이용률 히트맵(04 §5). α̂ 결합 악센트는 Malgun Gothic 글리프 부재로 mathtext 교체. 4종 전부 로컬 실행+렌더 시각 검수 PASS. 다음 = P6-B-2 원고 집필.</div>
+    </a>
     <a class="card" href="log/2026-07-11-media-stats-p6-pdf-structure.html">
       <div class="date">2026-07-11 (KST) · feature/media-stats/p6-pdf-structure &nbsp;<span class="tag t-done">설계 확정</span></div>
       <div class="title">📄 P6-A 논문형 PDF 구조 설계 — 장 구성·Figure 선정·인용 수치표</div>
