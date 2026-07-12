@@ -1,0 +1,11 @@
+label,metric,value,uncertainty,concept_layer,unit,source_url
+독일 6기관 가중후 PS-1 vs NPS,Cohen's d 평균,0.063,최대 0.255,조직(house),cohens_d,https://duepublico2.uni-due.de/servlets/MCRFileNodeServlet/duepublico_derivate_00082372/s12874-023-02122-0.pdf
+독일 6기관 가중후 PS-2 vs NPS,Cohen's d 평균,0.127,최대 0.429,조직(house),cohens_d,https://duepublico2.uni-due.de/servlets/MCRFileNodeServlet/duepublico_derivate_00082372/s12874-023-02122-0.pdf
+네덜란드 치안모니터 재설계 2005,만족도 단절,9.37,p<.001,재설계 순효과(비교주의-순수기관효과아님),percentage_point,https://ojs.ub.uni-konstanz.de/srm/article/view/68/2135
+네덜란드 치안모니터 재설계 2006,만족도 단절,8.26,p<.001,재설계 순효과(비교주의-순수기관효과아님),percentage_point,https://ojs.ub.uni-konstanz.de/srm/article/view/68/2135
+미 대선 여론조사 연간,house effect 범위,6,미제시,선거(비교주의-개념상이),percentage_point,https://www.nuff.ox.ac.uk/Politics/papers/2005/WlezienHorseRace.pdf
+미 대선 여론조사 노동절후,house effect 범위,8,미제시,선거(비교주의-개념상이),percentage_point,https://www.nuff.ox.ac.uk/Politics/papers/2005/WlezienHorseRace.pdf
+면접원 효과 문헌표준 하한,ICC(분산비율),0.01,표준범위,면접원(분산비율-수준차아님),icc,https://www.demographic-research.org/special/1/2/s1-2.pdf
+면접원 효과 문헌표준 상한,ICC(분산비율),0.07,표준범위,면접원(분산비율-수준차아님),icc,https://www.demographic-research.org/special/1/2/s1-2.pdf
+면접원 효과 동남유럽 극단,ICC(분산비율),0.28,국가별 최대,면접원(분산비율-수준차아님),icc,https://www.europeansocialsurvey.org/sites/default/files/2023-06/Interviewer%20Effects%20in%20the%20ESS.pdf
+SRC vs GSS 1980 지출척도 DK,DK 차 평균,4.2,16/17 유의(p.3),조직(house),percentage_point,https://gss.norc.org/content/dam/gss/get-documentation/pdf/reports/methodological-reports/MR014.pdf

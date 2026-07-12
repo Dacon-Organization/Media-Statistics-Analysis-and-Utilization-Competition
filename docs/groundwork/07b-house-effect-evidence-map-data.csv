@@ -1,0 +1,13 @@
+ref_no,author_year,evidence_grade,concept_layer,has_quantitative_effect,max_effect_size,source_url
+1,Schnell & Klingwort 2024,B,조직(house),yes,d≈0.43,https://duepublico2.uni-due.de/servlets/MCRFileNodeServlet/duepublico_derivate_00082372/s12874-023-02122-0.pdf
+2,van den Brakel et al. 2008,B,재설계,yes,9.37%p,https://ojs.ub.uni-konstanz.de/srm/article/view/68/2135
+3,OSR Wales 2025,B(행정),재설계,n.a.,n.a.,https://osr.statisticsauthority.gov.uk/correspondence/stephanie-howarth-to-ed-humpherson-national-survey-for-wales-request-to-suspend-accredited-official-statistics-status/
+4,Understanding Society IP11 2018,B(설계),조직/면접원,n.a.,n.a.,https://doc.ukdataservice.ac.uk/doc/6849/mrdoc/pdf/6849_ip_wave_11_tech_report.pdf
+5,Smith 1981 MR014,B,조직(house),yes,4.2%p(지출척도 DK),https://gss.norc.org/content/dam/gss/get-documentation/pdf/reports/methodological-reports/MR014.pdf
+6,Smith 1978,C,조직(house),partial,DK 차,https://gss.norc.org/content/dam/gss/get-documentation/pdf/reports/methodological-reports/MR002.pdf
+7,Schumann et al. 2020,C,조직(house),n.a.(원문유료),n.a.,https://academic.oup.com/ijpor/article-abstract/32/4/769/5614585
+8,Wlezien & Erikson 2005,C,선거(별도),yes,~8%p,https://www.nuff.ox.ac.uk/Politics/papers/2005/WlezienHorseRace.pdf
+9,Beullens & Loosveldt 2016,C,면접원,yes,ICC 0.28,https://www.europeansocialsurvey.org/sites/default/files/2023-06/Interviewer%20Effects%20in%20the%20ESS.pdf
+10,Bignami-Van Assche et al. 2003,C,면접원,yes,ICC>0.15,https://www.demographic-research.org/special/1/2/s1-2.pdf
+11,van den Brakel & Renssen 2005,C,설계,n.a.(방법),n.a.,https://www150.statcan.gc.ca/n1/pub/12-001-x/2005001/article/8084-eng.pdf
+12,van den Brakel 2013,C,설계,n.a.(방법),n.a.,https://www150.statcan.gc.ca/n1/pub/12-001-x/2013002/article/11870/section1-eng.htm
