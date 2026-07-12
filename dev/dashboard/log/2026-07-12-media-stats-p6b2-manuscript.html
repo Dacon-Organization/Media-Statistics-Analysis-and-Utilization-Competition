@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P6-B-2 논문형 원고 집필 · 작업 대시보드</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-progress { background: rgba(210,153,34,.15); color: var(--progress); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .t-blocked { background: rgba(248,81,73,.15); color: var(--blocked); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  a { color: var(--accent); }
+  code { background: #0b0d11; padding: 1px 6px; border-radius: 4px; font-size: .85em; }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>P6-B-2 논문형 원고 집필 — manuscript.md v0.1 + 보강자료 이관</h1>
+  <div class="meta">
+    📅 <b>2026-07-12 (KST)</b> · 🌿 브랜치 <b>feature/media-stats/p6-b2-manuscript</b> · 🔗 <a href="https://github.com/Dacon-Organization/Media-Statistics-Analysis-and-Utilization-Competition/pull/4">PR #4 (머지 완료)</a> · 📦 분리 레포(Dacon-Organization)
+  </div>
+  <div class="bar"><i style="width:60%"></i></div>
+
+  <section>
+    <h2>✅ 완료 (Done)</h2>
+    <ul>
+      <li><span class="tag t-done">DONE</span><div><code>docs/report/manuscript.md</code> v0.1 — p6-pdf-structure §1 7장 구성(15p 배분) 준수<div class="sub">요약 + 1 서론(GAP·RQ3) / 2 데이터(하모나이즈·F1 재검증 대조표) / 3 방법론(MGCFA→semopy→정렬법→MK/APC + NCHI·군집) / 4 결과I 종단(자격→잠재추세→정직한 p=0.381→APC 기간효과→2019→2020 계단) / 5 결과II 횡단(NCHI 병목·페르소나·상호 외적 타당도) / 6 검증(4관문·삼각검증·자격등급 4층) / 7 제안·결론(B2G·B2C·한계 5건) + 참고문헌·부록 2종</div></div></li>
+      <li><span class="tag t-done">DONE</span><div>각주 체계 — §4 표준문구 4종 전부 적용<div class="sub">(a) 2019→2020 원인 각주(실사기관+코로나 분해불가) 의무 삽입 · (b) 신뢰 문항/형식 병기(표 1 주 + 4.2절) · (c) SD 단위 모형 의존 캡션(F3) · (d) 기준연도 의존성 1회 명기(4.5절)</div></div></li>
+      <li><span class="tag t-done">DONE</span><div>house effect 각주 — groundwork 07 §4-A <b>보수적(A안)</b> 채택(Smith 1978·Schnell &amp; Klingwort 2024, "완전 통제 실험 미확인" 명시) + 7.1절 병렬실사 권고 연결</div></li>
+      <li><span class="tag t-done">DONE</span><div>4장 코로나 각주 — groundwork 08 §4-B 활용(Reuters DNR 40개국 중 35개국 상승·한국 +11%p·Knudsen 2023 rally-round-the-media, 과잉 일반화 경고 유지)</div></li>
+      <li><span class="tag t-done">DONE</span><div>figure 캡션 자격등급 표기 — F1(표 조판)·F2·F3(방향만 경고)·F4·F5(방향만)·F6·F7·F8, F9는 웹데모 placeholder</div></li>
+      <li><span class="tag t-done">DONE</span><div>보강자료 이관 — Perplexity 조사 3종 + 문헌수치 CSV 2종 → <code>docs/groundwork/07~09</code>(각주·참고문헌 전용, 수치 게이트와 무관) + README 갱신<div class="sub">CSV는 전역 *.csv ignore 예외(-f) — KPF 원자료가 아닌 문헌 추출 수치</div></div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🧪 검증 (§5 정합성 게이트)</h2>
+    <ul>
+      <li><span class="tag t-done">PASS</span><div>원고 수치 ↔ p6-pdf-structure §3 표 수동 1회 대조 — 배터리 10셀·신뢰 평균/비율 12셀·cred_mean 7개년·단일문항 6개년·ΔCFI/최대차/2.4%/τ/P(S&gt;0)/p/r 3종/코호트 -0.891 전부 §3 표 값과 일치. §3 표 밖 수치(시장조사 3.48)는 집필 중 발견 즉시 제거</div></li>
+      <li><span class="tag t-done">PASS</span><div><code>30-evaluation.ipynb</code> 재실행(scratchpad 출력, 레포 무변경) — <b>PASS 14 · FAIL/DRIFT 0</b></div></li>
+      <li><span class="tag t-done">PASS</span><div>금지 표현 grep 점검("유의한 증가"·뉴스회피·이용률 추이·단년 최저 비교·3.48) — 위반 0(전부 규율 설명 맥락)</div></li>
+      <li><span class="tag t-done">PASS</span><div>§3.5 '방향만' 규율 — Δα SD 수치는 본문 "약 +0.3~+0.67 SD 범위"로만, 정확값은 figure 축·부록 위임. 다양성·NCHI·페르소나 구성비 절대값 본문 미인용</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔜 다음 할 일 (Next)</h2>
+    <ul>
+      <li><span class="tag t-progress">NEXT</span><div><b>P6-B-3: 전 과정 .ipynb 전면 리팩토링</b> — <code>export_figures.py</code> 등 .py로만 진행된 과정을 시각 확인 가능한 노트북으로 입증(사용자 피드백: .py 단독 진행 금지)<div class="sub">우선순위: 최상 — 사용자 명시 지적. 이후 조판(md→HTML→Chrome PDF)·15p 확인</div></div></li>
+      <li><span class="tag t-todo">TODO</span><div>조판 <code>dist/report.pdf</code>(B-3) + 15p 이내 확인(초과 시 감축: 3장 디테일→부록→5장)</div></li>
+      <li><span class="tag t-todo">TODO</span><div>웹데모(B2C 진단, Next.js 15 정적) 구현 → F9 스크린샷 캡처·최종 리비전 삽입(마감 7/23)</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>⚠️ 차단/리스크 (Blocker)</h2>
+    <ul>
+      <li><span class="tag t-blocked">주의</span><div>F9(웹데모 스크린샷) 미존재 — 원고에 placeholder로 명시, 웹데모 완성 전 조판 시 해당 그림 제외 또는 도식 대체 필요</div></li>
+      <li><span class="tag t-blocked">주의</span><div>레포 브랜치 보호 미설정 유지 — PR #4도 CI 게이트 없이 즉시 머지(정상 동작이나 보호 규칙 설정 여부 미결)</div></li>
+    </ul>
+  </section>
+
+  <footer>Dacon 작업 대시보드 · skills/agent-ops/dashboard.md 규칙 (R2)</footer>
+</div>
+</body>
+</html>
