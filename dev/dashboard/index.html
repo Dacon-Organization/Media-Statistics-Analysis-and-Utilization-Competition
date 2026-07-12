@@ -67,11 +67,17 @@
     <li><span class="tag t-done">DONE</span><div><b>분석 과정 노트북화(Phase A·입증) 완결 — 13/13</b> — P2~P5를 src import·실행출력 임베드 노트북으로 재현 + src 코드리뷰. <b>B트랙 10·11·20·21·22·23·24·30 벤치마크 + A트랙 01·02·03·04 다개년 v2</b>(연구질문·📍배너·Decision Box·[발견]/[시각화]·완료요약·종합). 벤치마크 예시(ESG .ipynb+논문) 스타일</div></li>
     <li><span class="tag t-done">DONE</span><div>전체 노트북 13개 <b>일관성 검토 1회</b> — 5축(수치·용어·상호참조·형식·U+2212/nbformat) 전수 감사, 수치 전부 일치·경미 3건 수정(20·21 📍배너, 21·22 U+2212, README 태그/stale)</div></li>
     <li><span class="tag t-done">DONE</span><div><b>KPF 원자료 재검증(게이트 해소)</b> — 신뢰 절대수준 공식 보고서와 전 셀 일치·2019→2020 계단 실재 판정(원인 각주 의무)·시장조사 혼용 규명 — <code>docs/design/kpf-revalidation.md</code> + <code>src/kpf_revalidation.py</code></div></li>
-    <li><span class="tag t-todo">NEXT</span><div>P6 논문형 PDF(먼저) → 웹데모(Next.js 15 정적) — 인용은 kpf-revalidation §0 자격등급 매핑 준수 / 비정형 선택트랙</div></li>
+    <li><span class="tag t-done">DONE</span><div><b>P6-A 논문형 PDF 구조 설계</b> — 7장 구성(15p)·figure 9종·자격등급 6층 인용 수치표·각주 표준문구·제작 파이프라인 — <code>docs/report/p6-pdf-structure.md</code> (분리 레포 첫 작업)</div></li>
+    <li><span class="tag t-todo">NEXT</span><div>P6-B 원고 집필: figure export(<code>src/export_figures.py</code>) → manuscript.md → md→HTML→PDF 조판 → 웹데모(Next.js 15 정적) / 비정형 선택트랙</div></li>
   </ul>
 
   <h2>작업 로그 (최신순)</h2>
   <div class="cards">
+    <a class="card" href="log/2026-07-11-media-stats-p6-pdf-structure.html">
+      <div class="date">2026-07-11 (KST) · feature/media-stats/p6-pdf-structure &nbsp;<span class="tag t-done">설계 확정</span></div>
+      <div class="title">📄 P6-A 논문형 PDF 구조 설계 — 장 구성·Figure 선정·인용 수치표</div>
+      <div class="summary">분리 레포(Dacon-Organization) 첫 작업. docs/report/p6-pdf-structure.md v0.1 = P6-B 원고의 SSOT. ①7장 구성(서론 GAP→데이터·재검증→방법론 체인→결과I 종단→결과II 횡단→검증(사다리·자격등급=차별점)→제안·결론, 15p 배분·감축 우선순위). ②figure 9종 — 기존 3(eda_p3·사다리·삼각검증)+export 필요 4(23 정렬추세·24 APC·03 NCHI·04 페르소나, src/export_figures.py 신설 방침)+재검증 대조표+웹데모 스크린샷. ③인용 수치표 6층 — 확정 인용(배터리 2.81~3.57·전반신뢰 3.27/37.8%→3.44/49.0%·cred_mean 7개년) / 검증됨+각주 의무(2019→2020) / 검증된 방향(P(S&gt;0)=1.00·r=+0.990/+0.960·비동등 2.4%) / 독립 발견(코호트 -0.891) / 방향만(+0.671 SD) / 금지("유의한 추세"·회피 72%·이용률 추이 미탑재). ④각주 표준문구 4종(실사기관+코로나 분해불가·문항/형식 병기 등). ⑤정합 게이트 — 수치 복사원=§3 표 단일화+30 §6 재실행 PASS 체크리스트. ⑥조판=md→HTML→headless Chrome PDF 권고. Perplexity 보강 프롬프트 3종(§7).</div>
+    </a>
     <a class="card" href="log/2026-07-11-media-stats-kpf-revalidation.html">
       <div class="date">2026-07-11 (KST) · feature/media-stats/p6-kpf-revalidation &nbsp;<span class="tag t-done">게이트 해소</span></div>
       <div class="title">🔏 KPF 원자료 재검증 — 신뢰 절대수준·2019→2020 계단 (P6 착수 게이트)</div>
