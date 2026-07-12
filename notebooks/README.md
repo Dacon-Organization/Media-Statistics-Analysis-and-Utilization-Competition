@@ -42,6 +42,7 @@ Jupyter 노트북. **ZIP 추가 산출물로 제출**하며, 대회 심사에서
 23-alignment-trend.ipynb       # P4 — 정렬법 잠재평균 추세(Δα=+0.671·비동등 2.4%≤20%→비교 정당)          [✅ 벤치마크]
 24-trend-apc.ipynb             # P4 — MK(P(S>0)=1.00)+APC(기간주도 r≥+0.96·코호트 구배 -0.891)          [✅ 벤치마크]
 30-evaluation.ipynb            # P5 — 증거 사다리·삼각검증 종합(인용 상수 drift 검증·자격등급)            [✅ 벤치마크]
+31-figure-export.ipynb         # P6 — 보고서 figure F3~F6 export 입증(thin import·SSOT drift assert 5종)  [✅ 벤치마크]
 ```
 
 ## 규칙
