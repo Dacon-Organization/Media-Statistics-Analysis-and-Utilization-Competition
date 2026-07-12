@@ -47,8 +47,8 @@
   </div>
 
   <h2>전체 진척률</h2>
-  <div class="bar"><i style="width:88%"></i></div>
-  <div class="barlabel">⚙️ 2026-06-24 분석 전면 재설계(CRISP-DM·7개년 확장) 기준 재산정 — Phase A 13/13 + 일관성 검토 + KPF 재검증 게이트 해소 + P6-A 구조 설계 + P6-B-1 figure export + <b>P6-B-2 원고 집필</b> 완료, 잔여 = 노트북 리팩토링·조판·웹데모 ≈88%</div>
+  <div class="bar"><i style="width:92%"></i></div>
+  <div class="barlabel">⚙️ 2026-06-24 분석 전면 재설계(CRISP-DM·7개년 확장) 기준 재산정 — Phase A 13/13 + 일관성 검토 + KPF 재검증 게이트 해소 + P6-A 구조 설계 + P6-B-1 figure export + P6-B-2 원고 집필 + <b>P6-B-3 figure export 노트북(31)·PDF 조판(11p PASS)</b> 완료, 잔여 = 웹데모(F9)·최종 패키징 ≈92%</div>
 
   <h2>마일스톤 파이프라인</h2>
   <ul class="pipeline">
@@ -70,11 +70,17 @@
     <li><span class="tag t-done">DONE</span><div><b>P6-A 논문형 PDF 구조 설계</b> — 7장 구성(15p)·figure 9종·자격등급 6층 인용 수치표·각주 표준문구·제작 파이프라인 — <code>docs/report/p6-pdf-structure.md</code> (분리 레포 첫 작업)</div></li>
     <li><span class="tag t-done">DONE</span><div><b>P6-B-1 figure export</b> — <code>src/export_figures.py</code> 신설, F3(정렬추세)·F4(APC)·F5(NCHI)·F6(페르소나) <code>assets/</code> dpi=200 일괄 생성(SSOT 수치 전 셀 일치 검증)</div></li>
     <li><span class="tag t-done">DONE</span><div><b>P6-B-2 원고 집필</b> — <code>docs/report/manuscript.md</code> v0.1(7장·각주 표준문구 4종+house effect A안+코로나 국제동시성, §5 게이트: §3 표 수동 대조 + 30 재실행 PASS 14/14) + groundwork 07~09 보강자료 이관</div></li>
-    <li><span class="tag t-todo">NEXT</span><div>P6-B-3~4: 전 과정 .ipynb 전면 리팩토링(figure export 노트북 입증) → md→HTML→PDF 조판·15p 확인 → 웹데모(Next.js 15 정적, F9) / 비정형 선택트랙</div></li>
+    <li><span class="tag t-done">DONE</span><div><b>P6-B-3 figure export 노트북 + PDF 조판</b> — <code>notebooks/31-figure-export.ipynb</code>(thin import·SSOT drift assert 5종 PASS) + <code>src/build_report.py</code>(md→HTML→Chrome PDF) → <code>dist/report.pdf</code> <b>11p ≤ 15p PASS</b></div></li>
+    <li><span class="tag t-todo">NEXT</span><div>P6-C: 웹데모(Next.js 15 정적, B2C 진단) → F9 스크린샷 → 원고 최종 리비전·재조판 / 제출 패키징(마감 7/23)</div></li>
   </ul>
 
   <h2>작업 로그 (최신순)</h2>
   <div class="cards">
+    <a class="card" href="log/2026-07-12-media-stats-p6b3-notebook-pdf.html">
+      <div class="date">2026-07-12 (KST) · claude/media-stats-notebook-refactor-1a8b79 &nbsp;<span class="tag t-done">PR #6</span></div>
+      <div class="title">📓 P6-B-3 figure export 입증 노트북(31) + 논문형 PDF 조판(dist/report.pdf 11p)</div>
+      <div class="summary">notebooks/31-figure-export.ipynb 신설(19셀, 벤치마크 스타일: 연구질문 Q1~Q3·📍P6 배너·Decision Box ①②·[시각화]·§7 종합) — src/export_figures.py를 thin import해 F3~F6 4종을 노트북 안에서 실제 재생성(F3는 부트스트랩 B=200 재실행)하고 렌더 PNG를 인라인 임베드. §6 SSOT drift 검증 5종 전부 PASS: (a) F3 α̂ 7개년=ALIGN_ALPHA 전값 일치 (b) F4 재적합 r(+0.990/+0.960)↔상수 재계산 r 일치 (c) F5 NCHI 2024→2025 반등 + cred_mean 7개년↔CRED_MEAN ±0.001 (d) F6 저다양 2유형 최대 매체=TV(65.5%/50.7%) (e) PNG 4종 mtime·크기 — 30 §6과 합쳐 "출처 문서↔인용 상수↔보고서 그림" 3단 검증 사슬 폐쇄. DB①=savefig 셀 대신 별도 스크립트(diff 오염 방지·1명령 재현), DB②=픽셀 아닌 수치 대조. 이어 src/build_report.py 신설 — manuscript.md→HTML(논문형 CSS·바탕 세리프·그림 캡션 단락을 figure로 승격해 F2~F8 7종 base64 내장·각주를 '미주'로 참고문헌 앞 재배치)→headless Chrome --print-to-pdf→dist/report.pdf. 쪽수 게이트 자동 검증 11p/15p PASS. README 2종 갱신(notebooks 31 등재·report 조판 완료). 다음 = P6-C 웹데모→F9 교체→최종 재조판.</div>
+    </a>
     <a class="card" href="log/2026-07-12-media-stats-p6b2-manuscript.html">
       <div class="date">2026-07-12 (KST) · feature/media-stats/p6-b2-manuscript &nbsp;<span class="tag t-done">PR #4 머지</span></div>
       <div class="title">📝 P6-B-2 논문형 원고 집필 — manuscript.md v0.1 + 보강자료 이관</div>
