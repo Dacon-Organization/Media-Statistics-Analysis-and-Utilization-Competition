@@ -6,6 +6,11 @@
 
 장 구성·figure 선정·인용 수치표(자격등급)는 **[p6-pdf-structure.md](p6-pdf-structure.md)** 가 정본입니다.
 
+## 원고
+
+- **[manuscript.md](manuscript.md)** — 본문 원고 v0.1 (P6-B-2, 2026-07-12). 7장 구성·figure F1~F9(F9는 웹데모 후 placeholder 교체)·각주 4종+house effect(A안)+코로나 국제동시성. 수치는 p6-pdf-structure §3 표에서만 복사(§5 게이트 준수, 수동 대조 완료).
+- 조판(md → HTML → headless Chrome PDF, `dist/report.pdf`)은 P6-B-3에서 진행.
+
 ## 구성(예정, 15장)
 배경·문제정의(측정도구 부재 GAP) → 데이터·방법론(원시자료+코호트/군집) → 분석결과(지수·추세·페르소나) → 제안(B2G 정책지수/B2C 진단) → 기대효과·실현가능성(데모 스크린샷).
 
