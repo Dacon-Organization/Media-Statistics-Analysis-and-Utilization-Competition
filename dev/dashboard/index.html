@@ -47,8 +47,8 @@
   </div>
 
   <h2>전체 진척률</h2>
-  <div class="bar"><i style="width:84%"></i></div>
-  <div class="barlabel">⚙️ 2026-06-24 분석 전면 재설계(CRISP-DM·7개년 확장) 기준 재산정 — Phase A 13/13 + 일관성 검토 + KPF 재검증 게이트 해소 + P6-A 구조 설계 + <b>P6-B-1 figure export</b> 완료, 잔여 = 원고·조판·웹데모 ≈84%</div>
+  <div class="bar"><i style="width:88%"></i></div>
+  <div class="barlabel">⚙️ 2026-06-24 분석 전면 재설계(CRISP-DM·7개년 확장) 기준 재산정 — Phase A 13/13 + 일관성 검토 + KPF 재검증 게이트 해소 + P6-A 구조 설계 + P6-B-1 figure export + <b>P6-B-2 원고 집필</b> 완료, 잔여 = 노트북 리팩토링·조판·웹데모 ≈88%</div>
 
   <h2>마일스톤 파이프라인</h2>
   <ul class="pipeline">
@@ -69,11 +69,17 @@
     <li><span class="tag t-done">DONE</span><div><b>KPF 원자료 재검증(게이트 해소)</b> — 신뢰 절대수준 공식 보고서와 전 셀 일치·2019→2020 계단 실재 판정(원인 각주 의무)·시장조사 혼용 규명 — <code>docs/design/kpf-revalidation.md</code> + <code>src/kpf_revalidation.py</code></div></li>
     <li><span class="tag t-done">DONE</span><div><b>P6-A 논문형 PDF 구조 설계</b> — 7장 구성(15p)·figure 9종·자격등급 6층 인용 수치표·각주 표준문구·제작 파이프라인 — <code>docs/report/p6-pdf-structure.md</code> (분리 레포 첫 작업)</div></li>
     <li><span class="tag t-done">DONE</span><div><b>P6-B-1 figure export</b> — <code>src/export_figures.py</code> 신설, F3(정렬추세)·F4(APC)·F5(NCHI)·F6(페르소나) <code>assets/</code> dpi=200 일괄 생성(SSOT 수치 전 셀 일치 검증)</div></li>
-    <li><span class="tag t-todo">NEXT</span><div>P6-B-2~4: manuscript.md 집필 → md→HTML→PDF 조판·정합 체크리스트 → 웹데모(Next.js 15 정적) / 비정형 선택트랙</div></li>
+    <li><span class="tag t-done">DONE</span><div><b>P6-B-2 원고 집필</b> — <code>docs/report/manuscript.md</code> v0.1(7장·각주 표준문구 4종+house effect A안+코로나 국제동시성, §5 게이트: §3 표 수동 대조 + 30 재실행 PASS 14/14) + groundwork 07~09 보강자료 이관</div></li>
+    <li><span class="tag t-todo">NEXT</span><div>P6-B-3~4: 전 과정 .ipynb 전면 리팩토링(figure export 노트북 입증) → md→HTML→PDF 조판·15p 확인 → 웹데모(Next.js 15 정적, F9) / 비정형 선택트랙</div></li>
   </ul>
 
   <h2>작업 로그 (최신순)</h2>
   <div class="cards">
+    <a class="card" href="log/2026-07-12-media-stats-p6b2-manuscript.html">
+      <div class="date">2026-07-12 (KST) · feature/media-stats/p6-b2-manuscript &nbsp;<span class="tag t-done">PR #4 머지</span></div>
+      <div class="title">📝 P6-B-2 논문형 원고 집필 — manuscript.md v0.1 + 보강자료 이관</div>
+      <div class="summary">docs/report/manuscript.md v0.1 — p6-pdf-structure §1 7장 구성(15p 배분) 준수: 요약·1 서론(측정도구 부재 GAP·RQ1~3)·2 데이터(하모나이즈 90,996행·F1 재검증 대조표=파이프라인 원전 입증)·3 방법론(MGCFA→semopy 교차검증→정렬법→MK/Sen→APC + NCHI·군집, 25% 준거 각주)·4 결과I(측정 자격→잠재추세 전 연도 CI&gt;0→p=0.381 정직 보고→기간효과 r≥+0.96→코호트 -0.891 독립 발견→2019→2020 계단)·5 결과II(NCHI 다양성 병목·페르소나 저다양 2유형=고령·TV 편중·종단↔횡단 부호 일치)·6 검증(4관문·삼각검증 일치+정직한 불일치·자격등급 4층=차별점)·7 제안·결론(B2G 정책 대시보드+병렬실사 권고·B2C 웹데모·한계 5건). 각주: §4 표준문구 4종 + house effect 보수적 A안(groundwork 07 §4-A, Smith 1978·Schnell&amp;Klingwort 2024) + 코로나 국제동시성(groundwork 08 §4-B, Reuters 35/40개국·한국 +11%p·Knudsen 2023). §5 게이트: 원고 수치↔§3 표 수동 대조 전 셀 일치(§3 밖 수치 3.48 발견 즉시 제거)·30 재실행 PASS 14/FAIL 0·금지 표현 grep 위반 0. 보강자료 Perplexity 3종+문헌 CSV 2종 → docs/groundwork/07~09 이관(*.csv ignore 예외 -f). 다음 = P6-B-3 전 과정 .ipynb 전면 리팩토링(사용자 지적: .py 단독 진행 금지) → 조판 → 웹데모.</div>
+    </a>
     <a class="card" href="log/2026-07-12-media-stats-p6b1-export-figures.html">
       <div class="date">2026-07-12 (KST) · feature/p6b1-export-figures &nbsp;<span class="tag t-done">PR #2 머지</span></div>
       <div class="title">🖼️ P6-B-1 Figure Export 스크립트 — F3~F6 assets/ 일괄 생성</div>
