@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P6-B-5 노트북 전면 정비(32종) · 작업 대시보드</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-progress { background: rgba(210,153,34,.15); color: var(--progress); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  a { color: var(--accent); }
+  code { background: #0b0d11; padding: 1px 6px; border-radius: 4px; font-size: .85em; }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>P6-B-5 — 노트북 전면 정비: 빈 번호 19종 신규 + 기존 13종 리팩토링 (32종 완전 지도)</h1>
+  <div class="meta">
+    📅 <b>2026-07-12 (KST)</b> · 🌿 브랜치 <b>claude/media-stats-notebook-refactor-1a8b79</b> · 🔗 PR #7 · 📦 분리 레포(Dacon-Organization)
+  </div>
+  <div class="bar"><i style="width:95%"></i></div>
+
+  <section>
+    <h2>✅ 완료 (Done) — Wave 0~4</h2>
+    <ul>
+      <li><span class="tag t-done">W0</span><div><code>notebooks/README.md</code> 개정 — 번호 대역 체계(0x A트랙 · 1x 데이터 · 2x 모델링 · 3x 평가/보고)·32종 완전 지도·5단계 완전 매핑</div></li>
+      <li><span class="tag t-done">W1</span><div>기존 13종 전면 리팩토링<div class="sub">stale 게이트 문구 일괄 갱신(재검증 완료 반영, 10개 노트북 21곳) · [시각화] 해설 md 보강(01×5·02×4) · figure 신설(10 Jaccard/가용성, 11 presence 비율, 22 α/적재 SD) · 23 DB③ 후퇴선 사후 기록(미발동) · 10·11·22 재실행 에러 0</div></div></li>
+      <li><span class="tag t-done">W2</span><div>1x 데이터 트랙 신규 8종(12~19)<div class="sub">12 원자료 재검증(공표치 전 셀 assert) · 13 가중치 설계(성질 3종·deff) · 14 특수코드(단위검증 전수) · 15 crosswalk 게이트(189셀 불일치 0) · 16 2022 구조(이중 통제 계보) · 17 단일문항 궤적(TRUST_SINGLE ±0.001) · 18 신뢰도 구조(α 전수) · 19 품질 게이트 종합(11종 PASS)</div></div></li>
+      <li><span class="tag t-done">W3</span><div>2x·3x 심층 신규 6종(25~29·32)<div class="sub">25 강건성(robust 3변형 재실행) · 26 MK 심층(정확분포 5,040 전수·P(S>0)=1.00) · 27 APC 식별(상수 14원소 일치) · 28 코호트 구배(-0.891 재현·민감도) · 29 삼각검증(판정 12셀·F8 재생성) · 32 조판 입증(무변조 11종·11p 게이트)</div></div></li>
+      <li><span class="tag t-done">W4</span><div>0x A트랙 신규 5종(05~09)<div class="sub">05 A트랙 종합 평가(4관문·ARI 0.244) · 06 다양성 심층(신설매체 기여 분해) · 07 신뢰축 심층(pooled z 정당성 실증) · 08 페르소나 프로파일 전수(인구+매체 11종) · 09 B2C 진단 사양(전수 재판정 100% 일치 + web/diagnosis-spec.json export)</div></div></li>
+      <li><span class="tag t-done">DOC</span><div><code>docs/groundwork/10-research-notebook-citation-gaps.md</code> — Perplexity 추가 조사 필요성 판정표(필수 결손 0 · 선택 3건 브리프)</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🧪 검증 (Wave 5)</h2>
+    <ul>
+      <li><span class="tag t-done">PASS</span><div>신규 19종 전부 <code>nbconvert --execute</code> 에러 0 · 검증 셀 assert 전부 PASS · 벤치마크 5요소(연구질문·📍배너·Decision Box·[시각화]·종합) 탑재</div></li>
+      <li><span class="tag t-done">PASS</span><div>일관성 5축 자동 감사(형식·실행 상태·금지 표현·stale 게이트·U+2212) — 32종 위반 0건</div></li>
+      <li><span class="tag t-done">PASS</span><div><code>30-evaluation.ipynb</code> §6 drift 재확인 — 상수↔문서 무drift 유지</div></li>
+      <li><span class="tag t-done">PASS</span><div>colab/렌더 검수 — 노트북 셀·figure 렌더 확인(상세는 로그 본문)</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>⏭️ 다음 (Next)</h2>
+    <ul>
+      <li><span class="tag t-todo">TODO</span><div><b>P6-C 웹데모</b> — Next.js 15 정적, <code>web/diagnosis-spec.json</code>(09 산출) 소비 → F9 캡처 → manuscript 그림 8 교체 → 32 재실행(최종 PDF)</div></li>
+      <li><span class="tag t-todo">TODO</span><div>제출 패키징 — PDF + 노트북 ZIP(01~09·10~19·20~29·30~32) 최종 점검, 마감 <b>7/23</b></div></li>
+      <li><span class="tag t-todo">OPT</span><div>Perplexity 선택 조사 3건(IE 원 서지·Kish/Nunnally·ARI 기준) — groundwork/10 브리프, 미실행 시 결손 없음</div></li>
+    </ul>
+  </section>
+
+  <footer>생성: Claude Code · 2026-07-12 KST · R2 대시보드 규칙 준수</footer>
+</div>
+</body>
+</html>
