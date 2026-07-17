@@ -1,0 +1,86 @@
+{
+  "version": "1.0 (P6-B-5, notebooks/09)",
+  "inputs": {
+    "cred_items": {
+      "cred_fair": {
+        "label": "우리나라 언론은 공정하다",
+        "scale": [
+          1,
+          5
+        ]
+      },
+      "cred_professional": {
+        "label": "우리나라 언론은 전문적이다",
+        "scale": [
+          1,
+          5
+        ]
+      },
+      "cred_accurate": {
+        "label": "우리나라 언론은 정확하다",
+        "scale": [
+          1,
+          5
+        ]
+      }
+    },
+    "media_items": {
+      "use_paper": "종이신문",
+      "use_magazine": "잡지",
+      "use_tv": "TV",
+      "use_radio": "라디오",
+      "use_internet": "인터넷 뉴스",
+      "use_messenger": "메신저 뉴스",
+      "use_sns": "SNS 뉴스",
+      "use_video": "온라인 동영상 뉴스"
+    }
+  },
+  "trust": {
+    "item_mean": {
+      "cred_fair": 3.047573519715152,
+      "cred_professional": 3.3661149940656734,
+      "cred_accurate": 3.17488680821135
+    },
+    "item_std": {
+      "cred_fair": 0.8832269417805774,
+      "cred_professional": 0.9129544655792073,
+      "cred_accurate": 0.9141632462476058
+    },
+    "raw_min": -2.429700017111702,
+    "raw_max": 1.9989043112762304,
+    "threshold_1_100": 58.662025409389585
+  },
+  "diversity": {
+    "richness_min": 0.0,
+    "richness_max": 8.0,
+    "threshold_1_100": 25.75
+  },
+  "quadrant_labels": {
+    "TT": "건강한 소비자",
+    "TF": "신뢰편향형",
+    "FT": "비판적 탐색형",
+    "FF": "이중취약형"
+  },
+  "prescriptions": {
+    "건강한 소비자": {
+      "diagnosis": "신뢰·다양성 모두 상위 절반",
+      "rx": "현 레퍼토리 유지 + 출처 교차확인 습관 소개",
+      "evidence": "05 §2(NCHI 최고 유형)"
+    },
+    "비판적 탐색형": {
+      "diagnosis": "다양성은 넓으나 신뢰 인식 낮음",
+      "rx": "저신뢰의 근거 점검 도구(팩트체크 서비스) 안내",
+      "evidence": "05 §2·08 §4(넓은 레퍼토리)"
+    },
+    "신뢰편향형": {
+      "diagnosis": "신뢰는 높으나 채널이 좁음(TV 중심)",
+      "rx": "관심사 기반 신규 매체 1~2종 추가 제안(레퍼토리 확장)",
+      "evidence": "08 §6(a) TV 최대·§6(c) 신설 0"
+    },
+    "이중취약형": {
+      "diagnosis": "신뢰·다양성 모두 하위 절반",
+      "rx": "접근성 높은 채널부터 단계적 확장 + 신뢰 형성 콘텐츠",
+      "evidence": "08 §3(고령 집중)·§6"
+    }
+  }
+}
