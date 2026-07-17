@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P6-B-6 서지 정밀화 + 노트북↔원고↔PDF 동기화 루프 · 작업 대시보드</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-progress { background: rgba(210,153,34,.15); color: var(--progress); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .t-blocked { background: rgba(248,81,73,.15); color: var(--blocked); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  a { color: var(--accent); }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>P6-B-6 · 방법론 서지 정밀화(IE·Kish·ARI·α) + 노트북↔원고↔PDF 동기화 루프 확립</h1>
+  <div class="meta">
+    📅 <b>2026-07-17 (KST)</b> · 🌿 브랜치 <b>claude/intrinsic-estimator-apc-f72322</b> · 🔗 PR 예정
+  </div>
+  <div class="bar"><i style="width:100%"></i></div>
+
+  <section>
+    <h2>✅ 완료 (Done)</h2>
+    <ul>
+      <li><span class="tag t-done">DONE</span><div>groundwork/10 §4 조사 결과 기록 — 선택 조사 ①②③ 전부 해소<div class="sub">IE 원전 3건+Luo 2013 논쟁(DOI 검증분만), Kish 공식 출처 정정(1965/1992 → <b>1987</b>), ARI "0.5 강한 일치" 근거 부재 확인 → Steinley 2004 구간(0.65/0.80/0.90) 채택. 미확인 항목(Fu 2000·코멘터리 3편)은 인용 금지 명시</div></div></li>
+      <li><span class="tag t-done">DONE</span><div>노트북 5종 서술 정비 — 결론·수치 불변, 판정 기준·서지만 정밀화<div class="sub">27(IE 서지+영공간 가정 각주) · 13(Kish 1987 정정+가중 성분 한계) · 05(ARI 판정 Steinley 기준 교체: 판정 print·assert·자격등급표·종합) · 04(§3 서지, figure 기준선 0.5→0.65, 발견③·§7) · 18(α 0.70 = Nunnally 초기연구 맥락+Lance 2006 비판)</div></div></li>
+      <li><span class="tag t-done">DONE</span><div>manuscript.md IE 서지 반영<div class="sub">§3(4) 두 방법의 식별 가정 성격 명시, §7.3④ "IE = 영공간 제약 가정의 채택" 명시, 참고문헌 5건 추가(DOI 포함)</div></div></li>
+      <li><span class="tag t-done">DONE</span><div>PDF 재빌드 — dist/report.pdf<div class="sub">build_report.py 실행, 그림 7건 내장, <b>12p / 상한 15p PASS</b></div></div></li>
+      <li><span class="tag t-done">DONE</span><div>동기화 루프 상시 절차 명문화<div class="sub">docs/report/README.md에 5단계 체크리스트(노트북 수정 → 수치 변경 판정 → 원고 → PDF 15p 게이트 → 기록) 신설</div></div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔍 검증 (Verify)</h2>
+    <ul>
+      <li><span class="tag t-done">OK</span><div>노트북 04·05 전 셀 재실행(nbconvert --execute) — 모든 [입증] assert PASS, 수치 전부 기존과 동일(pooled ARI 0.195/0.244, 구배 +0.744/−0.891)</div></li>
+      <li><span class="tag t-done">OK</span><div>build_report.py 쪽수 게이트 12p ≤ 15p PASS</div></li>
+      <li><span class="tag t-done">OK</span><div>30 §6 drift 파싱 대상 문서(docs/design/*) git 무변경 — 상수 SSOT 영향 없음</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔜 다음 할 일 (Next)</h2>
+    <ul>
+      <li><span class="tag t-todo">TODO</span><div>P6-C 웹데모 구현(web/diagnosis-spec.json 소비) → F9 스크린샷 캡처 후 manuscript 최종 리비전<div class="sub">우선순위: 상 (마감 7/23)</div></div></li>
+      <li><span class="tag t-todo">TODO</span><div>노트북 루프 검토 라운드 계속 — 수정 발생 시 README의 동기화 5단계 절차 적용<div class="sub">우선순위: 중</div></div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>⚠️ 차단/리스크 (Blocker)</h2>
+    <ul>
+      <li><span class="tag t-progress">NOTE</span><div>워크트리에는 gitignore 산출 데이터가 없어 본 레포에서 data/processed·interim parquet 복사로 해결(커밋 대상 아님). Colab MCP는 로컬 데이터 의존 때문에 원격 검증 불가 — 로컬 nbconvert 실행으로 갈음</div></li>
+    </ul>
+  </section>
+
+  <footer>Dacon 작업 대시보드 · skills/agent-ops/dashboard.md 규칙 (R2)</footer>
+</div>
+</body>
+</html>
