@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>최종 검수 — F9 제외 보고서 완성 확정 · 작업 대시보드</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-progress { background: rgba(210,153,34,.15); color: var(--progress); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  a { color: var(--accent); }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>최종 검수 — §3 표 ↔ 원고 전수 대조 + 30 drift PASS → "F9 제외 보고서 완성" 확정</h1>
+  <div class="meta">
+    📅 <b>2026-07-17 (KST)</b> · 🌿 브랜치 <b>claude/notebook-loop-review-report-dd4456</b> · 🔗 PR 예정
+  </div>
+  <div class="bar"><i style="width:100%"></i></div>
+
+  <section>
+    <h2>✅ 검수 항목 (p6-pdf-structure §5-2 체크리스트)</h2>
+    <ul>
+      <li><span class="tag t-done">OK</span><div>§3 인용 수치표 ↔ manuscript.md 수동 전수 대조<div class="sub">원고 수치 토큰 전수 추출 후 대조 — §3.1 확정 인용(배터리 10셀·신뢰 평균/비율 12셀·cred_mean 7개년·단일문항 6개년·N=90,996), §3.3 검증된 결과(ΔCFI -0.0008·0.0003·2.4%·τ+0.333·p=0.381·P(S&gt;0)=1.00·r 3종), §3.4 독립 발견(-0.891), §3.5 방향만(+0.3~+0.67 SD 범위 표현만) — <b>전부 §3 표와 일치, 고아 수치 0건</b>. 각주의 외부 수치(로이터 21%→32% 등)는 참고문헌 근거로만 사용(수치 게이트 비대상, P6-B-6 확정 방침)</div></div></li>
+      <li><span class="tag t-done">OK</span><div>notebooks/30 §6 drift 게이트 재실행 — 상수 34개·인용 문자열 11건·재도출 상관 4건 전부 PASS(에러 0)</div></li>
+      <li><span class="tag t-done">OK</span><div>build_report.py 15p 게이트 — 그림 9종(F2~F8·F10·F11) 내장 <b>12p/15p PASS</b>, 여유 3p(F9·최종 리비전 흡수분)</div></li>
+      <li><span class="tag t-done">OK</span><div>금지 표현 규율 — "유의한 증가 추세"·단년 수준 비교·미확인 서지(Fu 2000·Demography 코멘터리) 위반 0건(전 노트북+원고 grep)</div></li>
+      <li><span class="tag t-done">OK</span><div>노트북 32종 전수 재실행 PASS(본 세션 R1~R3) — 재현성·assert 전부 입증</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🏁 판정</h2>
+    <ul>
+      <li><span class="tag t-done">확정</span><div><b>F9(웹데모 스크린샷 placeholder) 제외 보고서 완성.</b> 남은 보고서 작업은 P6-C 웹데모 구현 → F9 캡처 → 최종 리비전(32 재실행)뿐이다.</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔜 다음 (P6-C)</h2>
+    <ul>
+      <li><span class="tag t-todo">TODO</span><div>웹데모(Next.js 15 정적, web/diagnosis-spec.json 소비만·로직 재정의 금지) → F9 캡처 → manuscript 최종 리비전 → 32 재실행 → 제출 패키징<div class="sub">마감 2026-07-23</div></div></li>
+    </ul>
+  </section>
+
+  <footer>Dacon 작업 대시보드 · skills/agent-ops/dashboard.md 규칙 (R2)</footer>
+</div>
+</body>
+</html>
