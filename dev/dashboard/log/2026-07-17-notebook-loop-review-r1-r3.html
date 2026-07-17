@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>노트북 32종 루프 검토 R1~R3 · 작업 대시보드</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-progress { background: rgba(210,153,34,.15); color: var(--progress); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .t-blocked { background: rgba(248,81,73,.15); color: var(--blocked); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  a { color: var(--accent); }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>노트북 32종 루프 검토 라운드 R1(1x)·R2(2x)·R3(3x·0x) — 전수 재실행 검증</h1>
+  <div class="meta">
+    📅 <b>2026-07-17 (KST)</b> · 🌿 브랜치 <b>claude/notebook-loop-review-report-dd4456</b> · 🔗 PR 예정
+  </div>
+  <div class="bar"><i style="width:100%"></i></div>
+
+  <section>
+    <h2>✅ 완료 (Done)</h2>
+    <ul>
+      <li><span class="tag t-done">DONE</span><div>R1 — 상류 1x(10~19) 10종 검토<div class="sub">정적 스캔(에러 0·실행순서 순차·assert 존재) + 스크래치 전수 재실행 10/10 PASS + 커밋본↔재실행본 검증 출력 IDENTICAL + thin import·금지 표현 규율 위반 0건. <b>수정 0건</b></div></div></li>
+      <li><span class="tag t-done">DONE</span><div>R2 — 분석 2x(20~29) 10종 검토<div class="sub">재실행 10/10 PASS·출력 IDENTICAL. 핵심 수치 §3 표와 전부 일치(비동등 2.4%·semopy 0.0003·Δα 4변형·MK p=0.381·P(S&gt;0)=1.00·APC r 3종·코호트 −0.891). <b>수정 0건</b></div></div></li>
+      <li><span class="tag t-done">DONE</span><div>R3 — 하류 3x·0x(30~32, 01~09) 12종 검토<div class="sub">재실행 12/12 PASS. 30 §6 drift 게이트(상수 34·인용 11·상관 4) PASS. <b>발견·수정 1건</b>: 32 조판 노트북 커밋 출력이 11p 시절 stale → inplace 재실행으로 12p 현행화</div></div></li>
+      <li><span class="tag t-done">DONE</span><div>동기화 5단계 적용(32 수정분)<div class="sub">① 32 재실행 assert 전부 PASS ② 수치·상수 불변(쪽수는 SSOT 비대상) ③ 원고 무변경 ④ build_report.py 재확인 <b>12p / 15p PASS</b> ⑤ 본 기록</div></div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔍 검증 (Verify)</h2>
+    <ul>
+      <li><span class="tag t-done">OK</span><div>32종 전수 스크래치 재실행(nbconvert --execute, 워크트리 비오염) — 32/32 PASS, 에러 0</div></li>
+      <li><span class="tag t-done">OK</span><div>커밋본 ↔ 재실행본 PASS/FAIL 라인 전수 대조 — 30종 IDENTICAL · 31 소요시간만 상이(무해) · 32 stale → 수정 완료</div></li>
+      <li><span class="tag t-done">OK</span><div>금지 표현·미확인 서지(유의한 증가·단년 최저·Fu 2000·Demography 50(6)) 전 노트북+원고 grep — 위반 0건(검출분은 전부 금지 규율 명시 맥락)</div></li>
+      <li><span class="tag t-done">OK</span><div>thin import 규율 — 1x·2x 전부 src 모듈 import 확인(로컬 def는 표시 헬퍼뿐)</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>📝 관찰 (수정 불요 판단)</h2>
+    <ul>
+      <li><span class="tag t-progress">NOTE</span><div>28 검증 출력 (b)에 np.float64 repr 노출 — 표시 미관 문제로 재실행 캐스케이드 비용 대비 무익, 보류</div></li>
+      <li><span class="tag t-progress">NOTE</span><div>03·04는 자체 assert 셀 없음 — A트랙 검증은 05(4관문 assert: ARI·지수 범위·부호 정합)가 커버하는 설계로 확인</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔜 다음 할 일 (Next)</h2>
+    <ul>
+      <li><span class="tag t-todo">TODO</span><div>보고서 시각화 보강(수치 figure 추가) → 최종 검수(§3 표 ↔ 원고 수동 대조 + 30 재실행 PASS) → "F9 제외 보고서 완성" 확정<div class="sub">우선순위: 상 (마감 7/23)</div></div></li>
+      <li><span class="tag t-todo">TODO</span><div>P6-C 웹데모(web/diagnosis-spec.json 소비) → F9 캡처 → 최종 리비전<div class="sub">우선순위: 상</div></div></li>
+    </ul>
+  </section>
+
+  <footer>Dacon 작업 대시보드 · skills/agent-ops/dashboard.md 규칙 (R2)</footer>
+</div>
+</body>
+</html>

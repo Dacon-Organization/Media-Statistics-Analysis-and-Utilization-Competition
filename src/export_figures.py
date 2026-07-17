@@ -14,6 +14,10 @@
       NCHI 추세(fixed8 주지표·incl 보조) + 페르소나 가중 구성비(2패널).
   F6  `04-personas-kmeans.ipynb` §5   → assets/fig6_personas.png
       페르소나 × 매체 이용률 히트맵(가중%, 고정풀 8매체).
+  F10 `26-mk-sen-deep-dive.ipynb` §2·§4 → assets/fig10_mk_inference.png  (P6-B-7 추가)
+      MK 추론 이층 구조: 순열 정확분포(관측 S·기각역) + 부트스트랩 τ 분포(P(S>0)).
+  F11 `28-cohort-gradient.ipynb` §2·§5  → assets/fig11_cohort_age_concordance.png  (P6-B-7 추가)
+      종단 IE 코호트 구배(음) ↔ 횡단 2025 연령 구배(양) — 부호 정합 2패널.
 
 표기 규율(p6-pdf-structure §3.5·§4): F3·F4의 SD 단위 수치는 모형 의존 —
   축 라벨에 "2019=0, 2019-SD 단위"를 명기하고 본문 헤드라인 인용은 금지.
@@ -264,11 +268,121 @@ def export_fig6(panel: pd.DataFrame) -> Path:
     return _save(fig, "fig6_personas.png")
 
 
+# ─────────── F10. MK 추론 이층 구조 — 순열 정확분포 + 부트스트랩 (26 §2·§4) ───────────
+def export_fig10(panel: pd.DataFrame) -> Path:
+    """MK 이층 보고 시각화 — 26 §2(순열 정확분포)·§4(부트스트랩 τ) 인라인 fig 합본.
+
+    본문 4.3절("유의하다" 대신 정직하게)의 수치 짝: 점추정 p=0.381(왼쪽)이 왜
+    비유의인지(n=7 기각역 |S|>=15)와, 추정 불확실성 전파 후에도 방향이 일관됨
+    (P(S>0)=1.00, 오른쪽)을 한 그림으로 보인다. 판정 로직은 trend_apc SSOT 사용.
+    """
+    from itertools import permutations
+
+    print("[F10] MK 순열 정확분포(7!=5,040) + 부트스트랩 전파(mk_with_uncertainty, B=150)…")
+    years, alpha = T.latent_trend_points(panel)
+    mk = T.mann_kendall(alpha)
+    S_obs = mk["S"]
+
+    def s_stat(a):
+        a = np.asarray(a, float)
+        return int(sum(np.sign(a[i + 1:] - a[i]).sum() for i in range(len(a) - 1)))
+
+    S_null = np.array([s_stat(perm) for perm in permutations(alpha)])
+    vals, counts = np.unique(S_null, return_counts=True)
+    pmf = counts / counts.sum()
+    tail = {s: float((np.abs(S_null) >= s).mean()) for s in range(1, 22, 2)}
+    crit = min(s for s, pv in tail.items() if pv <= 0.05)
+
+    taus, s_pos, _ = T.mk_with_uncertainty(panel, B=150)
+
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12.6, 4.0))
+    colors = ["#f4a3a3" if abs(v) >= crit else "#a6c8e0" for v in vals]
+    ax1.bar(vals, pmf, width=1.6, color=colors)
+    ax1.axvline(S_obs, color="#c00", lw=2,
+                label=f"관측 S = {S_obs:+d} (정확 p = {mk['p_exact']:.3f})")
+    ax1.set_xlabel("S (연도쌍 부호 합, -21~+21)")
+    ax1.set_ylabel("정확 확률 (7! = 5,040 순열)")
+    ax1.set_title(f"점추정 — MK 귀무 정확분포, 양측 5% 기각역 |S| ≥ {crit}")
+    ax1.legend(fontsize=9)
+
+    ax2.hist(taus, bins=21, color="#4c78a8", edgecolor="white")
+    ax2.axvline(0, color="#c00", lw=2, label="τ = 0 (무추세)")
+    ax2.axvline(np.mean(taus), color="#1a7f37", lw=2, ls="--",
+                label=f"평균 τ = {np.mean(taus):+.3f}")
+    ax2.set_xlabel("부트스트랩 τ (추정 불확실성 전파, B=150)")
+    ax2.set_ylabel("빈도")
+    ax2.set_title(f"방향 일관성 — P(S>0) = {s_pos:.2f}")
+    ax2.legend(fontsize=9)
+    fig.tight_layout()
+    return _save(fig, "fig10_mk_inference.png")
+
+
+# ─────── F11. 종단 코호트 구배 ↔ 횡단 연령 구배 부호 정합 (28 §2·§5) ───────
+def export_fig11(panel: pd.DataFrame) -> Path:
+    """상호 외적 타당도 시각화 — 28 §2(IE 코호트 구배)·§5(2025 횡단 연령 구배) 합본.
+
+    본문 5.3절의 수치 짝: 종단 IE 코호트 편차는 젊을수록 낮고(음의 구배, §3.4의
+    -0.891), 횡단 2025 연령대별 cred_mean은 고령일수록 높다(양의 구배) — 서로
+    독립 산출된 두 트랙의 부호 정합. 소표본 셀(N<200)은 28과 동일 규칙으로 제외.
+    """
+    print("[F11] IE 재적합(코호트 편차) + 2025 횡단 연령대 가중 cred_mean…")
+    MIN_N = 200  # 소표본 셀 제외 임계(28·trend_apc.write_results와 동일)
+    frame = T.make_apc_frame(panel)
+    ie = T.intrinsic_estimator(frame)
+    coh_n = frame["cohort5"].value_counts().to_dict()
+    big = sorted((k, v) for k, v in ie["cohort"].items() if coh_n.get(k, 0) >= MIN_N)
+    small = sorted((k, v) for k, v in ie["cohort"].items() if coh_n.get(k, 0) < MIN_N)
+    cb = np.array([k for k, _ in big], float)
+    cv = np.array([v for _, v in big])
+    coh_grad = float(np.corrcoef(cb, cv)[0, 1])
+
+    p25 = panel[panel["year"] == 2025]
+    cred25 = p25[["cred_fair", "cred_professional", "cred_accurate"]].apply(
+        pd.to_numeric, errors="coerce").mean(axis=1)
+    age_band = (pd.to_numeric(p25["age"], errors="coerce") // 10 * 10)
+    w25 = p25["wt_year_eq"]
+    xs, ys = [], []
+    for band in sorted(age_band.dropna().unique()):
+        mm = (age_band == band) & cred25.notna()
+        if mm.sum() < 100:
+            continue
+        xs.append(int(band))
+        ys.append(float(np.average(cred25[mm], weights=w25[mm])))
+    cross_grad = float(np.corrcoef(xs, ys)[0, 1])
+    print(f"  구배: 종단 코호트 {coh_grad:+.3f}(음) ↔ 횡단 연령 {cross_grad:+.3f}(양)")
+
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12.6, 4.0))
+    ax1.axhline(0, color="gray", lw=0.8, ls="--")
+    ax1.plot(cb, cv, "o-", color="#d62728", label=f"N≥{MIN_N} 셀 ({len(big)}개)")
+    if small:
+        ax1.plot([k for k, _ in small], [v for _, v in small], "x", color="0.6",
+                 ms=8, label=f"N<{MIN_N} 소표본 — 해석 제외")
+    ax1.set_xlabel("출생코호트(5년 묶음 시작연도)")
+    ax1.set_ylabel("IE 코호트 편차 (cred_mean 단위)")
+    ax1.set_title(f"종단(7개년) — 젊은 코호트일수록 낮음 (구배 {coh_grad:+.3f})")
+    ax1.legend(fontsize=9)
+
+    ax2.plot(xs, ys, "s-", color="#0969da")
+    for x, y in zip(xs, ys):
+        ax2.annotate(f"{y:.2f}", (x, y), textcoords="offset points", xytext=(0, 8),
+                     ha="center", fontsize=8.5)
+    ax2.set_xticks(xs)
+    ax2.set_xticklabels([f"{x}대" for x in xs])
+    ax2.set_xlabel("연령대 (2025 횡단면)")
+    ax2.set_ylabel("cred_mean (가중, 5점 척도)")
+    ax2.set_title(f"횡단(2025) — 고령일수록 높음 (구배 {cross_grad:+.3f})")
+    ax2.margins(x=0.06)
+    fig.tight_layout()
+    return _save(fig, "fig11_cohort_age_concordance.png")
+
+
 EXPORTERS = {
     "fig3": export_fig3,
     "fig4": export_fig4,
     "fig5": export_fig5,
     "fig6": export_fig6,
+    "fig10": export_fig10,
+    "fig11": export_fig11,
 }
 
 

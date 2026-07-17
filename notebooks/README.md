@@ -79,7 +79,7 @@ Jupyter 노트북. **ZIP 추가 산출물로 제출**하며, 대회 심사에서
 
 ```
 30-evaluation.ipynb            # P5 — 증거 사다리·삼각검증 종합(인용 상수 drift 검증·자격등급)       [✅ 벤치마크]
-31-figure-export.ipynb         # P6 — 보고서 figure F3~F6 export 입증(thin import·SSOT assert 5종)  [✅ 벤치마크]
+31-figure-export.ipynb         # P6 — 보고서 figure F3~F6·F10·F11 export 입증(thin import·SSOT assert 7종) [✅ 벤치마크]
 32-report-typeset.ipynb        # P6 — 조판 입증: md→HTML(그림 승격·미주)→Chrome PDF·쪽수 게이트     [✅ 벤치마크]
 ```
 
