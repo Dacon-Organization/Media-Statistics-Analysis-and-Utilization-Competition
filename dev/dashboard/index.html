@@ -77,6 +77,11 @@
 
   <h2>작업 로그 (최신순)</h2>
   <div class="cards">
+    <a class="card" href="log/2026-07-17-notebook-loop-review-r1-r3.html">
+      <div class="date">2026-07-17 (KST) · claude/notebook-loop-review-report-dd4456 &nbsp;<span class="tag t-done">PR 예정</span></div>
+      <div class="title">🔁 노트북 32종 루프 검토 R1~R3 — 전수 재실행 검증(수정 1건: 32 stale 출력 현행화)</div>
+      <div class="summary">상류(1x)→하류(2x·3x·0x) 순 3라운드 전수 검토. 32/32 스크래치 재실행 PASS(워크트리 비오염 방식), 커밋본↔재실행본 검증 출력 라인 전수 대조 — 30종 IDENTICAL·31 소요시간만 상이(무해)·<b>32 조판 출력 11p stale 발견 → inplace 재실행으로 12p 현행화</b>(동기화 5단계 적용: assert 전부 PASS·수치 상수 불변·build_report.py 12p/15p 재확인). 30 §6 drift 게이트(상수 34·인용 11·상관 4) PASS. 규율 감사: 금지 표현·미확인 서지 grep 위반 0건, thin import 전수 확인. 관찰 2건 보류(28 np.float64 repr 미관 / 03·04 assert는 05 4관문이 커버하는 설계).</div>
+    </a>
     <a class="card" href="log/2026-07-17-citation-hardening-sync-loop.html">
       <div class="date">2026-07-17 (KST) · claude/intrinsic-estimator-apc-f72322 &nbsp;<span class="tag t-done">PR 예정</span></div>
       <div class="title">📖 P6-B-6 방법론 서지 정밀화(IE·Kish·ARI·α) + 노트북↔원고↔PDF 동기화 루프 확립</div>
