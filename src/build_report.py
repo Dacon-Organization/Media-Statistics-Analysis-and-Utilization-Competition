@@ -81,9 +81,11 @@ a { color: inherit; text-decoration: none; }
 strong { font-family: inherit; }
 """
 
+# 주의: 캡션 매칭은 반드시 한 단락(</p> 이전) 안으로 한정한다 — 탐욕 매칭이 단락 경계를
+# 넘으면 png 없는 표 캡션이 다음 그림 경로까지 삼켜 표·본문이 figcaption에 들어간다.
 FIG_CAPTION_RE = re.compile(
-    r"<p>(<strong>(?:그림|표)\s*\d+[^<]*</strong>.*?)"
-    r"<code>([^<]+?\.png)</code>(.*?)</p>",
+    r"<p>(<strong>(?:그림|표)\s*\d+[^<]*</strong>(?:(?!</p>).)*?)"
+    r"<code>([^<]+?\.png)</code>((?:(?!</p>).)*?)</p>",
     re.DOTALL,
 )
 

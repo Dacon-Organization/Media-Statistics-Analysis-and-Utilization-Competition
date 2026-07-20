@@ -8,8 +8,8 @@
 
 ## 원고
 
-- **[manuscript.md](manuscript.md)** — 본문 원고 v0.1 (P6-B-2, 2026-07-12 · P6-B-6 서지 보강 2026-07-17: IE 원전·Luo 논쟁 반영). 7장 구성·figure F1~F11(P6-B-7: F10 MK 이층 구조·F11 부호 정합 추가. F9는 웹데모 후 placeholder 교체)·각주 4종+house effect(A안)+코로나 국제동시성. 수치는 p6-pdf-structure §3 표에서만 복사(§5 게이트 준수, 수동 대조 완료).
-- 조판(P6-B-3, 2026-07-12 완료): `python src/build_report.py` — md → HTML(논문형 CSS, 그림 base64 내장·각주는 '미주'로 참고문헌 앞 배치) → headless Chrome PDF → `dist/report.pdf`. 쪽수 게이트(15p 이내) 자동 검증 — 현재 **12p PASS**. figure export 과정 입증은 [`notebooks/31-figure-export.ipynb`](../../notebooks/31-figure-export.ipynb).
+- **[manuscript.md](manuscript.md)** — 본문 원고 v0.1 (P6-B-2, 2026-07-12 · P6-B-6 서지 보강 2026-07-17: IE 원전·Luo 논쟁 반영). 7장 구성·figure F1~F11(P6-B-7: F10 MK 이층 구조·F11 부호 정합 추가. F9는 P6-C에서 분석 시각화(판정 평면)로 확정·합류)·각주 4종+house effect(A안)+코로나 국제동시성. 수치는 p6-pdf-structure §3 표에서만 복사(§5 게이트 준수, 수동 대조 완료).
+- 조판(P6-B-3, 2026-07-12 완료): `python src/build_report.py` — md → HTML(논문형 CSS, 그림 base64 내장·각주는 '미주'로 참고문헌 앞 배치) → headless Chrome PDF → `dist/report.pdf`. 쪽수 게이트(15p 이내) 자동 검증 — 현재 **14p PASS**(그림 10종 내장, P6-C 문체 개고판). figure export 과정 입증은 [`notebooks/31-figure-export.ipynb`](../../notebooks/31-figure-export.ipynb).
 
 ## 노트북 ↔ 원고 ↔ PDF 동기화 루프 (상시 절차, P6-B-6 확립)
 
@@ -24,7 +24,7 @@
 5. **기록** — 대시보드 로그(`dev/dashboard/`)와 관련 README 갱신 후 커밋.
 
 ## 구성(예정, 15장)
-배경·문제정의(측정도구 부재 GAP) → 데이터·방법론(원시자료+코호트/군집) → 분석결과(지수·추세·페르소나) → 제안(B2G 정책지수/B2C 진단) → 기대효과·실현가능성(데모 스크린샷).
+배경·문제정의(측정도구 부재 GAP) → 데이터·방법론(원시자료+코호트/군집) → 분석결과(지수·추세·페르소나) → 제안(B2G 정책지수/B2C 진단) → 기대효과·실현가능성(B2C 판정 평면 F9 + 웹데모 배포 URL 별도 첨부).
 
 - 본문 수치는 **KPF 원자료 재검증 완료분만** 인용.
 - 차트·이미지는 [`../../assets/`](../../assets/)에서 가져옵니다.
