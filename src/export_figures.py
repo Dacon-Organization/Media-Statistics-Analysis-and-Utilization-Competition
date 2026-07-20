@@ -14,6 +14,8 @@
       NCHI 추세(fixed8 주지표·incl 보조) + 페르소나 가중 구성비(2패널).
   F6  `04-personas-kmeans.ipynb` §5   → assets/fig6_personas.png
       페르소나 × 매체 이용률 히트맵(가중%, 고정풀 8매체).
+  F9  `09-b2c-diagnosis-spec.ipynb` §4·§9 → assets/fig9_diagnosis_plane.png  (P6-C 추가)
+
   F10 `26-mk-sen-deep-dive.ipynb` §2·§4 → assets/fig10_mk_inference.png  (P6-B-7 추가)
       MK 추론 이층 구조: 순열 정확분포(관측 S·기각역) + 부트스트랩 τ 분포(P(S>0)).
   F11 `28-cohort-gradient.ipynb` §2·§5  → assets/fig11_cohort_age_concordance.png  (P6-B-7 추가)
@@ -376,11 +378,65 @@ def export_fig11(panel: pd.DataFrame) -> Path:
     return _save(fig, "fig11_cohort_age_concordance.png")
 
 
+# ─────── F9. B2C 판정 평면 — 사양 상수 경로 + 경계 밴드 (09 §4·§9) ───────
+def export_fig9(panel: pd.DataFrame) -> Path:
+    """웹데모 판정 평면 — 09 §4(상수 경로 4사분면)·§9(경계 밴드) 합본.
+
+    본문 7.2절의 수치 짝: 판정 임계·경계 밴드는 web/diagnosis-spec.json(v1.1,
+    09가 export한 SSOT)을 소비만 하고, 점수 계산은 hp/nf SSOT 함수를 쓴다 —
+    상수 경로와 함수 경로의 판정 일치(90,996행 전수)는 09 §4·§6이 입증.
+    """
+    import json
+
+    print("[F9] 판정 평면(신뢰×다양성) + 경계 밴드 — spec v1.1 소비…")
+    spec = json.loads((ROOT / "web" / "diagnosis-spec.json").read_text(encoding="utf-8"))
+    assert spec["version"].startswith("1.1"), spec["version"]
+    thr_t = spec["trust"]["threshold_1_100"]
+    thr_d = spec["diversity"]["threshold_1_100"]
+    bw_t = spec["boundary_band"]["trust_half_width_1_100"]
+    bw_d = spec["boundary_band"]["diversity_half_width_1_100"]
+
+    T_resp = hp._trust_score_respondent(panel)
+    D_resp = nf._scale_1_100(pd.to_numeric(panel["richness_fixed8"], errors="coerce"))
+    persona = nf.persona_quadrant(T_resp, D_resp)
+
+    COLORS = {"건강한 소비자": "#2da44e", "비판적 탐색형": "#0969da",
+              "신뢰편향형": "#bf8700", "이중취약형": "#cf222e"}
+    rng = np.random.default_rng(7)
+    idx = persona.dropna().index
+    samp = rng.choice(idx, size=int(len(idx) * 0.02), replace=False)
+
+    fig, ax = plt.subplots(figsize=(8.6, 5.0))
+    # 경계 밴드(±1 입력 변화로 판정이 뒤집힐 수 있는 구간 — 09 §9 전수 입증)
+    ax.axvspan(thr_d - bw_d, thr_d + bw_d, color="#94a3b8", alpha=0.14, zorder=0)
+    ax.axhspan(thr_t - bw_t, thr_t + bw_t, color="#94a3b8", alpha=0.14, zorder=0)
+    for lab, c in COLORS.items():
+        mm = persona.loc[samp] == lab
+        n_pct = float((persona == lab).mean()) * 100
+        ax.scatter(D_resp.loc[samp][mm], T_resp.loc[samp][mm], s=5, alpha=0.4,
+                   color=c, label=lab, zorder=2)
+    ax.axhline(thr_t, color="#333", lw=1.2, ls="--", zorder=1)
+    ax.axvline(thr_d, color="#333", lw=1.2, ls="--", zorder=1)
+    ax.annotate(f"임계(중앙값): 신뢰 {thr_t:.2f} · 다양성 {thr_d:.2f}\n"
+                f"음영 = 경계 밴드(신뢰 ±{bw_t:.1f} · 다양성 ±{bw_d:.1f})",
+                xy=(0.985, 0.02), xycoords="axes fraction", ha="right", va="bottom",
+                fontsize=8.5, color="#333",
+                bbox=dict(boxstyle="round,pad=0.35", fc="white", ec="#bbb", alpha=0.9))
+    ax.set_xlabel("다양성 지수(이용 매체 폭, 1~100)")
+    ax.set_ylabel("신뢰 지수(1~100)")
+    ax.set_title("B2C 판정 평면 — 사양 상수 경로의 4사분면(2% 표본)과 경계 밴드")
+    ax.legend(fontsize=8.5, markerscale=2.2, loc="upper left")
+    fig.tight_layout()
+    print(f"  임계 {thr_t:.2f}/{thr_d:.2f} · 밴드 ±{bw_t:.2f}/±{bw_d:.3f} (spec v1.1)")
+    return _save(fig, "fig9_diagnosis_plane.png")
+
+
 EXPORTERS = {
     "fig3": export_fig3,
     "fig4": export_fig4,
     "fig5": export_fig5,
     "fig6": export_fig6,
+    "fig9": export_fig9,
     "fig10": export_fig10,
     "fig11": export_fig11,
 }

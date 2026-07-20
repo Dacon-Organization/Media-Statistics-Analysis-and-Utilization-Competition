@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+:root {
+  --font-kr:
+    "Pretendard Variable", Pretendard, "Malgun Gothic", "Apple SD Gothic Neo",
+    sans-serif;
+}
+
+body {
+  font-family: var(--font-kr);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 스텝 전환 — WizardShell이 key={step}으로 리마운트할 때 재생 */
+@keyframes step-in {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-step-in {
+  animation: step-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* 경계 밴드 해당 시 사용자 점 펄스 링 */
+@keyframes pulse-ring {
+  0% {
+    r: 7;
+    opacity: 0.7;
+  }
+  100% {
+    r: 16;
+    opacity: 0;
+  }
+}
+
+.pulse-ring {
+  animation: pulse-ring 1.6s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-step-in,
+  .pulse-ring {
+    animation: none;
+  }
+}
