@@ -46,6 +46,13 @@ temp/
 *.pem
 *.key
 
+# 확정 제출본 — dist/(재생성 임시물)와 달리 저장소가 추적한다.
+# 전역 *.zip 무시 규칙을 덮어써서 제출물 2종을 포함한다.
+!submission/
+!submission/report.pdf
+!submission/kpf-submission-extra.zip
+!submission/README.md
+
 # 명세서 작업 폴더 (협업 레포에 푸시하지 않음)
 docs/md/
 # 사전조사 raw 노트 (산출물만 정제해 git 포함)
