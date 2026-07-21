@@ -53,7 +53,7 @@ export default function ResultSheet({ spec, result, onReset }: Props) {
         evidence={result.prescription.evidence}
       />
 
-      <Disclaimer version={spec.version} />
+      <Disclaimer spec={spec} />
 
       <VisionCards />
 

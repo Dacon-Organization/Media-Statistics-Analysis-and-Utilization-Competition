@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>웹데모 배포 URL 반영 · 기준선 출처 표기 오류 수정 — 작업 대시보드</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a; --text: #e6e9ef;
+    --muted: #8b93a7; --done: #3fb950; --progress: #d29922; --todo: #6e7681; --blocked: #f85149; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .meta { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .meta b { color: var(--text); }
+  .bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 8px 0 28px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--done), var(--accent)); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section h2 { font-size: 1rem; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 7px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  li:last-child { border-bottom: none; }
+  .tag { font-size: .72rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; flex-shrink: 0; }
+  .t-done { background: rgba(63,185,80,.15); color: var(--done); }
+  .t-progress { background: rgba(210,153,34,.15); color: var(--progress); }
+  .t-todo { background: rgba(110,118,129,.2); color: var(--todo); }
+  .t-blocked { background: rgba(248,81,73,.15); color: var(--blocked); }
+  .sub { color: var(--muted); font-size: .85rem; }
+  a { color: var(--accent); }
+  footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>웹데모 Vercel 배포 URL 반영 · 기준선 출처 표기 오류 수정</h1>
+  <div class="meta">
+    📅 <b>2026-07-21 (KST)</b> · 🌿 브랜치 <b>claude/kpf-vercel-deploy-final-676c62</b> · 🔗 PR 본 커밋과 함께 생성
+  </div>
+  <div class="bar"><i style="width:92%"></i></div>
+
+  <section>
+    <h2>✅ Done ① — 배포 확인과 URL 기입</h2>
+    <ul>
+      <li><span class="tag t-done">OK</span><div>웹데모 배포 확인 — <a href="https://media-statistics-analysis-and-utili.vercel.app">media-statistics-analysis-and-utili.vercel.app</a> (사용자 배포). <code>/</code>·<code>/method</code> 렌더링 정상<div class="sub">로컬 게이트 선행 통과: verify 10항목 · next build 정적 export(3라우트)</div></div></li>
+      <li><span class="tag t-done">OK</span><div>배포 URL 3곳 기입 — manuscript 7.2절("별도 첨부" 자리 교체) · docs/submission-readme.md · submission/README.md("웹데모(배포)" 절 신설)</div></li>
+      <li><span class="tag t-done">OK</span><div><b>원고에 「산출물 공개」 절 신설</b>(결론 뒤·참고문헌 앞) — 제출 폼에 URL 입력란이 없어 PDF가 유일한 도달 경로. 7.2절 본문에만 두면 14쪽 중간에 묻히므로 apparatus 위치에 재노출<div class="sub">7.x 번호 흐름은 결론에서 끝나도록 무번호 절로 배치</div></div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>✅ Done ② — 기준선 출처 표기 오류 수정 (배포 검수 중 발견)</h2>
+    <ul>
+      <li><span class="tag t-done">OK</span><div><b>결함</b>: 웹데모가 동일한 90,996 기준선을 「미디어 다양성 조사」 2016–2025로 표기 — 실제는 「언론수용자 조사」 <b>2019~2025</b>(<code>panel["year"]</code> 실측·data/processed/README.md·참고문헌과 일치). PDF와 데모가 서로 다른 출처를 주장하던 상태<div class="sub">판정 로직에는 영향 없음(verify 전항목 PASS 유지) — 순수 표기 결함</div></div></li>
+      <li><span class="tag t-done">OK</span><div><b>구조 교정</b>: 문자열 치환이 아니라 <b>사양이 출처를 책임지도록</b> 변경. 노트북 09 §7에서 <code>SURVEY_NAME</code> + <code>panel["year"]</code> min/max로 도출해 <code>baseline.survey</code>·<code>baseline.years</code> export, <code>note</code>도 같은 값으로 조립<div class="sub">원인은 조사명·연도가 화면 6곳에 각각 하드코딩돼 있어 어긋나도 검출되지 않던 것</div></div></li>
+      <li><span class="tag t-done">OK</span><div>웹은 <code>lib/diagnosis.ts</code>의 <code>baselineLabel(spec)</code> 하나만 거치도록 통일 — Hero 카드 · 방법론 §3 · 결과 고지 · 상대 위치 카드 · <b>푸터 2곳</b> · layout 메타데이터<div class="sub">푸터 2곳은 연도 문자열이 없어 최초 grep에서 누락 → export HTML 검사로 포착</div></div></li>
+      <li><span class="tag t-done">OK</span><div><b>회귀 방지</b>: <code>verify-diagnosis.mjs</code>에 출처 검증 추가(survey 존재 · years 형식 · note 정합) — 표기가 어긋나면 <code>npm run verify</code> 실패</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>✅ Done ③ — 재빌드 동기화 (게이트 전부 PASS)</h2>
+    <ul>
+      <li><span class="tag t-done">OK</span><div>노트북 09 재실행 — (a)~(h) 전부 PASS · 에러 0건. <b>(g) 판정 상수 불변</b> 확인으로 §4의 <b>90,996행 전수 일치 그대로 유효</b></div></li>
+      <li><span class="tag t-done">OK</span><div>웹 <code>npm run verify</code> <b>11항목 PASS</b>(기존 10 + 신규 출처 검증) · <code>npm run build</code> 타입체크 포함 통과 · export HTML 잔존 오표기 <b>0건</b><div class="sub">판정값 75.3 / 33.9 / 50.5 수정 전과 동일 — 로직 무변경 입증</div></div></li>
+      <li><span class="tag t-done">OK</span><div><code>build_report.py</code> → <b>14p / 15p PASS</b>·그림 10종 승격 · 노트북 32 재실행 (a)~(d) PASS(핵심 수치 11종 무변조)</div></li>
+      <li><span class="tag t-done">OK</span><div><code>package_submission.py</code> → submission/ 2종 갱신. PDF 14p·이미지 10·1.7MB / ZIP 100파일·6.5MB — 게이트 PASS<div class="sub">PDF 본문 검사: 배포 URL 존재 · "별도 첨부" 잔존 0 · 오표기 0 · ZIP 내 spec도 언론수용자 조사 2019~2025로 갱신</div></div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔜 Next</h2>
+    <ul>
+      <li><span class="tag t-blocked">사용자</span><div><b>Vercel 재배포 필요</b> — 표기 수정은 로컬·저장소에만 반영됨. 현재 배포본은 아직 옛 표기(「미디어 다양성 조사」 2016–2025)<div class="sub">인증이 필요해 에이전트가 수행 불가. 재배포 후 표기 육안 재확인 예정</div></div></li>
+      <li><span class="tag t-todo">사용자</span><div>PR 머지(자동 모드 분류기상 에이전트 머지 차단)</div></li>
+      <li><span class="tag t-todo">P1</span><div>제출 전 최종 육안 검토(submission/report.pdf 전 쪽 + 재배포된 데모 동작) → Dacon 업로드 2종<div class="sub">마감 2026-07-23</div></div></li>
+    </ul>
+  </section>
+
+  <footer>Dacon 작업 대시보드 · skills/agent-ops/dashboard.md 규칙 (R2)</footer>
+</div>
+</body>
+</html>

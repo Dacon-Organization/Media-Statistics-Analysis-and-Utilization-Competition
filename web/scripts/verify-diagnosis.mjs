@@ -82,6 +82,33 @@ for (const lab of Object.values(spec.quadrant_labels)) {
 }
 console.log("PASS v1.1 스키마: baseline·boundary_band·profiles(4유형 facts)");
 
+// ── 3-b. 기준선 출처 표기 — 화면 문구가 사양과 어긋나지 않게 봉인 ──
+// (조사명·연도는 09가 패널에서 도출한 값만 쓴다. 하드코딩 표기가 데이터와 어긋난 회귀가 있었음)
+{
+  const { survey, years, note } = spec.baseline;
+  assert.ok(
+    typeof survey === "string" && survey.length > 0,
+    "baseline.survey 누락 — 09 재실행 필요",
+  );
+  assert.ok(
+    Array.isArray(years) &&
+      years.length === 2 &&
+      Number.isInteger(years[0]) &&
+      Number.isInteger(years[1]) &&
+      years[0] <= years[1],
+    "baseline.years 형식 오류",
+  );
+  // note 문자열도 같은 출처에서 조립됐는지 — 표기 3원(카드·방법론·고지)이 한 값을 보도록
+  assert.ok(
+    note.includes(survey) && note.includes(String(years[0])) &&
+      note.includes(String(years[1])),
+    "baseline.note가 survey·years와 불일치",
+  );
+  console.log(
+    `PASS 기준선 출처: 「${survey}」 ${years[0]}–${years[1]} · note 정합`,
+  );
+}
+
 // ── 4. 분위수 테이블 무결성 ──
 {
   const tp = spec.baseline.trust_percentiles;

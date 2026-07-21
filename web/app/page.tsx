@@ -5,6 +5,7 @@
 
 import specJson from "@/diagnosis-spec.json";
 import type { DiagnosisSpec } from "@/lib/types";
+import { baselineLabel } from "@/lib/diagnosis";
 import { useDiagnosisWizard } from "@/lib/useDiagnosisWizard";
 import Hero from "@/components/Hero";
 import StepIndicator from "@/components/StepIndicator";
@@ -25,7 +26,12 @@ export default function Home() {
 
       <WizardShell step={step}>
         {step === "intro" && (
-          <Hero baselineN={spec.baseline.n} onStart={actions.start} />
+          <Hero
+            baselineN={spec.baseline.n}
+            survey={spec.baseline.survey}
+            years={spec.baseline.years}
+            onStart={actions.start}
+          />
         )}
         {step === "media" && (
           <StepMedia
@@ -52,8 +58,8 @@ export default function Home() {
       </WizardShell>
 
       <footer className="mt-10 text-center text-[11px] text-slate-400">
-        KPF 언론 통계 분석·활용 경진대회 데모 · 한국언론진흥재단 「미디어
-        다양성 조사」 기반
+        KPF 언론 통계 분석·활용 경진대회 데모 · 한국언론진흥재단{" "}
+        {baselineLabel(spec)} 기반
       </footer>
     </main>
   );
