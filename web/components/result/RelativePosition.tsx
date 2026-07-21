@@ -1,5 +1,6 @@
 // 축별 상대 위치 — 기준선 대비 "N%보다 높은 위치(방향)" (v1.1 baseline lookup 소비)
 import type { DiagnosisSpec, WizardResult } from "@/lib/types";
+import { baselineLabel } from "@/lib/diagnosis";
 
 interface Props {
   spec: DiagnosisSpec;
@@ -30,7 +31,7 @@ export default function RelativePosition({ spec, result, color }: Props) {
       <p className="text-xs font-bold text-slate-500">
         기준선 대비 상대 위치{" "}
         <span className="font-normal">
-          (2016–2025 통합 {spec.baseline.n.toLocaleString()}명)
+          ({baselineLabel(spec)} 통합 {spec.baseline.n.toLocaleString()}명)
         </span>
       </p>
       <div className="mt-3 space-y-4">

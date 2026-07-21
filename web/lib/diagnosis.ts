@@ -16,6 +16,15 @@ export const CRED_KEYS: readonly CredKey[] = [
 ];
 
 /**
+ * 기준선 출처 표기(예: 「언론수용자 조사」 2019–2025) — 조사명·연도를 사양에서만 읽는다.
+ * 화면에 조사명·연도를 하드코딩하면 데이터와 어긋날 수 있으므로 전 표기가 이 함수를 거친다.
+ */
+export function baselineLabel(spec: DiagnosisSpec): string {
+  const [from, to] = spec.baseline.years;
+  return `「${spec.baseline.survey}」 ${from}–${to}`;
+}
+
+/**
  * cred 3문항(1~5) + 이용 매체 수(0~8) → 4사분면 페르소나 판정.
  * 임계 비교는 비반올림 값으로 수행(반올림하면 경계 응답자 판정이 뒤집힐 수 있음 — 09 §2 주석).
  */

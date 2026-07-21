@@ -21,6 +21,10 @@ export interface DiversityCdf {
 
 export interface Baseline {
   n: number;
+  /** 기준선 출처 조사명 — 09가 패널에서 도출해 export(웹은 표기만) */
+  survey: string;
+  /** 기준선 수록 연도 [최소, 최대] — 09가 panel["year"]에서 도출 */
+  years: [number, number];
   note: string;
   trust_percentiles: TrustPercentiles;
   diversity_cdf: DiversityCdf;

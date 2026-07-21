@@ -3,10 +3,14 @@ import Link from "next/link";
 
 interface Props {
   baselineN: number;
+  /** 기준선 출처 조사명 — 사양(09 export)에서만 받는다 */
+  survey: string;
+  /** 기준선 수록 연도 [최소, 최대] */
+  years: [number, number];
   onStart: () => void;
 }
 
-export default function Hero({ baselineN, onStart }: Props) {
+export default function Hero({ baselineN, survey, years, onStart }: Props) {
   return (
     <section className="text-center">
       <p className="mb-2 text-xs font-semibold tracking-[0.25em] text-sky-700">
@@ -26,7 +30,7 @@ export default function Hero({ baselineN, onStart }: Props) {
         {[
           { v: "11문항", k: "1분 자가진단" },
           { v: `${baselineN.toLocaleString()}명`, k: "통합 기준선" },
-          { v: "2016–2025", k: "미디어 다양성 조사" },
+          { v: `${years[0]}–${years[1]}`, k: survey },
         ].map(({ v, k }) => (
           <div
             key={k}

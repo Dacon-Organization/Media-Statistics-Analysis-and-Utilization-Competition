@@ -7,6 +7,11 @@
 | `report.pdf` | **PDF (분석·제안)** | 논문형 보고서 14장(≤15장). 재단 제공 「언론수용자 조사」 7개년(2019~2025) 원시자료 분석 결과 포함. 그림 10종 내장 |
 | `kpf-submission-extra.zip` | **ZIP (추가 산출물)** | 분석 개발 산출물 — 노트북 32종(실행 출력 포함)·파이프라인 코드·보고서 그림·원고·웹데모 소스·데이터 정보 문서 |
 
+## 웹데모(배포)
+
+- **B2C 자가진단 「뉴스 건강검진」**: <https://media-statistics-analysis-and-utili.vercel.app>
+- 판정 규칙은 노트북 09가 export한 `web/diagnosis-spec.json` v1.1을 **소비만** 하며 웹에서 임계값을 재정의하지 않습니다(`npm run verify` 10항목 PASS로 파이프라인 판정과 일치 검증).
+
 ## 재생성 방법
 
 ```bash

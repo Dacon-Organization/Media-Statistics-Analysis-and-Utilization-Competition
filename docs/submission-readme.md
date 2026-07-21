@@ -25,7 +25,7 @@
 
 - **데이터 파일 미포함**: 원시자료(`.sav`/`.csv`/`.xlsx`, 약 78MB)는 KPF 공개 오픈데이터로, 용량 절약을 위해 ZIP에서 제외했습니다. 전체 데이터가 포함된 **공개 GitHub 저장소**에서 받거나(아래), `data/raw/DOWNLOAD-GUIDE.md` 절차로 KPF에서 직접 내려받을 수 있습니다.
 - **GitHub(전체 재현 환경)**: <https://github.com/Dacon-Organization/Media-Statistics-Analysis-and-Utilization-Competition>
-- **웹데모**: 배포 URL은 제출물에 별도 첨부. 소스는 `web/`(로컬 실행: `cd web && npm install && npm run dev`, 검증: `npm run verify`).
+- **웹데모(배포)**: <https://media-statistics-analysis-and-utili.vercel.app> — 소스는 `web/`(로컬 실행: `cd web && npm install && npm run dev`, 검증: `npm run verify`).
 
 ## 재현 절차 (보고서 PDF까지)
 

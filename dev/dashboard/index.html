@@ -74,11 +74,17 @@
     <li><span class="tag t-done">DONE</span><div><b>P6-B-5 노트북 전면 정비(32종)</b> — 빈 번호 19종 신규(05~09·12~19·25~29·32) + 기존 13종 리팩토링(stale 게이트 갱신·시각화 보강). 전부 벤치마크 5요소·thin import·assert PASS. 웹데모 사양 <code>web/diagnosis-spec.json</code>(09) 산출</div></li>
     <li><span class="tag t-done">DONE</span><div><b>P6-B-7 노트북 루프 검토(R1~R3, 32종 전수 재실행 PASS) + 시각화 보강(F10·F11) + 최종 검수</b> — §3 표 ↔ 원고 전수 대조·30 drift PASS·12p/15p → <b>"F9 제외 보고서 완성" 확정</b></div></li>
     <li><span class="tag t-done">DONE</span><div><b>P6-C: 웹데모 + F9 합류 + 원고 논문체 개고 + 제출 패키징</b> — 스텝 위저드 웹데모(spec v1.1 소비)·/method, F9=분석 시각화(판정 평면+경계 밴드)로 확정해 노트북 31 §5c·32 동기화, manuscript 논문체 전면 개고(조판 정규식 버그 수정, <b>14p/15p PASS</b>·그림 10종), 제출물 2종(report.pdf + kpf-submission-extra.zip) 게이트 PASS</div></li>
-    <li><span class="tag t-todo">NEXT</span><div>Vercel 배포 → 배포 URL을 원고 7.2절·submission-readme·제출물에 기입 → 재조판·재패키징 → Dacon 제출(마감 7/23)</div></li>
+    <li><span class="tag t-done">DONE</span><div><b>웹데모 배포 URL 반영 + 기준선 출처 표기 교정</b> — 배포 URL 3곳 기입 및 원고 「산출물 공개」 절 신설(제출 폼에 URL 칸 없음 대응), 웹데모 출처 오표기(「미디어 다양성 조사」 2016–2025 → 「언론수용자 조사」 2019~2025)를 사양(09 export) 주도로 구조 교정 + verify 회귀 봉인, 재조판 <b>14p/15p PASS</b>·submission 2종 갱신</div></li>
+    <li><span class="tag t-todo">NEXT</span><div>Vercel <b>재배포</b>(현 배포본은 표기 수정 전) → PR 머지 → 최종 육안 검토 → Dacon 제출 2종(마감 7/23)</div></li>
   </ul>
 
   <h2>작업 로그 (최신순)</h2>
   <div class="cards">
+    <a class="card" href="log/2026-07-21-vercel-deploy-label-fix.html">
+      <div class="date">2026-07-21 (KST) · claude/kpf-vercel-deploy-final-676c62 &nbsp;<span class="tag t-done">PR 생성</span></div>
+      <div class="title">🌐 웹데모 배포 URL 반영 · 기준선 출처 표기 오류 수정</div>
+      <div class="summary">① 사용자 Vercel 배포(media-statistics-analysis-and-utili.vercel.app) 동작 확인 후 URL을 manuscript 7.2절·submission-readme·submission/README 3곳에 기입. 제출 폼에 URL 입력란이 없어 PDF가 유일한 도달 경로이므로 <b>원고에 「산출물 공개」 절을 신설</b>(결론 뒤·참고문헌 앞)해 본문 매몰을 방지. ② 배포 검수 중 <b>기준선 출처 표기 결함 발견</b> — 웹데모가 동일한 90,996 기준선을 「미디어 다양성 조사」 2016–2025로 표기했으나 실제는 「언론수용자 조사」 <b>2019~2025</b>(panel["year"] 실측·참고문헌 일치)로, PDF와 데모가 서로 다른 출처를 주장하던 상태. 원인은 조사명·연도가 화면 6곳에 각각 하드코딩돼 검출되지 않던 것이므로 문자열 치환이 아니라 <b>사양이 출처를 책임지도록 구조 교정</b> — 노트북 09가 패널에서 도출해 baseline.survey·years를 export하고, 웹은 baselineLabel(spec) 하나만 거치게 통일(푸터 2곳은 연도가 없어 grep 누락 → export HTML 검사로 포착). verify-diagnosis.mjs에 출처 검증을 추가해 회귀 봉인. ③ 재빌드 동기화 전부 PASS — 09 (a)~(h) PASS(<b>(g) 판정 상수 불변 → 90,996행 전수 일치 유효</b>), verify 11항목·build 통과·export 오표기 0건(판정값 75.3/33.9/50.5 무변동으로 로직 무변경 입증), 조판 14p/15p·32 (a)~(d) PASS, submission 2종 갱신(PDF 배포 URL 존재·"별도 첨부" 잔존 0·ZIP 내 spec 갱신 확인). <b>남은 것 = 사용자 Vercel 재배포</b>(현 배포본은 아직 옛 표기).</div>
+    </a>
     <a class="card" href="log/2026-07-20-p6c-f9-rewrite-packaging.html">
       <div class="date">2026-07-20 (KST) · claude/kpf-webdemo-f9-packaging-da0b87 &nbsp;<span class="tag t-done">PR 생성</span></div>
       <div class="title">🚢 P6-C 마무리 — F9 동기화(31·32) · 원고 논문체 전면 개고(14p) · 제출 패키징 2종</div>

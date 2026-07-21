@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import specJson from "@/diagnosis-spec.json";
 import type { DiagnosisSpec } from "@/lib/types";
+import { baselineLabel } from "@/lib/diagnosis";
 
 const spec = specJson as unknown as DiagnosisSpec;
 
@@ -98,7 +99,7 @@ export default function MethodPage() {
 
         <Section no={3} title="기준선과 '상대 위치'의 의미">
           <p>
-            기준선은 한국언론진흥재단 「미디어 다양성 조사」 2016–2025 통합{" "}
+            기준선은 한국언론진흥재단 {baselineLabel(spec)} 통합{" "}
             {spec.baseline.n.toLocaleString()}명입니다(연도 균등 가중). 결과
             화면의 위치 표현은 이 기준선 대비 <b>상대 위치(방향)</b>이며, 점수의
             절대값은 지수 설계(매체 목록·환산 방식)에 의존하므로 개인에 대한
@@ -142,8 +143,8 @@ export default function MethodPage() {
       </div>
 
       <footer className="mt-10 text-center text-[11px] text-slate-400">
-        KPF 언론 통계 분석·활용 경진대회 데모 · 한국언론진흥재단 「미디어
-        다양성 조사」 기반
+        KPF 언론 통계 분석·활용 경진대회 데모 · 한국언론진흥재단{" "}
+        {baselineLabel(spec)} 기반
       </footer>
     </main>
   );
