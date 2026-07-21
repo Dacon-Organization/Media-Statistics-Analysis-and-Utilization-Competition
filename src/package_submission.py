@@ -1,20 +1,29 @@
 """제출 패키징 — PDF(분석·제안)와 ZIP(추가 산출물)을 분리 구성한다.
 
 대회 제출 형식:
-  * PDF: 자유 양식 15장 이내 분석 보고서 → dist/report.pdf (build_report.py 산출을 검증 후 복사 없이 그대로 사용)
-  * ZIP: 추가 산출물(노트북 32종·src·assets·원고·웹데모 소스·데이터 정보) → dist/kpf-submission-extra.zip
+  * PDF: 자유 양식 15장 이내 분석 보고서 → submission/report.pdf
+  * ZIP: 추가 산출물(노트북 32종·src·assets·원고·웹데모 소스·데이터 정보) → submission/kpf-submission-extra.zip
 
-사용: python src/package_submission.py
+산출물 위치 규율:
+  * dist/  = build_report.py의 재생성 중간 산출(html·pdf). .gitignore로 저장소에서 제외.
+  * submission/ = 확정 제출본(pdf·zip). **저장소가 추적**하므로 어느 체크아웃에서 열어도 최신 산출이 보인다.
+  본 스크립트가 dist/의 최신 산출을 게이트 통과 후 submission/으로 승격(복사)한다.
+
+사용: python src/build_report.py && python src/package_submission.py
 """
 from __future__ import annotations
 
+import shutil
 import sys
 import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
-ZIP_PATH = DIST / "kpf-submission-extra.zip"
+SUBMIT = ROOT / "submission"
+ZIP_PATH = SUBMIT / "kpf-submission-extra.zip"
+PDF_SRC = DIST / "report.pdf"
+PDF_OUT = SUBMIT / "report.pdf"
 MAX_PAGES = 15
 
 # ZIP 포함 대상 — (아카이브 경로, 원본 경로). 디렉토리는 재귀 포함.
@@ -40,17 +49,19 @@ EXCLUDE_FILES = {".gitkeep", ".DS_Store"}
 
 
 def gate_pdf() -> int:
-    """PDF 제출물 게이트 — 존재·쪽수(≤15)·그림 내장 확인."""
+    """PDF 제출물 게이트 — 존재·쪽수(≤15)·그림 내장 확인 후 submission/으로 승격."""
     from pypdf import PdfReader
 
-    pdf = DIST / "report.pdf"
-    assert pdf.exists(), "dist/report.pdf 없음 — 먼저 python src/build_report.py 실행"
-    reader = PdfReader(str(pdf))
+    assert PDF_SRC.exists(), "dist/report.pdf 없음 — 먼저 python src/build_report.py 실행"
+    reader = PdfReader(str(PDF_SRC))
     n_pages = len(reader.pages)
     n_images = sum(len(p.images) for p in reader.pages)
     assert n_pages <= MAX_PAGES, f"쪽수 게이트 위반: {n_pages}p > {MAX_PAGES}p"
     assert n_images >= 10, f"그림 내장 수 이상: {n_images} < 10"
-    print(f"[PDF] report.pdf {n_pages}p ≤ {MAX_PAGES}p · 이미지 {n_images} · {pdf.stat().st_size/1024:.0f}KB — PASS")
+    SUBMIT.mkdir(exist_ok=True)
+    shutil.copy2(PDF_SRC, PDF_OUT)
+    print(f"[PDF] report.pdf {n_pages}p ≤ {MAX_PAGES}p · 이미지 {n_images} · "
+          f"{PDF_OUT.stat().st_size/1024:.0f}KB → {PDF_OUT.relative_to(ROOT)} — PASS")
     return n_pages
 
 
@@ -68,7 +79,7 @@ def iter_files(arc_base: str, src: Path):
 
 
 def build_zip() -> None:
-    DIST.mkdir(exist_ok=True)
+    SUBMIT.mkdir(exist_ok=True)
     n = 0
     with zipfile.ZipFile(ZIP_PATH, "w", zipfile.ZIP_DEFLATED) as zf:
         for arc_base, src in INCLUDE:
@@ -93,5 +104,5 @@ def build_zip() -> None:
 if __name__ == "__main__":
     gate_pdf()
     build_zip()
-    print("\n제출물 2종 준비 완료 — dist/report.pdf + dist/kpf-submission-extra.zip")
+    print("\n제출물 2종 준비 완료 — submission/report.pdf + submission/kpf-submission-extra.zip")
     sys.exit(0)
