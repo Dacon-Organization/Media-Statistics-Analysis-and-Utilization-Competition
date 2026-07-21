@@ -141,7 +141,8 @@ def build_html() -> Path:
     out = DIST / "report.html"
     out.write_text(
         "<!DOCTYPE html><html lang='ko'><head><meta charset='utf-8'>"
-        f"<title>KPF 언론통계 경진대회 — 논문형 보고서</title><style>{CSS}</style></head>"
+        f"<title>뉴스 신뢰의 잣대 — KPF 언론통계 경진대회 논문형 보고서</title>"
+        f"<style>{CSS}</style></head>"
         f"<body>{body}</body></html>",
         encoding="utf-8",
     )
